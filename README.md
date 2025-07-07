@@ -3,12 +3,10 @@
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
 ![Optimized for Mobile](https://img.shields.io/badge/Mobile-Optimized-blue?style=for-the-badge)
-
 [![NPM](https://img.shields.io/npm/v/triggle?style=for-the-badge&label=triggle)](https://www.npmjs.com/package/triggle)
 [![Downloads](https://img.shields.io/npm/dt/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/triggle?style=for-the-badge)](https://bundlephobia.com/package/triggle)
 ![License](https://img.shields.io/npm/l/triggle?style=for-the-badge)
-
 [![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://cdn.jsdelivr.net/npm/triggle@latest/dist/)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
@@ -17,17 +15,22 @@ Enable trigger-based animations using simple `data-triggle` attributes. This plu
 
 ## Features
 
-- Multiple animation triggers: click, mouseenter, keydown, blur, etc.
-- Attribute-based configuration with no JavaScript required
-- Support for specific keys (e.g. Enter, Escape, ctrl+z, shift+a)
-- Wildcard key matching (en*, arrow*, etc.)
-- Custom JS-dispatched events (e.g. customEvent)
-- Global enable/disable toggle
-- Dev mode with logs and diagnostics
+- Animate on `click`, `mouseenter`, `scroll`, `keydown`, etc.
+- Animate any element or target another with a selector
+- Reset animation classes automatically
+- Toggle class on/off with a single trigger
+- Trigger with keyboard key filters (`ctrl+s`, `shift+a`, `a*`)
+- Chain animations using `data-triggle-next`
+- Delay the next animation with `data-triggle-chain-delay`
+- Trigger multiple elements at once with `data-triggle-group`
+- Stagger animations across groups with `data-triggle-stagger`
+- One-time animation triggers with `data-triggle-once`
+- Cleanup & reinitialization support
+- Developer debug logging
 
 ## Try It Live
 
-Explore all supported triggers and features in the interactive playground: 👉 [Live Demo](https://yesiamrocks.github.io/cssanimation/ca-trigger.html)
+Explore all supported triggers and features in the interactive playground: 👉 [Live Demo](https://yesiamrocks.github.io/Triggle/)
 
 ## Installation
 
@@ -73,6 +76,10 @@ Add `data-triggle-*` attributes to your element:
 </div>
 ```
 
+- `data-triggle`: Event(s) to listen for (e.g., `click`, `mouseenter`)
+- `data-triggle-class`: Class(es) to apply on trigger-
+- `data-triggle-reset`: If `"true"`, removes class after animation ends
+
 ## Supported Triggers
 
 You can animate elements using the following trigger types via `data-triggle`:
@@ -102,16 +109,23 @@ You can animate elements using the following trigger types via `data-triggle`:
 
 ## Attributes Reference
 
-| Attribute               | Description                                                                |
-| ----------------------- | -------------------------------------------------------------------------- |
-| `data-triggle`          | Event name(s) that will trigger the animation (e.g., `click`, `hover`)     |
-| `data-triggle-class`    | Animation class to be applied                                              |
-| `data-triggle-reset`    | If `true`, animation class will be removed on animation end                |
-| `data-triggle-delay`    | Optional CSS `animation-delay` value (e.g., `0.5s`)                        |
-| `data-triggle-duration` | Optional CSS `animation-duration` value (e.g., `1s`)                       |
-| `data-triggle-key`      | For `keydown`/`keyup` triggers — comma-separated list of valid key filters |
+| Attribute                  | Type         | Description                                                    |
+| -------------------------- | ------------ | -------------------------------------------------------------- |
+| `data-triggle`             | `string`     | Comma-separated events (e.g. `click,mouseenter`)               |
+| `data-triggle-class`       | `string`     | Space-separated CSS classes to animate                         |
+| `data-triggle-reset`       | `true/false` | Removes animation class after it finishes                      |
+| `data-triggle-delay`       | `string`     | CSS `animation-delay` (e.g., `0.5s`)                           |
+| `data-triggle-duration`    | `string`     | CSS `animation-duration` (e.g., `1s`)                          |
+| `data-triggle-toggle`      | `true/false` | Toggles class on and off (instead of just adding)              |
+| `data-triggle-once`        | `true/false` | Triggers animation only once                                   |
+| `data-triggle-target`      | `string`     | CSS selector for the element to animate (defaults to self)     |
+| `data-triggle-key`         | `string`     | Keyboard filter (e.g. `enter`, `ctrl+s`, `a*`)                 |
+| `data-triggle-next`        | `string`     | CSS selector of element to animate **after this one finishes** |
+| `data-triggle-chain-delay` | `number`     | Delay (in ms) before triggering `data-triggle-next`            |
+| `data-triggle-group`       | `string`     | Group name to animate multiple elements together               |
+| `data-triggle-stagger`     | `number`     | Delay (in ms) between each group's element animation           |
 
-## Example: Hover with Delay and Reset
+## Hover with Delay and Reset
 
 ```html
 <div
@@ -125,15 +139,130 @@ You can animate elements using the following trigger types via `data-triggle`:
 </div>
 ```
 
-## data-triggle-key
+## Chained Animation Example
+
+```html
+<button
+  data-triggle="click"
+  data-triggle-class="zoomIn"
+  data-triggle-reset="true"
+  data-triggle-next="#step2"
+  data-triggle-chain-delay="500">
+  Start
+</button>
+
+<div id="step2" data-triggle-class="slideInUp" data-triggle-reset="true" />
+```
+
+When the button is clicked:
+
+1. It animates with fadeIn
+2. Once that finishes, #step2 animates with slideInUp
+3. `#step2` will animate 500ms after `zoomIn` ends on the button.
+
+## Group Triggering Example
+
+```html
+<div
+  data-triggle="click"
+  data-triggle-class="bounce"
+  data-triggle-group="cards" />
+
+<div
+  class="card"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-group="cards" />
+
+<div
+  class="card"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-group="cards" />
+```
+
+All elements with `data-triggle-group="cards"` will animate together when the trigger is clicked.
+
+## Group Trigger + Stagger
+
+```html
+<button
+  data-triggle="click"
+  data-triggle-class="pulse"
+  data-triggle-group="cards"
+  data-triggle-stagger="200">
+  Animate All Cards
+</button>
+
+<div
+  class="card"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-group="cards">
+  Card 1
+</div>
+
+<div
+  class="card"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-group="cards">
+  Card 2
+</div>
+
+<div
+  class="card"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-group="cards">
+  Card 3
+</div>
+```
+
+Cards animate one by one, **each 200ms** after the last.
+
+## Targeting Another Element
+
+```html
+<button
+  data-triggle="click"
+  data-triggle-class="fadeIn"
+  data-triggle-target="#box">
+  Animate Box
+</button>
+
+<div id="box" class="box"></div>
+```
+
+## Keyboard Filter Example
 
 Limit animations to specific key presses:
 
 ```html
-<input
-  data-trigger="keydown"
-  data-triggle-key="Enter,Escape"
-  data-triggle-class="ca__fx-bounce" />
+<div
+  data-triggle="keydown"
+  data-triggle-class="ca__fx-fadeIn"
+  data-triggle-key="ctrl+k,shift+a,a*"
+  data-triggle-reset="true">
+  Press keys
+</div>
+```
+
+Supports:
+
+- Single key match (a)
+- Wildcards (a\* matches abc)
+- Modifier keys (ctrl+s, shift+enter, alt+x)
+
+## Toggle Animation Example
+
+```html
+<div
+  data-triggle="click"
+  data-triggle-class="bounce"
+  data-triggle-toggle="true">
+  Click to toggle bounce
+</div>
 ```
 
 ## Key Filters
@@ -177,6 +306,28 @@ You can use any event name for `data-triggle`. This allows you to create custom 
     .getElementById("notify")
     .dispatchEvent(new Event("customTriggleEvent"));
 </script>
+```
+
+## Manual Animation Trigger (Optional)
+
+```js
+window.triggle.apply(
+  document.querySelector("#element"),
+  "fadeIn",
+  true, // reset
+  "0.3s", // delay
+  "1s", // duration
+  false // toggle
+);
+```
+
+## Cleanup
+
+If you're using triggle in a single-page app or want to reinitialize:
+
+```js
+window.triggle.destroy(); // Removes all listeners
+window.triggle.init(); // Re-initializes all triggers
 ```
 
 ### Supported Passive Events

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Triggle Animations</title>
+        <style>
+      /* Basic CSS for demonstration */
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: steelblue;
+        margin: 20px;
+        transition: all 0.3s ease-out; /* Smooth transition for toggle */
+      }
+
+      .highlight {
+        border: 5px solid gold;
+        transform: scale(1.1);
+      }
+
+      /* Example animation classes */
+      .fade-in {
+        animation: fadeIn 0.5s forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slide-right {
+        animation: slideRight 0.8s forwards;
+        transform: translateX(-100px);
+      }
+
+      @keyframes slideRight {
+        from {
+          transform: translateX(-100px);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      .rotated {
+        transform: rotate(360deg);
+        background-color: darkgreen;
+      }
+
+      .hidden {
+        display: none; /* For example of a class toggle */
+      }
+    </style>
+    </head>
+    <body>
+        <h1>Triggle Animation Examples</h1>
+
+        <h2>Basic Click Trigger</h2>
+        <div
+            class="box"
+            data-triggle="click"
+            data-triggle-class="highlight"
+            data-triggle-reset="true">
+            Click Me (Resets)
+        </div>
+
+        <h2>One-Time Animation</h2>
+        <div
+            class="box"
+            data-triggle="mouseenter"
+            data-triggle-class="fade-in"
+            data-triggle-once="true">
+            Hover Me (Once)
+        </div>
+
+        <h2>Toggle Class</h2>
+        <button
+            data-triggle="click"
+            data-triggle-target="#toggleBox"
+            data-triggle-class="rotated">
+            Toggle Rotation
+        </button>
+        <div class="box" id="toggleBox" style="background-color: purple;">
+            Toggled Box
+        </div>
+
+        <h2>Keyboard Trigger with Delay & Duration</h2>
+        <input
+            type="text"
+            placeholder="Type 'e' or 'shift+a' here"
+            data-triggle="keyup"
+            data-triggle-class="slide-right"
+            data-triggle-key="e, shift+a"
+            data-triggle-delay="0.2s"
+            data-triggle-duration="1s" />
+        <div class="box">Typing Target</div>
+
+        <h2>Animate a Different Element (Target)</h2>
+        <button
+            data-triggle="click"
+            data-triggle-target="#externalTarget"
+            data-triggle-class="highlight"
+            data-triggle-reset="true">
+            Highlight Div
+        </button>
+        <div class="box" id="externalTarget" style="background-color: orange;">
+            I'm the Target Div
+        </div>
+
+        <script src="path/to/your/triggle.js"></script>
+        <script>
+      // Paste the updated JavaScript code here
+      // Or link to a file named 'triggle.js'
+      // For debugging, you can enable:
+      // window.__trg_DEBUG = true;
+
+      // Your updated JavaScript code goes here
+      (function () {
+        const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
+
+        /**
+         * Applies an animation class to an element.
+         * @param {HTMLElement} el - The element to apply the animation to.
+         * @param {string} animationClass - The CSS class(es) for the animation.
+         * @param {boolean} reset - If true, removes the animation class after it ends.
+         * @param {string} delay - CSS animation-delay value.
+         * @param {string} duration - CSS animation-duration value.
+         * @param {boolean} toggle - If true, toggles the animation class instead of just adding it.
+         */
+        function applyAnimation(el, animationClass, reset = false, delay, duration, toggle = false) {
+          if (window.__trg_TRIGGER_DISABLED) return;
+
+          if (delay) el.style.animationDelay = delay;
+          if (duration) el.style.animationDuration = duration;
+
+          const classList = animationClass.split(" ").filter(Boolean);
+
+          if (toggle) {
+            classList.forEach((cls) => el.classList.toggle(cls));
+          } else {
+            classList.forEach((cls) => el.classList.add(cls));
+            if (reset) {
+              const onAnimationEnd = () => {
+                classList.forEach((cls) => el.classList.remove(cls));
+                el.style.animationDelay = "";
+                el.style.animationDuration = "";
+                el.removeEventListener("animationend", onAnimationEnd);
+              };
+              el.addEventListener("animationend", onAnimationEnd);
+            }
+          }
+        }
+
+        /**
+         * Checks if a keyboard event matches the specified key filter.
+         * @param {string} keyFilter - Comma-separated key rules (e.g., "enter,ctrl+s,a*").
+         * @param {KeyboardEvent} event - The keyboard event object.
+         * @returns {boolean} - True if the event matches any rule, false otherwise.
+         */
+        function matchesKeyFilter(keyFilter, event) {
+          const rules = keyFilter.split(",").map((k) => k.trim().toLowerCase());
+          return rules.some((rule) => {
+            if (rule.includes("+")) {
+              const [mod, key] = rule.split("+");
+              const match =
+                key === event.key.toLowerCase() &&
+                ((mod === "ctrl" && event.ctrlKey) ||
+                  (mod === "shift" && event.shiftKey) ||
+                  (mod === "alt" && event.altKey));
+              if (window.__trg_DEBUG)
+                console.log(
+                  `[triggle] modifier match: ${match}, rule: ${rule}, event.key: ${event.key}`
+                );
+              return match;
+            } else if (rule.endsWith("*")) {
+              const prefix = rule.replace("*", "");
+              const match = event.key.toLowerCase().startsWith(prefix);
+              if (window.__trg_DEBUG)
+                console.log(
+                  `[triggle] wildcard match: ${match}, rule: ${rule}, event.key: ${event.key}`
+                );
+              return match;
+            } else {
+              const match = rule === event.key.toLowerCase();
+              if (window.__trg_DEBUG)
+                console.log(
+                  `[triggle] exact match: ${match}, rule: ${rule}, event.key: ${event.key}`
+                );
+              return match;
+            }
+          });
+        }
+
+        /**
+         * Initializes trigger animations based on data attributes.
+         */
+        function initTriggerAnimations() {
+          const elements = document.querySelectorAll("[data-triggle]");
+
+          elements.forEach((el) => {
+            const triggers = el
+              .getAttribute("data-triggle")
+              .split(",")
+              .map((t) => t.trim());
+            const animationClass = el.getAttribute("data-triggle-class");
+            const reset = el.getAttribute("data-triggle-reset") === "true";
+            const delay = el.getAttribute("data-triggle-delay");
+            const duration = el.getAttribute("data-triggle-duration");
+            const keyFilter = el.getAttribute("data-triggle-key");
+            const once = el.getAttribute("data-triggle-once") === "true";
+            const toggle = el.getAttribute("data-triggle-toggle") === "true";
+            const targetSelector = el.getAttribute("data-triggle-target");
+
+            if (!animationClass) {
+              if (window.__trg_DEBUG) {
+                console.warn(
+                  "[triggle] Element with data-triggle found but missing data-triggle-class:",
+                  el
+                );
+              }
+              return;
+            }
+
+            triggers.forEach((trigger) => {
+              const eventHandler = (event) => {
+                if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
+                  if (!matchesKeyFilter(keyFilter, event)) return;
+                }
+
+                const targetElement = targetSelector
+                  ? document.querySelector(targetSelector)
+                  : el;
+
+                if (!targetElement) {
+                  if (window.__trg_DEBUG) {
+                    console.warn(
+                      `[triggle] Target element not found for selector: "${targetSelector}" on element:`,
+                      el
+                    );
+                  }
+                  return;
+                }
+
+                if (window.__trg_DEBUG) {
+                  console.log(`[triggle] trigger: ${trigger}`, {
+                    element: el,
+                    targetElement: targetElement,
+                    animationClass,
+                    reset,
+                    delay,
+                    duration,
+                    once,
+                    toggle,
+                  });
+                }
+
+                applyAnimation(targetElement, animationClass, reset, delay, duration, toggle);
+
+                if (once) {
+                  el.removeEventListener(trigger, eventHandler);
+                }
+              };
+
+              el.addEventListener(
+                trigger,
+                eventHandler,
+                PASSIVE_EVENTS.includes(trigger) ? { passive: true } : false
+              );
+            });
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initTriggerAnimations);
+        } else {
+          initTriggerAnimations();
+        }
+
+        window.triggle = {
+          init: initTriggerAnimations,
+        };
+      })();
+    </script>
+    </body>
+</html>
