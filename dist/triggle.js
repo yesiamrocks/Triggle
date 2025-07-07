@@ -3,6 +3,7 @@
 })(function() {
   "use strict";
   (function() {
+    const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
     function applyAnimation(el, animationClass, reset = false, delay, duration) {
       if (window.__trg_TRIGGER_DISABLED) return;
       if (delay) el.style.animationDelay = delay;
@@ -57,34 +58,27 @@
         const delay = el.getAttribute("data-triggle-delay");
         const duration = el.getAttribute("data-triggle-duration");
         const keyFilter = el.getAttribute("data-triggle-key");
-        const once = el.getAttribute("data-triggle-once") === "true";
-        if (!animationClass) {
-          if (window.__trg_DEBUG) {
-            console.warn(`[triggle] Missing data-triggle-class on element:`, el);
-          }
-          return;
-        }
+        if (!animationClass) return;
         triggers.forEach((trigger) => {
-          const handler = function(event) {
-            if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
-              if (!matchesKeyFilter(keyFilter, event)) return;
-            }
-            if (window.__trg_DEBUG) {
-              console.log(`[triggle] trigger: ${trigger}`, {
-                element: el,
-                animationClass,
-                reset,
-                delay,
-                duration,
-                once
-              });
-            }
-            applyAnimation(el, animationClass, reset, delay, duration);
-            if (once) {
-              el.removeEventListener(trigger, handler);
-            }
-          };
-          el.addEventListener(trigger, handler);
+          el.addEventListener(
+            trigger,
+            (event) => {
+              if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
+                if (!matchesKeyFilter(keyFilter, event)) return;
+              }
+              if (window.__trg_DEBUG) {
+                console.log(`[triggle] trigger: ${trigger}`, {
+                  element: el,
+                  animationClass,
+                  reset,
+                  delay,
+                  duration
+                });
+              }
+              applyAnimation(el, animationClass, reset, delay, duration);
+            },
+            PASSIVE_EVENTS.includes(trigger) ? { passive: true } : false
+          );
         });
       });
     }
@@ -96,9 +90,6 @@
     window.triggle = {
       init: initTriggerAnimations
     };
-    if (typeof module !== "undefined") {
-      module.exports = window.triggle;
-    }
   })();
 });
 //# sourceMappingURL=triggle.js.map

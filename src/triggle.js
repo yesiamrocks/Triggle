@@ -1,4 +1,6 @@
 (function () {
+  const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
+
   function applyAnimation(el, animationClass, reset = false, delay, duration) {
     if (window.__trg_TRIGGER_DISABLED) return;
 
@@ -66,40 +68,31 @@
       const delay = el.getAttribute("data-triggle-delay");
       const duration = el.getAttribute("data-triggle-duration");
       const keyFilter = el.getAttribute("data-triggle-key");
-      const once = el.getAttribute("data-triggle-once") === "true";
 
-      if (!animationClass) {
-        if (window.__trg_DEBUG) {
-          console.warn(`[triggle] Missing data-triggle-class on element:`, el);
-        }
-        return;
-      }
+      if (!animationClass) return;
 
       triggers.forEach((trigger) => {
-        const handler = function (event) {
-          if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
-            if (!matchesKeyFilter(keyFilter, event)) return;
-          }
+        el.addEventListener(
+          trigger,
+          (event) => {
+            if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
+              if (!matchesKeyFilter(keyFilter, event)) return;
+            }
 
-          if (window.__trg_DEBUG) {
-            console.log(`[triggle] trigger: ${trigger}`, {
-              element: el,
-              animationClass,
-              reset,
-              delay,
-              duration,
-              once,
-            });
-          }
+            if (window.__trg_DEBUG) {
+              console.log(`[triggle] trigger: ${trigger}`, {
+                element: el,
+                animationClass,
+                reset,
+                delay,
+                duration,
+              });
+            }
 
-          applyAnimation(el, animationClass, reset, delay, duration);
-
-          if (once) {
-            el.removeEventListener(trigger, handler);
-          }
-        };
-
-        el.addEventListener(trigger, handler);
+            applyAnimation(el, animationClass, reset, delay, duration);
+          },
+          PASSIVE_EVENTS.includes(trigger) ? { passive: true } : false
+        );
       });
     });
   }
@@ -110,13 +103,7 @@
     initTriggerAnimations();
   }
 
-  // Export to global
   window.triggle = {
     init: initTriggerAnimations,
   };
-
-  // Optional CommonJS export
-  if (typeof module !== "undefined") {
-    module.exports = window.triggle;
-  }
 })();

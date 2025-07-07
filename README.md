@@ -2,6 +2,7 @@
 
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
+![Optimized for Mobile](https://img.shields.io/badge/Mobile-Optimized-blue?style=for-the-badge)
 [![npm](https://img.shields.io/npm/dw/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
 [![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://cdn.jsdelivr.net/npm/triggle@latest/dist/)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
@@ -157,7 +158,7 @@ You can use any valid CSS time units.
 
 ## Custom Events
 
-Trigger via Custom Events
+You can use any event name for `data-triggle`. This allows you to create custom event triggers using JavaScript's `dispatchEvent()` method. Example: `data-triggle="notify"` can be triggered by: `element.dispatchEvent(new Event("notify"));`
 
 ```html
 <div
@@ -172,6 +173,14 @@ Trigger via Custom Events
     .dispatchEvent(new Event("customTriggleEvent"));
 </script>
 ```
+
+### Supported Passive Events
+
+The following triggers use passive listeners for optimal performance:
+
+- `touchstart`
+- `touchend`
+- `scroll`
 
 ## Global Disable (Optional)
 
@@ -194,6 +203,10 @@ window.triggle.init();
 window.__trg_DEBUG = true;
 window.__trg_TRIGGER_DISABLED = true;
 ```
+
+## Performance Notes
+
+To improve responsiveness on mobile devices, `triggle.js` uses **passive event listeners** for scroll-blocking events like `touchstart`, `touchend`, and `scroll`. This eliminates warnings in modern browsers (e.g., Chrome) and improves interaction smoothness.
 
 ## Integration Tips
 

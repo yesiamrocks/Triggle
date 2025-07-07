@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.1 - 2025-06-30
+
+## Added
+
+- Passive event listeners for `touchstart`, `touchend`, and `scroll` to enhance mobile responsiveness
+- Compatibility fix for Chrome warning about non-passive touch events
+
+## Changed
+
+- Global trigger control renamed from `window.caTrigger` to `window.triggle` for consistency with project branding
+
+## Notes
+
+- If using manual reinitialization, update your code to `triggle.init()` instead of `caTrigger.init()`
+
 ## 1.0.2 - 2025-06-30
 
 ### Added
