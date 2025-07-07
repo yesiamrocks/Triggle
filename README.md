@@ -3,10 +3,15 @@
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
 ![Optimized for Mobile](https://img.shields.io/badge/Mobile-Optimized-blue?style=for-the-badge)
-[![npm](https://img.shields.io/npm/dw/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
+
+[![NPM](https://img.shields.io/npm/v/triggle?style=for-the-badge&label=triggle)](https://www.npmjs.com/package/triggle)
+[![Downloads](https://img.shields.io/npm/dt/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/triggle?style=for-the-badge)](https://bundlephobia.com/package/triggle)
+![License](https://img.shields.io/npm/l/triggle?style=for-the-badge)
+
 [![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://cdn.jsdelivr.net/npm/triggle@latest/dist/)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
-[![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](yesiamrocks.github.io/Triggle/)
+[![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
 
 Enable trigger-based animations using simple `data-triggle` attributes. This plugin works seamlessly with `cssanimation.css` classes and lets you apply them on user interactions. It supports mouse, keyboard, touch, and custom event triggers — with optional animation control via delay, duration, reset, and key filters.
 
