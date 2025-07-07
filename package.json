@@ -1,0 +1,45 @@
+{
+  "name": "triggle",
+  "version": "1.0.0",
+  "description": "A lightweight CSS animation trigger library that animates elements on click, hover, enter and more.",
+  "main": "dist/triggle.js",
+  "style": "dist/triggle.css",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "css",
+    "animation",
+    "trigger",
+    "scroll",
+    "hover",
+    "triggle",
+    "animate",
+    "UI",
+    "frontend",
+    "intersection-observer"
+  ],
+  "author": "Shafayetul Islam Pavel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yesiamrocks/triggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yesiamrocks/triggle/issues"
+  },
+  "homepage": "https://github.com/yesiamrocks/triggle#readme",
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "vite": "^5.4.19"
+  }
+}
