@@ -1,293 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Triggle Animations</title>
-        <style>
-      /* Basic CSS for demonstration */
-      .box {
-        width: 100px;
-        height: 100px;
-        background-color: steelblue;
-        margin: 20px;
-        transition: all 0.3s ease-out; /* Smooth transition for toggle */
-      }
-
-      .highlight {
-        border: 5px solid gold;
-        transform: scale(1.1);
-      }
-
-      /* Example animation classes */
-      .fade-in {
-        animation: fadeIn 0.5s forwards;
-        opacity: 0;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Triggle.js Tailwind Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@hellouxpavel/cssanimation@latest/dist/cssanimation.min.css"
+      rel="stylesheet" />
+    <style>
+      .demo-box:hover {
+        background-color: #f3f4f6;
       }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
 
-      .slide-right {
-        animation: slideRight 0.8s forwards;
-        transform: translateX(-100px);
-      }
-
-      @keyframes slideRight {
-        from {
-          transform: translateX(-100px);
-        }
-        to {
-          transform: translateX(0);
-        }
-      }
-
-      .rotated {
-        transform: rotate(360deg);
-        background-color: darkgreen;
-      }
-
-      .hidden {
-        display: none; /* For example of a class toggle */
-      }
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+}
     </style>
-    </head>
-    <body>
-        <h1>Triggle Animation Examples</h1>
+  </head>
+  <body class="bg-gray-100 min-h-screen text-gray-800">
+    <header class="text-center py-10">
+      <h1 class="text-4xl font-bold text-indigo-600">🎯 Triggle.js Demo</h1>
+      <p class="text-lg mt-2">A trigger-based animation library with zero
+        dependencies</p>
+    </header>
 
-        <h2>Basic Click Trigger</h2>
+    <main class="max-w-5xl mx-auto px-4 space-y-12 pb-16">
+      <!-- Click Trigger -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Click to Animate</h2>
         <div
-            class="box"
-            data-triggle="click"
-            data-triggle-class="highlight"
-            data-triggle-reset="true">
-            Click Me (Resets)
+          class="cssanimation demo-box cursor-pointer text-center py-4 bg-white rounded-lg shadow"
+          data-triggle="click"
+          data-triggle-class="ca__fx-bounce"
+          data-triggle-reset="true">
+          🚀 Click Me
         </div>
+      </section>
 
-        <h2>One-Time Animation</h2>
+      <!-- Hover with Delay -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Hover with Delay & Duration</h2>
         <div
-            class="box"
-            data-triggle="mouseenter"
-            data-triggle-class="fade-in"
-            data-triggle-once="true">
-            Hover Me (Once)
+          class="cssanimation demo-box py-4 px-6 bg-white rounded-lg shadow text-center"
+          data-triggle="mouseenter"
+          data-triggle-class="ca__fx-fadeInTop"
+          data-triggle-delay="0.5s"
+          data-triggle-duration="2s"
+          data-triggle-reset="true">
+          🎨 Hover Me
         </div>
+      </section>
 
-        <h2>Toggle Class</h2>
-        <button
-            data-triggle="click"
-            data-triggle-target="#toggleBox"
-            data-triggle-class="rotated">
-            Toggle Rotation
-        </button>
-        <div class="box" id="toggleBox" style="background-color: purple;">
-            Toggled Box
+      <!-- Toggle -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Toggle Animation</h2>
+        <div
+          class="cssanimation demo-box py-4 px-6 bg-white rounded-lg shadow text-center"
+          data-triggle="click"
+          data-triggle-class="ca__fx-shakeX"
+          data-triggle-toggle="true">
+          🔁 Toggle Shake
         </div>
+      </section>
 
-        <h2>Keyboard Trigger with Delay & Duration</h2>
+      <!-- Keydown with Filter -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Key Filter</h2>
         <input
-            type="text"
-            placeholder="Type 'e' or 'shift+a' here"
-            data-triggle="keyup"
-            data-triggle-class="slide-right"
-            data-triggle-key="e, shift+a"
-            data-triggle-delay="0.2s"
-            data-triggle-duration="1s" />
-        <div class="box">Typing Target</div>
+          type="text"
+          placeholder="Try 'Enter' or 'Shift+A'"
+          class="cssanimation w-full p-3 border rounded-md shadow"
+          data-triggle="keydown"
+          data-triggle-key="Enter,shift+a"
+          data-triggle-class="ca__fx-pop"
+          data-triggle-reset="true" />
+      </section>
 
-        <h2>Animate a Different Element (Target)</h2>
-        <button
+      <!-- One-time Trigger -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">One-Time Click</h2>
+        <div
+          class="cssanimation demo-box py-4 px-6 bg-white rounded-lg shadow text-center"
+          data-triggle="click"
+          data-triggle-class="ca__fx-zoomIn"
+          data-triggle-once="true"
+          data-triggle-reset="true">
+          ☝️ Click Me Once
+        </div>
+      </section>
+
+      <!-- Next Chaining -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Chained Animation</h2>
+        <div class="flex flex-col md:flex-row gap-6">
+          <div
+            class="cssanimation demo-box p-4 bg-white rounded-lg shadow text-center w-full md:w-1/2"
             data-triggle="click"
-            data-triggle-target="#externalTarget"
-            data-triggle-class="highlight"
+            data-triggle-class="ca__fx-bounceIn"
+            data-triggle-next="#next-box"
+            data-triggle-reset="true"
+            data-triggle-chain-delay="800">
+            ⛓️ First
+          </div>
+          <div
+            id="next-box"
+            class="cssanimation demo-box p-4 bg-white rounded-lg shadow text-center w-full md:w-1/2"
+            data-triggle-class="ca__fx-fadeInDown"
             data-triggle-reset="true">
-            Highlight Div
+            ✅ Chained
+          </div>
+        </div>
+      </section>
+
+      <!-- Group Stagger -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Grouped with Stagger</h2>
+        <button
+          class="demo-box py-2 px-4 bg-indigo-500 text-white rounded shadow"
+          data-triggle="click"
+          data-triggle-group="boxes"
+          data-triggle-class="ca__fx-pop"
+          data-triggle-stagger="200"
+          data-triggle-reset="true">
+          🎯 Animate Group
         </button>
-        <div class="box" id="externalTarget" style="background-color: orange;">
-            I'm the Target Div
+        <div class="mt-4 flex gap-4">
+          <div
+            class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+            data-triggle-group="boxes"
+            data-triggle-class="ca__fx-flipY"
+            data-triggle-reset="true">
+            A
+          </div>
+          <div
+            class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+            data-triggle-group="boxes"
+            data-triggle-class="ca__fx-flipY"
+            data-triggle-reset="true">
+            B
+          </div>
+          <div
+            class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+            data-triggle-group="boxes"
+            data-triggle-class="ca__fx-flipY"
+            data-triggle-reset="true">
+            C
+          </div>
+        </div>
+      </section>
+
+      <!-- Custom Event -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Custom Event Trigger</h2>
+
+        <div
+          class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+          data-triggle="scroll"
+          data-triggle-scroll="true"
+          data-triggle-class="ca__fx-flipY"
+          data-triggle-reset="true">
+          I animate when visible
+        </div>
+      </section>
+
+      <!-- Custom Event -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">scroll Event</h2>
+
+        <div
+          class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+          data-triggle="scroll"
+          data-triggle-scroll="true"
+          data-triggle-group="feature"
+          data-triggle-class="fadeIn"
+          data-triggle-stagger="500"
+          data-triggle-reset="true">scroll</div>
+        <div
+          class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+          data-triggle-class="fadeIn"
+          data-triggle-reset="true"
+          data-triggle-group="feature">
+          scroll 1
         </div>
 
-        <script src="path/to/your/triggle.js"></script>
-        <script>
-      // Paste the updated JavaScript code here
-      // Or link to a file named 'triggle.js'
-      // For debugging, you can enable:
-      // window.__trg_DEBUG = true;
+        <div
+          class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+          data-triggle-class="fadeIn"
+          data-triggle-reset="true"
+          data-triggle-group="feature">
+          scroll 1
+        </div>
 
-      // Your updated JavaScript code goes here
-      (function () {
-        const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
+        <div
+          class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+          data-triggle-class="fadeIn"
+          data-triggle-reset="true"
+          data-triggle-group="feature">
+          scroll 1
+        </div>
 
-        /**
-         * Applies an animation class to an element.
-         * @param {HTMLElement} el - The element to apply the animation to.
-         * @param {string} animationClass - The CSS class(es) for the animation.
-         * @param {boolean} reset - If true, removes the animation class after it ends.
-         * @param {string} delay - CSS animation-delay value.
-         * @param {string} duration - CSS animation-duration value.
-         * @param {boolean} toggle - If true, toggles the animation class instead of just adding it.
-         */
-        function applyAnimation(el, animationClass, reset = false, delay, duration, toggle = false) {
-          if (window.__trg_TRIGGER_DISABLED) return;
+      </section>
 
-          if (delay) el.style.animationDelay = delay;
-          if (duration) el.style.animationDuration = duration;
+      <!-- Custom Event -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Custom Event Trigger</h2>
+        <button
+          onclick="fireCustom()"
+          class="py-2 px-4 bg-pink-500 text-white rounded shadow">
+          Fire Custom
+        </button>
+        <div
+          id="customTarget"
+          class="cssanimation demo-box mt-4 p-4 bg-white rounded shadow text-center"
+          data-triggle="customTriggleEvent"
+          data-triggle-class="ca__fx-jump"
+          data-triggle-reset="true">
+          🔔 Custom Triggered
+        </div>
+      </section>
 
-          const classList = animationClass.split(" ").filter(Boolean);
+      <!-- Debug Example -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Global Debug Example</h2>
+        <div
+          class="cssanimation demo-box py-4 px-6 bg-white rounded-lg shadow text-center"
+          data-triggle="click"
+          data-triggle-class="ca__fx-pop"
+          data-triggle-reset="true">
+          🐛 Debug Log Trigger
+        </div>
+      </section>
+    </main>
 
-          if (toggle) {
-            classList.forEach((cls) => el.classList.toggle(cls));
-          } else {
-            classList.forEach((cls) => el.classList.add(cls));
-            if (reset) {
-              const onAnimationEnd = () => {
-                classList.forEach((cls) => el.classList.remove(cls));
-                el.style.animationDelay = "";
-                el.style.animationDuration = "";
-                el.removeEventListener("animationend", onAnimationEnd);
-              };
-              el.addEventListener("animationend", onAnimationEnd);
-            }
-          }
-        }
-
-        /**
-         * Checks if a keyboard event matches the specified key filter.
-         * @param {string} keyFilter - Comma-separated key rules (e.g., "enter,ctrl+s,a*").
-         * @param {KeyboardEvent} event - The keyboard event object.
-         * @returns {boolean} - True if the event matches any rule, false otherwise.
-         */
-        function matchesKeyFilter(keyFilter, event) {
-          const rules = keyFilter.split(",").map((k) => k.trim().toLowerCase());
-          return rules.some((rule) => {
-            if (rule.includes("+")) {
-              const [mod, key] = rule.split("+");
-              const match =
-                key === event.key.toLowerCase() &&
-                ((mod === "ctrl" && event.ctrlKey) ||
-                  (mod === "shift" && event.shiftKey) ||
-                  (mod === "alt" && event.altKey));
-              if (window.__trg_DEBUG)
-                console.log(
-                  `[triggle] modifier match: ${match}, rule: ${rule}, event.key: ${event.key}`
-                );
-              return match;
-            } else if (rule.endsWith("*")) {
-              const prefix = rule.replace("*", "");
-              const match = event.key.toLowerCase().startsWith(prefix);
-              if (window.__trg_DEBUG)
-                console.log(
-                  `[triggle] wildcard match: ${match}, rule: ${rule}, event.key: ${event.key}`
-                );
-              return match;
-            } else {
-              const match = rule === event.key.toLowerCase();
-              if (window.__trg_DEBUG)
-                console.log(
-                  `[triggle] exact match: ${match}, rule: ${rule}, event.key: ${event.key}`
-                );
-              return match;
-            }
-          });
-        }
-
-        /**
-         * Initializes trigger animations based on data attributes.
-         */
-        function initTriggerAnimations() {
-          const elements = document.querySelectorAll("[data-triggle]");
-
-          elements.forEach((el) => {
-            const triggers = el
-              .getAttribute("data-triggle")
-              .split(",")
-              .map((t) => t.trim());
-            const animationClass = el.getAttribute("data-triggle-class");
-            const reset = el.getAttribute("data-triggle-reset") === "true";
-            const delay = el.getAttribute("data-triggle-delay");
-            const duration = el.getAttribute("data-triggle-duration");
-            const keyFilter = el.getAttribute("data-triggle-key");
-            const once = el.getAttribute("data-triggle-once") === "true";
-            const toggle = el.getAttribute("data-triggle-toggle") === "true";
-            const targetSelector = el.getAttribute("data-triggle-target");
-
-            if (!animationClass) {
-              if (window.__trg_DEBUG) {
-                console.warn(
-                  "[triggle] Element with data-triggle found but missing data-triggle-class:",
-                  el
-                );
-              }
-              return;
-            }
-
-            triggers.forEach((trigger) => {
-              const eventHandler = (event) => {
-                if ((trigger === "keydown" || trigger === "keyup") && keyFilter) {
-                  if (!matchesKeyFilter(keyFilter, event)) return;
-                }
-
-                const targetElement = targetSelector
-                  ? document.querySelector(targetSelector)
-                  : el;
-
-                if (!targetElement) {
-                  if (window.__trg_DEBUG) {
-                    console.warn(
-                      `[triggle] Target element not found for selector: "${targetSelector}" on element:`,
-                      el
-                    );
-                  }
-                  return;
-                }
-
-                if (window.__trg_DEBUG) {
-                  console.log(`[triggle] trigger: ${trigger}`, {
-                    element: el,
-                    targetElement: targetElement,
-                    animationClass,
-                    reset,
-                    delay,
-                    duration,
-                    once,
-                    toggle,
-                  });
-                }
-
-                applyAnimation(targetElement, animationClass, reset, delay, duration, toggle);
-
-                if (once) {
-                  el.removeEventListener(trigger, eventHandler);
-                }
-              };
-
-              el.addEventListener(
-                trigger,
-                eventHandler,
-                PASSIVE_EVENTS.includes(trigger) ? { passive: true } : false
-              );
-            });
-          });
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", initTriggerAnimations);
-        } else {
-          initTriggerAnimations();
-        }
-
-        window.triggle = {
-          init: initTriggerAnimations,
-        };
-      })();
+    <!-- Enable debug mode -->
+    <script>
+      window.__trg_DEBUG = true;
+      function fireCustom() {
+        document
+          .getElementById("customTarget")
+          .dispatchEvent(new Event("customTriggleEvent"));
+      }
     </script>
-    </body>
+
+    <!-- ✅ Triggle.js via CDN -->
+    <script src="./triggle.dev.js"></script>
+  </body>
 </html>

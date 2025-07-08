@@ -1,4 +1,4 @@
-# 🖱️ Trigger-based Animation Control — Triggle.js
+# Trigger-based Animation Control — **`triggle.js`**
 
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
@@ -11,7 +11,7 @@
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
 
-Enable trigger-based animations using simple `data-triggle` attributes. This plugin works seamlessly with `cssanimation.css` classes and lets you apply them on user interactions. It supports mouse, keyboard, touch, and custom event triggers — with optional animation control via delay, duration, reset, and key filters.
+Enable trigger-based animations using simple `data-triggle` attributes. This library works seamlessly with [`cssanimation.css`](https://github.com/yesiamrocks/cssanimation) classes and lets you apply them on user interactions. It supports mouse, keyboard, touch, and custom event triggers — with optional animation control via delay, duration, reset, and key filters.
 
 ## Features
 
@@ -30,7 +30,7 @@ Enable trigger-based animations using simple `data-triggle` attributes. This plu
 
 ## Try It Live
 
-Explore all supported triggers and features in the interactive playground: 👉 [Live Demo](https://yesiamrocks.github.io/Triggle/)
+Explore all supported triggers and features in the interactive playground: 👉 [Live Demo](https://yesiamrocks.github.io/triggle/)
 
 ## Installation
 
@@ -48,7 +48,7 @@ npm install triggle
 
 ## Animations via cssanimation.io
 
-Triggle.js works perfectly with the animation classes from **[cssanimation](https://github.com/yesiamrocks/cssanimation)** Install them:
+`triggle.js` works perfectly with the animation classes from **[cssanimation](https://github.com/yesiamrocks/cssanimation)** Install them:
 
 ```bash
 npm install @hellouxpavel/cssanimation
@@ -109,21 +109,23 @@ You can animate elements using the following trigger types via `data-triggle`:
 
 ## Attributes Reference
 
-| Attribute                  | Type         | Description                                                    |
-| -------------------------- | ------------ | -------------------------------------------------------------- |
-| `data-triggle`             | `string`     | Comma-separated events (e.g. `click,mouseenter`)               |
-| `data-triggle-class`       | `string`     | Space-separated CSS classes to animate                         |
-| `data-triggle-reset`       | `true/false` | Removes animation class after it finishes                      |
-| `data-triggle-delay`       | `string`     | CSS `animation-delay` (e.g., `0.5s`)                           |
-| `data-triggle-duration`    | `string`     | CSS `animation-duration` (e.g., `1s`)                          |
-| `data-triggle-toggle`      | `true/false` | Toggles class on and off (instead of just adding)              |
-| `data-triggle-once`        | `true/false` | Triggers animation only once                                   |
-| `data-triggle-target`      | `string`     | CSS selector for the element to animate (defaults to self)     |
-| `data-triggle-key`         | `string`     | Keyboard filter (e.g. `enter`, `ctrl+s`, `a*`)                 |
-| `data-triggle-next`        | `string`     | CSS selector of element to animate **after this one finishes** |
-| `data-triggle-chain-delay` | `number`     | Delay (in ms) before triggering `data-triggle-next`            |
-| `data-triggle-group`       | `string`     | Group name to animate multiple elements together               |
-| `data-triggle-stagger`     | `number`     | Delay (in ms) between each group's element animation           |
+| Attribute                  | Type         | Description                                                        |
+| -------------------------- | ------------ | ------------------------------------------------------------------ |
+| `data-triggle`             | `string`     | Comma-separated events (e.g. `click,mouseenter`)                   |
+| `data-triggle-class`       | `string`     | Space-separated CSS classes to animate                             |
+| `data-triggle-reset`       | `true/false` | Removes animation class after it finishes                          |
+| `data-triggle-delay`       | `string`     | CSS `animation-delay` (e.g., `0.5s`)                               |
+| `data-triggle-duration`    | `string`     | CSS `animation-duration` (e.g., `1s`)                              |
+| `data-triggle-toggle`      | `true/false` | Toggles class on and off (instead of just adding)                  |
+| `data-triggle-once`        | `true/false` | Triggers animation only once                                       |
+| `data-triggle-target`      | `string`     | CSS selector for the element to animate (defaults to self)         |
+| `data-triggle-key`         | `string`     | Keyboard filter (e.g. `enter`, `ctrl+s`, `a*`)                     |
+| `data-triggle-next`        | `string`     | CSS selector of element to animate **after this one finishes**     |
+| `data-triggle-chain-delay` | `number`     | Delay (in ms) before triggering `data-triggle-next`                |
+| `data-triggle-group`       | `string`     | Group name to animate multiple elements together                   |
+| `data-triggle-stagger`     | `number`     | Delay (in ms) between each group's element animation               |
+| `data-triggle-scroll`      | `true/false` | Use IntersectionObserver to animate when element scrolls into view |
+| `data-triggle-chain-loop`  | `true`       | Enables infinite looping between chained elements                  |
 
 ## Hover with Delay and Reset
 
@@ -172,6 +174,67 @@ Automatically remove the animation class after it completes:
 </div>
 ```
 
+## Scroll Animation Example
+
+```html
+<div
+  data-triggle="scroll"
+  data-triggle-scroll="true"
+  data-triggle-class="fadeInUp"
+  data-triggle-reset="true"
+  data-triggle-once="true">
+  I animate when visible
+</div>
+```
+
+- Triggers `fadeInUp` once when 50% of the element is in view.
+- Combine with `data-triggle-once="true"` to prevent re-animation.
+
+## Scroll-Based Staggered Animation
+
+Trigger Element:
+
+```html
+<div
+  data-triggle="scroll"
+  data-triggle-scroll="true"
+  data-triggle-group="feature"
+  data-triggle-class="fadeIn"
+  data-triggle-stagger="300"
+  data-triggle-once="true"></div>
+```
+
+Staggered/Grouped Targets:
+
+```html
+<div
+  data-triggle-class="fadeIn"
+  data-triggle-reset="true"
+  data-triggle-group="feature">
+  Card A
+</div>
+
+<div
+  data-triggle-class="fadeIn"
+  data-triggle-reset="true"
+  data-triggle-group="feature">
+  Card B
+</div>
+
+<div
+  data-triggle-class="fadeIn"
+  data-triggle-reset="true"
+  data-triggle-group="feature">
+  Card C
+</div>
+```
+
+Behavior:
+
+- When the **trigger element** scrolls into view, all elements in the `feature` group animate.
+- Each card will stagger with a `300ms` delay between them.
+- Add `data-triggle-once="true"` to prevent repeated scroll triggers.
+
 ## Chained Animation Example
 
 ```html
@@ -192,6 +255,28 @@ When the button is clicked:
 1. It animates with fadeIn
 2. Once that finishes, #step2 animates with slideInUp
 3. `#step2` will animate 500ms after `zoomIn` ends on the button.
+
+## Chain Loop Example (data-triggle-chain-loop)
+
+```html
+<div
+  id="box1"
+  data-triggle="click"
+  data-triggle-class="fadeIn"
+  data-triggle-next="#box2"
+  data-triggle-chain-delay="500"
+  data-triggle-chain-loop="true">
+  Start Loop
+</div>
+
+<div
+  id="box2"
+  data-triggle-class="fadeOut"
+  data-triggle-next="#box1"
+  data-triggle-chain-delay="500"></div>
+```
+
+- This will loop between `box1` and `box2` indefinitely.
 
 ## Group Triggering Example
 
@@ -314,14 +399,6 @@ window.triggle.destroy(); // Removes all listeners
 window.triggle.init(); // Re-initializes all triggers
 ```
 
-### Supported Passive Events
-
-The following triggers use passive listeners for optimal performance:
-
-- `touchstart`
-- `touchend`
-- `scroll`
-
 ## Global Disable (Optional)
 
 To disable all animations globally (e.g., for accessibility/testing), set:
@@ -344,6 +421,14 @@ window.__trg_DEBUG = true;
 window.__trg_TRIGGER_DISABLED = true;
 ```
 
+## Supported Passive Events
+
+The following triggers use passive listeners for optimal performance:
+
+- `touchstart`
+- `touchend`
+- `scroll`
+
 ## Performance Notes
 
 To improve responsiveness on mobile devices, `triggle.js` uses **passive event listeners** for scroll-blocking events like `touchstart`, `touchend`, and `scroll`. This eliminates warnings in modern browsers (e.g., Chrome) and improves interaction smoothness.
@@ -353,7 +438,7 @@ To improve responsiveness on mobile devices, `triggle.js` uses **passive event l
 - Core class `.cssanimation` class is required (from [cssanimation](https://github.com/yesiamrocks/cssanimation)).
 - Use `data-triggle-*` attributes only on the intended element — avoid duplication on deeply nested structures to prevent conflicts.
 
-## Plugin Architecture Summary
+## Library Architecture Summary
 
 - Lightweight, zero-dependency vanilla JS
 - Fast event listener setup using DOMContentLoaded

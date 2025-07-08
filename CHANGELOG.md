@@ -1,6 +1,27 @@
 # Changelog
 
-## 1.1.0 - 2025-07-07
+## v1.2.0 - 2025-07-07
+
+### Added
+
+- `data-triggle-scroll` now supports scroll-triggered group animations using `IntersectionObserver`
+- `data-triggle-stagger` now works with scroll-triggered groups
+- Added support for placing scroll observers separately from animated targets
+
+### Improved
+
+- Group scroll animation now works even if group items are already in the viewport
+- Better modularity of scroll-triggered logic for staggered groups
+
+### Fixed
+
+- Only first 1–2 elements animating when scroll-stagger was used — now resolved by isolating trigger element
+
+### Compatibility
+
+- Fully backward compatible with click, hover, chained, and keydown triggers
+
+## v1.1.0 - 2025-07-07
 
 ### Added
 
@@ -23,7 +44,7 @@
 
 - Fully backward compatible with previous `data-triggle`, `data-triggle-class`, and key/mouse event handling
 
-## 1.0.3 - 2025-06-30
+## v1.0.3 - 2025-06-30
 
 ### Added
 
@@ -38,7 +59,7 @@
 
 - If using manual reinitialization, update your code to `triggle.init()` instead of `caTrigger.init()`
 
-## 1.0.2 - 2025-06-30
+## v1.0.2 - 2025-06-30
 
 ### Added
 
