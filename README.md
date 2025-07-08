@@ -7,7 +7,7 @@
 [![Downloads](https://img.shields.io/npm/dt/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/triggle?style=for-the-badge)](https://bundlephobia.com/package/triggle)
 ![License](https://img.shields.io/npm/l/triggle?style=for-the-badge)
-[![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://cdn.jsdelivr.net/npm/triggle@latest/dist/)
+[![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://www.jsdelivr.com/package/npm/triggle)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
 
@@ -139,6 +139,39 @@ You can animate elements using the following trigger types via `data-triggle`:
 </div>
 ```
 
+Timing Controls
+
+- `data-triggle-delay="0.2s"`
+- `data-triggle-duration="1.5s"`
+
+Automatically remove the animation class after it completes:
+
+- `data-triggle-reset="true"`
+
+## Targeting Another Element
+
+```html
+<button
+  data-triggle="click"
+  data-triggle-class="fadeIn"
+  data-triggle-target="#box">
+  Animate Box
+</button>
+
+<div id="box" class="box"></div>
+```
+
+## Toggle Animation Example
+
+```html
+<div
+  data-triggle="click"
+  data-triggle-class="bounce"
+  data-triggle-toggle="true">
+  Click to toggle bounce
+</div>
+```
+
 ## Chained Animation Example
 
 ```html
@@ -221,19 +254,6 @@ All elements with `data-triggle-group="cards"` will animate together when the tr
 
 Cards animate one by one, **each 200ms** after the last.
 
-## Targeting Another Element
-
-```html
-<button
-  data-triggle="click"
-  data-triggle-class="fadeIn"
-  data-triggle-target="#box">
-  Animate Box
-</button>
-
-<div id="box" class="box"></div>
-```
-
 ## Keyboard Filter Example
 
 Limit animations to specific key presses:
@@ -250,45 +270,9 @@ Limit animations to specific key presses:
 
 Supports:
 
-- Single key match (a)
-- Wildcards (a\* matches abc)
-- Modifier keys (ctrl+s, shift+enter, alt+x)
-
-## Toggle Animation Example
-
-```html
-<div
-  data-triggle="click"
-  data-triggle-class="bounce"
-  data-triggle-toggle="true">
-  Click to toggle bounce
-</div>
-```
-
-## Key Filters
-
-### Exact keys
-
-`data-triggle-key="Enter,Escape"`
-
-### Modifier Support
-
-`data-triggle-key="ctrl+z, shift+a, alt+x"`
-
-### Wildcard Support
-
-`data-triggle-key="en*, arrow*"`
-
-## Automatically remove the animation class after it completes:
-
-`data-triggle-reset="true"`
-
-## Timing Controls
-
-- `data-triggle-delay="0.2s"`
-- `data-triggle-duration="1.5s"`
-
-You can use any valid CSS time units.
+- Single key match (a) `data-triggle-key="Enter,Escape"`
+- Wildcards (a\* matches abc) `data-triggle-key="en*, arrow*"`
+- Modifier keys (ctrl+s, shift+enter, alt+x) `data-triggle-key="ctrl+z, shift+a, alt+x"`
 
 ## Custom Events
 

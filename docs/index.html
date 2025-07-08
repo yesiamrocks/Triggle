@@ -151,6 +151,76 @@
       </section>
 
       <section>
+        <h2 class="text-xl font-semibold text-cyan-300 mb-2">🖱️ Chained
+          Animation Example</h2>
+        <button
+          class="bg-zinc-800 text-white border border-zinc-600 rounded px-4 py-2 w-full cssanimation"
+          data-triggle="click"
+          data-triggle-class="ca__fx-blurInfromLeft"
+          data-triggle-reset="true"
+          data-triggle-next="#step2"
+          data-triggle-chain-delay="200">
+          Start
+        </button>
+        <div
+          class="bg-zinc-800 text-white border border-zinc-600 rounded px-4 py-2 w-full cssanimation"
+          id="step2" data-triggle-class="ca__fx-blurOutToRight"
+          data-triggle-reset="true"> Target </div>
+
+        <div class="relative mt-2">
+          <pre><code class="language-html" id="code-dblclick">&lt;div
+   data-triggle="click"
+   data-triggle-class="ca__fx-blurInfromLeft"
+   data-triggle-reset="true"
+   data-triggle-next="#step2"
+   data-triggle-chain-delay="200"&gt;
+  Double Click Me
+&lt;/div&gt;</code></pre>
+          <button
+            class="absolute top-2 right-2 px-2 py-1 text-xs bg-slate-700 text-cyan-300 rounded hover:bg-slate-600"
+            onclick="copyCode('code-dblclick')">📋 Copy</button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-cyan-300 mb-2">🖱️ Group
+          Triggering Example</h2>
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle="click"
+          data-triggle-class="ca__fx-elasticArise"
+          data-triggle-group="group-triggle">
+          Double Click Me
+        </div>
+
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle-class="ca__fx-elasticStretch"
+          data-triggle-reset="true"
+          data-triggle-group="group-triggle">
+          Card 1 </div>
+
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle-class="ca__fx-jiggleTransform"
+          data-triggle-reset="true"
+          data-triggle-group="group-triggle"> Card 2 </div>
+
+        <div class="relative mt-2">
+          <pre><code class="language-html" id="code-dblclick">&lt;div
+  class="cssanimation"
+  data-triggle="dblclick"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Double Click Me
+&lt;/div&gt;</code></pre>
+          <button
+            class="absolute top-2 right-2 px-2 py-1 text-xs bg-slate-700 text-cyan-300 rounded hover:bg-slate-600"
+            onclick="copyCode('code-dblclick')">📋 Copy</button>
+        </div>
+      </section>
+
+      <section>
         <h2 class="text-xl font-semibold text-cyan-300 mb-2">🧠 focus</h2>
         <input type="text" placeholder="Focus Me"
           class="bg-zinc-800 text-white border border-zinc-600 rounded px-4 py-2 w-full cssanimation"
@@ -187,6 +257,56 @@
           <button
             class="absolute top-2 right-2 px-2 py-1 text-xs bg-slate-700 text-cyan-300 rounded hover:bg-slate-600"
             onclick="copyCode('code-blur')">📋 Copy</button>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold text-cyan-300 mb-2">🖱️ Group Trigger +
+          Stagger</h2>
+        <button
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle="click"
+          data-triggle-class="ca__fx-bounceInLeft"
+          data-triggle-group="staggerExp"
+          data-triggle-stagger="200">
+          Animate All Cards
+        </button>
+
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle-class="ca__fx-blurIn"
+          data-triggle-reset="true"
+          data-triggle-group="staggerExp">
+          Card 1
+        </div>
+
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle-class="ca__fx-blurIn"
+          data-triggle-reset="true"
+          data-triggle-group="staggerExp">
+          Card 2
+        </div>
+
+        <div
+          class="bg-zinc-800 border border-zinc-700 px-4 py-3 rounded cursor-pointer cssanimation"
+          data-triggle-class="ca__fx-blurIn"
+          data-triggle-reset="true"
+          data-triggle-group="staggerExp">
+          Card 3
+        </div>
+
+        <div class="relative mt-2">
+          <pre><code class="language-html" id="code-dblclick">&lt;div
+  class="cssanimation"
+  data-triggle="dblclick"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Double Click Me
+&lt;/div&gt;</code></pre>
+          <button
+            class="absolute top-2 right-2 px-2 py-1 text-xs bg-slate-700 text-cyan-300 rounded hover:bg-slate-600"
+            onclick="copyCode('code-dblclick')">📋 Copy</button>
         </div>
       </section>
 
