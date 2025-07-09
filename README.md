@@ -82,7 +82,7 @@ Without the cssanimation classes, **Triggle** can still detect triggers, but no 
 
 ## Getting Started
 
-To use triggle.js, simply add `data-triggle-*` attributes to any HTML element you want to animate:
+To use **Triggle**, simply add `data-triggle-*` attributes to any HTML element you want to animate:
 
 ```html
 <div
@@ -94,8 +94,6 @@ To use triggle.js, simply add `data-triggle-*` attributes to any HTML element yo
 </div>
 ```
 
-**You can combine multiple triggers using a comma:** `data-triggle="mouseenter,click,keydown"`
-
 What each part does:
 
 - `class="cssanimation"` – Required. This enables animation support from the `@hellouxpavel/cssanimation` library.
@@ -104,7 +102,14 @@ What each part does:
 - `data-triggle-reset="true"` – Optional. If set to `"true"`, the animation class is removed after it finishes, allowing it to trigger again.
 - `data-triggle-once="true"` – Use `data-triggle-once="true"` to ensure an animation only runs a **single time**, even if the triggering event happens again.
 
+You can combine multiple triggers using a comma: `data-triggle="mouseenter,click,keydown"`
+
 > Make sure the **[{css}animation](https://github.com/yesiamrocks/cssanimation)** styles are included in your project for the animation to work properly.
+
+## Integration Tips
+
+- Core class `.cssanimation` is required (from [{css}animation](https://github.com/yesiamrocks/cssanimation)).
+- Use `data-triggle-*` attributes only on the intended element — avoid duplication on deeply nested structures to prevent conflicts.
 
 ## Supported Triggers
 
@@ -190,9 +195,41 @@ You can trigger animations on a different element using the `data-triggle-target
 How it works
 
 - `data-triggle-target="#box"` – Selects the element to animate.
-- `data-triggle-class="fadeIn"` – The class that will be applied to the target when the trigger fires.
+- `data-triggle-class="ca__fx-fadeIn"` – The class that will be applied to the target when the trigger fires.
 
 > This is useful for triggering animations from buttons, controls, or any external source.
+
+## Triggle Group Triggering
+
+Trigger animations on multiple elements at once using `data-triggle-group`.
+
+```html
+<div
+  class="cssanimation"
+  data-triggle="click"
+  data-triggle-class="ca__fx-layerPeelIn"
+  data-triggle-group="cards"></div>
+
+<div
+  class="cssanimation"
+  data-triggle-class="ca__fx-rollFromLeft"
+  data-triggle-reset="true"
+  data-triggle-group="cards"></div>
+
+<div
+  class="cssanimation"
+  data-triggle-class="ca__fx-rollFromRight"
+  data-triggle-reset="true"
+  data-triggle-group="cards"></div>
+```
+
+How it works
+
+- The first element acts as the **trigger**.
+- All elements sharing the same `data-triggle-group="cards"` will animate together.
+- Each target can use its own animation class and settings.
+
+> Great for triggering multiple cards, icons, or UI components in sync from a single interaction.
 
 ## Triggle Toggle Animation
 
@@ -249,7 +286,7 @@ Trigger Element:
 <div
   data-triggle="scroll"
   data-triggle-scroll="true"
-  data-triggle-group="feature"
+  data-triggle-group="TrgScroll"
   data-triggle-class="ca__fx-moonFadeScaleUp"
   data-triggle-stagger="300"
   data-triggle-once="true"></div>
@@ -261,21 +298,21 @@ Staggered/Grouped Targets:
 <div
   data-triggle-class="ca__fx-moonFadeLeft"
   data-triggle-reset="true"
-  data-triggle-group="feature">
+  data-triggle-group="TrgScroll">
   Card A
 </div>
 
 <div
   data-triggle-class="ca__fx-moonFadeRight"
   data-triggle-reset="true"
-  data-triggle-group="feature">
+  data-triggle-group="TrgScroll">
   Card B
 </div>
 
 <div
   data-triggle-class="ca__fx-moonFade"
   data-triggle-reset="true"
-  data-triggle-group="feature">
+  data-triggle-group="TrgScroll">
   Card C
 </div>
 ```
@@ -289,7 +326,7 @@ How it works
 
 > Great for scroll reveals, feature sections, or card-based layouts with subtle animation cascades.
 
-## Chained Animation Example
+## Triggle Chained Animation
 
 Chain multiple animations by using `data-triggle-next` and control timing with `data-triggle-chain-delay`.
 
@@ -324,11 +361,13 @@ Key Attributes
 
 ## Chain Loop Example (data-triggle-chain-loop)
 
+Create an infinite loop of chained animations between two or more elements.
+
 ```html
 <div
   id="box1"
   data-triggle="click"
-  data-triggle-class="fadeIn"
+  data-triggle-class="ca__fx-squishPop"
   data-triggle-next="#box2"
   data-triggle-chain-delay="500"
   data-triggle-chain-loop="true">
@@ -337,77 +376,23 @@ Key Attributes
 
 <div
   id="box2"
-  data-triggle-class="fadeOut"
+  data-triggle-class="ca__fx-layerPeelOut"
   data-triggle-next="#box1"
   data-triggle-chain-delay="500"></div>
 ```
 
-- This will loop between `box1` and `box2` indefinitely.
+How it works
 
-## Group Triggering Example
+- Clicking on `#box1` starts the loop.
+- `#box1` animates with `ca__fx-squishPop`, then triggers `#box2` after `500ms`.
+- `#box2` animates with `ca__fx-layerPeelOut`, then triggers `#box1` after `500ms`.
+- Because `data-triggle-chain-loop="true"` is set, the chain will repeat indefinitely.
 
-```html
-<div
-  data-triggle="click"
-  data-triggle-class="bounce"
-  data-triggle-group="cards" />
-
-<div
-  class="card"
-  data-triggle-class="fadeInUp"
-  data-triggle-reset="true"
-  data-triggle-group="cards" />
-
-<div
-  class="card"
-  data-triggle-class="fadeInUp"
-  data-triggle-reset="true"
-  data-triggle-group="cards" />
-```
-
-All elements with `data-triggle-group="cards"` will animate together when the trigger is clicked.
-
-## Group Trigger + Stagger
-
-```html
-<button
-  data-triggle="click"
-  data-triggle-class="pulse"
-  data-triggle-group="cards"
-  data-triggle-stagger="200">
-  Animate All Cards
-</button>
-
-<div
-  class="card"
-  data-triggle-class="fadeInUp"
-  data-triggle-reset="true"
-  data-triggle-group="cards">
-  Card 1
-</div>
-
-<div
-  class="card"
-  data-triggle-class="fadeInUp"
-  data-triggle-reset="true"
-  data-triggle-group="cards">
-  Card 2
-</div>
-
-<div
-  class="card"
-  data-triggle-class="fadeInUp"
-  data-triggle-reset="true"
-  data-triggle-group="cards">
-  Card 3
-</div>
-```
-
-Cards animate one by one, **each 200ms** after the last.
+> Useful for animated banners, instructional sequences, or continuous UI feedback loops.
 
 ## Keyboard Filter Example
 
-Limit animations to specific key presses:
+Limit animations to specific key presses using `data-triggle-key`.
 
 ```html
 <div
@@ -445,29 +430,42 @@ You can use any event name for `data-triggle`. This allows you to create custom 
 
 ## Manual Animation Trigger (Optional)
 
+If you prefer programmatic control, you can manually trigger animations using `window.triggle.apply()`.
+
 ```js
 window.triggle.apply(
   document.querySelector("#element"),
-  "fadeIn",
-  true, // reset
-  "0.3s", // delay
-  "1s", // duration
-  false // toggle
+  "fadeIn", // Animation class to apply
+  true, // Reset after animation ends
+  "0.3s", // Delay before animation starts
+  "1s", // Duration of the animation
+  false // Toggle mode (true = toggle, false = one-time)
 );
 ```
 
+Parameters
+
+- **Element** – The target DOM element
+- **Class Name** – Animation class to apply
+- **Reset** – Whether to remove the class after animation ends
+- **Delay** – Optional delay before the animation starts (e.g., `"0.3s"`)
+- **Duration** – Optional animation duration (e.g., `"1s"`)
+- **Toggle** – Set to `true` to toggle the class on/off
+
+> Ideal for triggering animations based on app logic, user input, or custom events.
+
 ## Cleanup
 
-If you're using triggle in a single-page app or want to reinitialize:
+If you're using triggle.js in a single-page app (SPA) or need to reinitialize after DOM changes:
 
 ```js
-window.triggle.destroy(); // Removes all listeners
+window.triggle.destroy(); // Removes all event listeners
 window.triggle.init(); // Re-initializes all triggers
 ```
 
 ## Global Disable (Optional)
 
-To disable all animations globally (e.g., for accessibility/testing), set:
+You can globally disable all triggle animations, useful for accessibility, performance testing, or reduced motion preferences:
 
 ```js
 window.__trg_TRIGGER_DISABLED = true;
@@ -482,33 +480,40 @@ window.triggle.init();
 
 ## Debug Mode
 
+Enable debug mode to log internal behavior and aid in troubleshooting:
+
 ```js
 window.__trg_DEBUG = true;
-window.__trg_TRIGGER_DISABLED = true;
 ```
 
 ## Supported Passive Events
 
-The following triggers use passive listeners for optimal performance:
+To improve performance, triggle.js uses passive event listeners for the following triggers:
 
 - `touchstart`
 - `touchend`
 - `scroll`
 
-## Performance Notes
-
-To improve responsiveness on mobile devices, `triggle.js` uses **passive event listeners** for scroll-blocking events like `touchstart`, `touchend`, and `scroll`. This eliminates warnings in modern browsers (e.g., Chrome) and improves interaction smoothness.
-
-## Integration Tips
-
-- Core class `.cssanimation` class is required (from [cssanimation](https://github.com/yesiamrocks/cssanimation)).
-- Use `data-triggle-*` attributes only on the intended element — avoid duplication on deeply nested structures to prevent conflicts.
-
 ## Library Architecture Summary
 
-- Lightweight, zero-dependency vanilla JS
-- Fast event listener setup using DOMContentLoaded
-- Respects animation timing via native CSS
-- Easy to drop in any project
-- Animation cleanup using `animationend`
-- Designed for extensibility
+- **Lightweight** and dependency-free — built with vanilla JavaScript
+- Initializes quickly using `DOMContentLoaded` for efficient event binding
+- Leverages native CSS for animation timing (`delay`, `duration`)
+- Easy to integrate — just add `data-triggle-*` attributes and go
+- Automatically cleans up using the `animationend` event
+- Built with extensibility in mind — easy to add new trigger types or behaviors
+
+## About Triggle
+
+**Triggle** is built for developers who want simple, flexible control over CSS animations using clean HTML attributes and zero dependencies. It pairs perfectly with [`@hellouxpavel/cssanimation`](https://www.npmjs.com/package/@hellouxpavel/cssanimation) to deliver smooth, event-driven UI interactions across devices.
+
+If you find triggle.js helpful, consider starring the [GitHub repo](https://github.com/yesiamrocks/triggle), sharing it with others, or contributing improvements!
+
+## License
+
+Licensed under the [Parity License](https://paritylicense.com/) for open-source use.  
+[Commercial license required](./COMMERCIAL-LICENSE.md) for closed-source or client projects.
+
+## Contribute
+
+Have ideas, questions, or bug reports? [Open an issue](https://github.com/yesiamrocks/triggle/issues) or start a [discussion](https://github.com/yesiamrocks/triggle/discussions)!

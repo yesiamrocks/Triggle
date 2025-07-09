@@ -1,21 +1,23 @@
-MIT License
+This software is licensed under the Parity License 7.0.0.
 
-Copyright (c) 2025 Pavel
+You may use, modify, and share this software freely, as long as any project that uses it is also open source under a license that shares source code under similar terms.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+To use this software in a closed-source or commercial product, you must purchase a separate commercial license.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Full license text: https://paritylicense.com/
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+© 2025 Shafayetul Islam Pavel. All rights reserved.
+
+## Commercial Use
+
+Commercial use — including use in client projects, SaaS platforms, paid apps, or any revenue-generating product — requires a **paid license**.
+
+See `COMMERCIAL-LICENSE.md` to obtain a license.
+
+## Disclaimer
+
+This software is provided "as is" without warranty of any kind. The author is not liable for any damages or losses arising from the use of this software.
+
+---
+
+For questions or licensing inquiries, contact: **hellouxpavel@gmail.com**
