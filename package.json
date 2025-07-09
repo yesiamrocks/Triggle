@@ -1,6 +1,6 @@
 {
   "name": "triggle",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A lightweight CSS animation trigger library that animates elements on click, hover, enter and more.",
   "main": "dist/triggle.js",
   "style": "dist/triggle.css",
@@ -24,7 +24,16 @@
     "intersection-observer"
   ],
   "author": "Shafayetul Islam Pavel",
-  "license": "MIT",
+  "licenses": [
+    {
+      "type": "Parity-7.0.0",
+      "url": "https://paritylicense.com/"
+    },
+    {
+      "type": "Commercial",
+      "url": "./COMMERCIAL-LICENSE.md"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yesiamrocks/triggle.git"
