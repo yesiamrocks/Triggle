@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.3.0 – 2025-07-09
+
+### Changed
+
+- Switched license model to dual-license:
+  - Parity License for open-source and personal use
+  - Commercial license required for closed-source or revenue-generating projects
+
+### Added
+
+- LICENSE updated to reflect Parity 7.0.0
+- New COMMERCIAL-LICENSE.md for paid usage terms
+- README badge and footer updated for clarity
+
 ## v1.2.0 - 2025-07-07
 
 ### Added

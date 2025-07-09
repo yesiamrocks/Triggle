@@ -514,6 +514,8 @@ If you find triggle.js helpful, consider starring the [GitHub repo](https://gith
 Licensed under the [Parity License](https://paritylicense.com/) for open-source use.  
 [Commercial license required](./COMMERCIAL-LICENSE.md) for closed-source or client projects.
 
+Note: Version 1.2.0 and earlier are MIT-licensed. Starting from 1.3.0, triggle.js follows a dual-license model (Parity + Commercial).
+
 ## Contribute
 
 Have ideas, questions, or bug reports? [Open an issue](https://github.com/yesiamrocks/triggle/issues) or start a [discussion](https://github.com/yesiamrocks/triggle/discussions)!
