@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Triggle – All Trigger Demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+      // Configure Tailwind to enable dark mode based on class
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              // Custom colors for a slightly softer dark mode and light mode
+              'dark-background': '#1A1A1D',
+              'dark-card': '#2C2C30',
+              'dark-border': '#4F4F55',
+              'dark-text': '#E0E0E0',
+              'dark-highlight': '#60A5FA', // A softer blue-cyan
+              'light-background': '#F9FAFB',
+              'light-card': '#FFFFFF',
+              'light-border': '#E0E0E0',
+              'light-text': '#333333',
+              'light-highlight': '#3B82F6', // A standard blue
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'], // Example: You might link Inter font
+            },
+          },
+        },
+      };
+    </script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@hellouxpavel/cssanimation@latest/dist/cssanimation.min.css" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+      hljs.highlightAll();
+    </script>
+    </head>
+
+    <body
+        class="bg-dark-background text-dark-text min-h-screen px-4 py-16 font-sans transition-colors duration-300">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <header class="text-center mb-12">
+                <h1
+                    class="text-6xl font-bold text-dark-highlight leading-tight mb-4">
+                    Triggle Playground
+                </h1>
+                <p class="text-dark-text text-xl mx-auto">
+                    The <code
+                        class="font-mono bg-dark-card px-2 py-1 rounded">triggle.js</code>
+                    library lets you easily add interactive animations to your
+                    HTML
+                    elements using <code
+                        class="font-mono bg-dark-card px-2 py-1 rounded">data-</code>
+                    attributes. Here's a rundown of each trigger type
+                    in your demo:
+
+                    event types.
+                </p>
+                <button
+                    id="toggleTheme"
+                    class="mt-10 px-8 py-3 text-lg font-medium rounded-full bg-dark-card text-dark-highlight hover:bg-dark-border transition-all duration-300 shadow-md">
+                    🌓 Toggle Theme
+                </button>
+            </header>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    Click
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-wiggle"
+                    data-triggle-reset="true">
+                    Click Me
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-click">&lt;div
+  class="cssanimation"
+  data-triggle="click"
+  data-triggle-class="ca__fx-wiggle"
+  data-triggle-reset="true"&gt;
+  Click Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-click')">
+                        📋 Copy
+                    </button>
+                </div>
+                <p class="mt-6 text-center"><code
+                        class="font-mono bg-dark-card px-2 py-1 rounded">data-triggle="click":</code>
+                    This is one of the most common event types. The
+                    animation defined by data-triggle-class will fire when you
+                    click on
+                    the element.</p>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">☝️</span> Animates Once
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-bounceInTop"
+                    data-triggle-once="true"
+                    data-triggle-reset="true">
+                    Click Me (Animates Once)
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-triggle-once">&lt;div
+  class="cssanimation"
+  data-triggle="click"
+  data-triggle-class="ca__fx-bounceIn"
+  data-triggle-once="true"
+  data-triggle-reset="true"&gt;
+  Click Me (Animates Once)
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-triggle-once')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🔄</span> Toggle Animation
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-danceBottom"
+                    data-triggle-toggle="true">
+                    Click Me (Toggle Animation)
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-triggle-toggle">&lt;div
+  class="cssanimation"
+  data-triggle="click"
+  data-triggle-class="ca__fx-flash"
+  data-triggle-toggle="true"&gt;
+  Click Me (Toggle Animation)
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-triggle-toggle')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🖱️</span> mouseenter /
+                    mouseleave
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="mouseenter,mouseleave"
+                    data-triggle-class="ca__fx-elasticStretch"
+                    data-triggle-reset="true">
+                    Hover In / Out
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-hover">&lt;div
+  class="cssanimation"
+  data-triggle="mouseenter,mouseleave"
+  data-triggle-class="ca__fx-elasticStretch"
+  data-triggle-reset="true"&gt;
+  Hover In / Out
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-hover')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🖱️</span> mousedown
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="mousedown"
+                    data-triggle-class="ca__fx-squishLift"
+                    data-triggle-reset="true">
+                    Hold Mouse Down
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-down">&lt;div
+  class="cssanimation"
+  data-triggle="mousedown"
+  data-triggle-class="ca__fx-squishLift"
+  data-triggle-reset="true"&gt;
+  Hold Mouse Down
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-down')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🖱️</span> mouseup
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="mouseup"
+                    data-triggle-class="ca__fx-flubberBounce"
+                    data-triggle-reset="true">
+                    Release Mouse
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-up">&lt;div
+  class="cssanimation"
+  data-triggle="mouseup"
+  data-triggle-class="ca__fx-flubberBounce"
+  data-triggle-reset="true"&gt;
+  Release Mouse
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-up')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🖱️</span> dblclick
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="dblclick"
+                    data-triggle-class="ca__fx-jiggleTransform"
+                    data-triggle-reset="true">
+                    Double Click Me
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-dblclick">&lt;div
+  class="cssanimation"
+  data-triggle="dblclick"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Double Click Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-dblclick')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🔗</span> Chained Animation
+                </h2>
+                <button
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-4 w-full text-xl font-medium hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-blurInfromLeft"
+                    data-triggle-reset="true"
+                    data-triggle-next="#step2"
+                    data-triggle-chain-delay="200">
+                    Start Chained Animation
+                </button>
+                <div
+                    class="mt-6 bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-4 w-full text-xl font-medium cssanimation"
+                    id="step2"
+                    data-triggle-class="ca__fx-blurOutToRight"
+                    data-triggle-reset="true">
+                    Target of Chain
+                </div>
+
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-chained">&lt;button
+  data-triggle="click"
+  data-triggle-class="ca__fx-blurInfromLeft"
+  data-triggle-reset="true"
+  data-triggle-next="#step2"
+  data-triggle-chain-delay="200"&gt;
+  Start
+&lt;/button&gt;
+&lt;div id="step2"
+  data-triggle-class="ca__fx-blurOutToRight"
+  data-triggle-reset="true"&gt;
+  Target
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-chained')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">👥</span> Group Triggering
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-elasticArise"
+                    data-triggle-group="group-triggle">
+                    Click to Animate Group
+                </div>
+                <div
+                    class="mt-6 bg-dark-card border border-dark-border px-8 py-5 rounded-lg text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle-class="ca__fx-elasticStretch"
+                    data-triggle-reset="true"
+                    data-triggle-group="group-triggle">
+                    Card 1
+                </div>
+                <div
+                    class="mt-6 bg-dark-card border border-dark-border px-8 py-5 rounded-lg text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle-class="ca__fx-jiggleTransform"
+                    data-triggle-reset="true"
+                    data-triggle-group="group-triggle">
+                    Card 2
+                </div>
+
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-group-triggering">&lt;div
+  data-triggle="click"
+  data-triggle-class="ca__fx-elasticArise"
+  data-triggle-group="group-triggle"&gt;
+  Click to Animate Group
+&lt;/div&gt;
+&lt;div
+  data-triggle-class="ca__fx-elasticStretch"
+  data-triggle-group="group-triggle"&gt; Card 1 &lt;/div&gt;
+&lt;div
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-group="group-triggle"&gt; Card 2 &lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-group-triggering')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">✨</span> Group Trigger + Stagger
+                </h2>
+                <button
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="click"
+                    data-triggle-class="ca__fx-bounceInLeft"
+                    data-triggle-group="staggerExp"
+                    data-triggle-stagger="150">
+                    Animate All Cards
+                </button>
+
+                <div
+                    class="mt-6 bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle-class="ca__fx-flipY"
+                    data-triggle-reset="true"
+                    data-triggle-group="staggerExp">
+                    Card 1
+                </div>
+
+                <div
+                    class="mt-6 bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle-class="ca__fx-flipY"
+                    data-triggle-reset="true"
+                    data-triggle-group="staggerExp">
+                    Card 2
+                </div>
+
+                <div
+                    class="mt-6 bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle-class="ca__fx-flipY"
+                    data-triggle-reset="true"
+                    data-triggle-group="staggerExp">
+                    Card 3
+                </div>
+
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-group-stagger-exp">&lt;button
+  data-triggle="click"
+  data-triggle-class="ca__fx-bounceInLeft"
+  data-triggle-group="staggerExp"
+  data-triggle-stagger="150"&gt;
+  Animate All Cards
+&lt;/button&gt;
+&lt;div data-triggle-class="ca__fx-flipY"
+  data-triggle-group="staggerExp"&gt;Card 1&lt;/div&gt;
+&lt;div data-triggle-class="ca__fx-flipY"
+  data-triggle-group="staggerExp"&gt;Card 2&lt;/div&gt;
+&lt;div data-triggle-class="ca__fx-flipY"
+  data-triggle-group="staggerExp"&gt;Card 3&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-group-stagger-exp')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    Scroll Animation
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="scroll"
+                    data-triggle-scroll="true"
+                    data-triggle-class="ca__fx-flipY"
+                    data-triggle-reset="true">
+                    I animate when visible
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-contextmenu">&lt;div
+  class="cssanimation"
+  data-triggle="contextmenu"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Right-click Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-contextmenu')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    Scroll Stagger
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="scroll"
+                    data-triggle-scroll="true"
+                    data-triggle-group="feature"
+                    data-triggle-class="ca__fx-fadeIn"
+                    data-triggle-stagger="500"
+                    data-triggle-reset="true">
+                    I animate when visible
+                </div>
+
+                <div
+                    class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+                    data-triggle-class="ca__fx-fadeInLeft"
+                    data-triggle-reset="true"
+                    data-triggle-group="feature">
+                    scroll 1
+                </div>
+
+                <div
+                    class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+                    data-triggle-class="ca__fx-fadeInLeft"
+                    data-triggle-reset="true"
+                    data-triggle-group="feature">
+                    scroll 1
+                </div>
+
+                <div
+                    class="group-item cssanimation p-4 bg-white rounded shadow text-center w-full"
+                    data-triggle-class="ca__fx-fadeInLeft"
+                    data-triggle-reset="true"
+                    data-triggle-group="feature">
+                    scroll 1
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-contextmenu">&lt;div
+  class="cssanimation"
+  data-triggle="contextmenu"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Right-click Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-contextmenu')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🖱️</span> contextmenu
+                    (right-click)
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="contextmenu"
+                    data-triggle-class="ca__fx-jiggleTransform"
+                    data-triggle-reset="true">
+                    Right-click Me
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-contextmenu">&lt;div
+  class="cssanimation"
+  data-triggle="contextmenu"
+  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-reset="true"&gt;
+  Right-click Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-contextmenu')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🧠</span> focus
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Focus Me"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="focus"
+                    data-triggle-class="ca__fx-lightning"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-focus">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Focus Me"
+  data-triggle="focus"
+  data-triggle-class="ca__fx-lightning"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-focus')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">👋</span> blur
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Then Blur Me"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="blur"
+                    data-triggle-class="ca__fx-flyInBottom"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-blur">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Then Blur Me"
+  data-triggle="blur"
+  data-triggle-class="ca__fx-flyInBottom"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-blur')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">⌨️</span> keydown (Enter)
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Press Enter"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="keydown"
+                    data-triggle-key="Enter"
+                    data-triggle-class="ca__fx-bounceX"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-keydown">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Press Enter"
+  data-triggle="keydown"
+  data-triggle-key="Enter"
+  data-triggle-class="ca__fx-bounceX"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-keydown')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🔤</span> keyup (Enter)
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Key up Enter"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="keyup"
+                    data-triggle-key="Enter"
+                    data-triggle-class="ca__fx-bounceX"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-keyup">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Key up Enter"
+  data-triggle="keyup"
+  data-triggle-key="Enter"
+  data-triggle-class="ca__fx-bounceX"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-keyup')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🤚</span> touchstart
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="touchstart"
+                    data-triggle-class="ca__fx-jumpSpin"
+                    data-triggle-reset="true">
+                    Touch Me (start)
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-touchstart">&lt;div
+  class="cssanimation"
+  data-triggle="touchstart"
+  data-triggle-class="ca__fx-jumpSpin"
+  data-triggle-reset="true"&gt;
+  Touch Me (start)
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-touchstart')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">👆</span> touchend
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation"
+                    data-triggle="touchend"
+                    data-triggle-class="ca__fx-popRotate"
+                    data-triggle-reset="true">
+                    Touch Me (end)
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-touchend">&lt;div
+  class="cssanimation"
+  data-triggle="touchend"
+  data-triggle-class="ca__fx-popRotate"
+  data-triggle-reset="true"&gt;
+  Touch Me (end)
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-touchend')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🎞️</span> animationend
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:bg-dark-border transition-colors duration-200 cssanimation ca__fx-flipY"
+                    data-triggle="animationend"
+                    data-triggle-class="ca__fx-spiralTwistIn"
+                    data-triggle-reset="true">
+                    Fires After FlipY Animation
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-animationend">&lt;div
+  class="cssanimation ca__fx-flipY"
+  data-triggle="animationend"
+  data-triggle-class="ca__fx-bounceX"
+  data-triggle-reset="true"&gt;
+  Fires After FlipY
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-animationend')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🎬</span> transitionend
+                </h2>
+                <div
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text hover:translate-x-4 transition-all duration-300 cssanimation"
+                    data-triggle="transitionend"
+                    data-triggle-class="ca__fx-lightning"
+                    data-triggle-reset="true">
+                    Move Me (Hover)
+                </div>
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-transitionend">&lt;div
+  class="cssanimation transition-all duration-300 hover:translate-x-4"
+  data-triggle="transitionend"
+  data-triggle-class="ca__fx-lightning"
+  data-triggle-reset="true"&gt;
+  Move Me
+&lt;/div&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-transitionend')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">⌨️</span> input
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Type here"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="input"
+                    data-triggle-class="ca__fx-lightning"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-input">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Type here"
+  data-triggle="input"
+  data-triggle-class="ca__fx-flyInBottom"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-input')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🛠️</span> Custom Event Trigger
+                </h2>
+
+                <button
+                    onclick="fireCustom()"
+                    class="mb-6 px-7 py-3 text-lg bg-dark-highlight text-white rounded-lg hover:bg-light-highlight transition-colors duration-200 shadow-md">
+                    Fire Custom Event
+                </button>
+
+                <div
+                    id="customTarget"
+                    class="bg-dark-card border border-dark-border px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-dark-text cssanimation"
+                    data-triggle="customTriggleEvent"
+                    data-triggle-class="ca__fx-elasticArise"
+                    data-triggle-reset="true">
+                    Will animate on customEvent
+                </div>
+
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-custom-event">&lt;div
+  class="cssanimation"
+  data-triggle="customEvent"
+  data-triggle-class="ca__fx-flip"
+  data-triggle-reset="true"&gt;
+  Will animate on customEvent
+&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById('customEventBox')
+    .dispatchEvent(new Event('customEvent'));
+&lt;/script&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-custom-event')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="pb-12 border-b border-dark-border last:border-b-0 transition-colors duration-300">
+                <h2
+                    class="text-4xl font-semibold text-dark-highlight mb-6 flex items-center">
+                    <span class="mr-4 text-5xl">🎹</span> keydown (multiple
+                    keys)
+                </h2>
+                <input
+                    type="text"
+                    placeholder="Press Enter, Escape, Ctrl+Z, Shift+A, or start with 'en'"
+                    class="bg-dark-card text-dark-text border border-dark-border rounded-lg px-8 py-5 w-full cssanimation placeholder-dark-text/70 focus:outline-none focus:ring-2 focus:ring-dark-highlight transition-all duration-200"
+                    data-triggle="keydown"
+                    data-triggle-key="Enter,Escape,ctrl+z,shift+a,en*"
+                    data-triggle-class="ca__fx-bounceY"
+                    data-triggle-reset="true" />
+                <div class="relative mt-6">
+                    <pre
+                        class="rounded-lg overflow-auto border border-dark-border bg-dark-background"><code class="language-html p-5" id="code-keydown-multi">&lt;input
+  type="text"
+  class="cssanimation"
+  placeholder="Press Enter or Escape"
+  data-triggle="keydown"
+  data-triggle-key="Enter,Escape,ctrl+z,shift+a,en*"
+  data-triggle-class="ca__fx-bounceY"
+  data-triggle-reset="true" /&gt;</code></pre>
+                    <button
+                        class="absolute top-4 right-4 px-4 py-2 text-sm bg-dark-border text-dark-highlight rounded-md hover:bg-dark-border/70 transition-colors duration-200"
+                        onclick="copyCode('code-keydown-multi')">
+                        📋 Copy
+                    </button>
+                </div>
+            </section>
+
+            <footer
+                class="text-center text-base text-dark-text/70 mt-20 pt-10 border-t border-dark-border">
+                Built with 💙 by
+                <a
+                    href="https://github.com/yesiamrocks"
+                    class="underline hover:text-dark-highlight transition-colors duration-200">Pavel</a>
+                &middot; <code class="font-mono">Triggle</code>
+            </footer>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/triggle@latest/dist/triggle.js"></script>
+
+        <script>
+      function copyCode(id) {
+        const code = document.getElementById(id).textContent.trim();
+        navigator.clipboard.writeText(code).then(() => {
+          const btn = document.querySelector(`button[onclick="copyCode('${id}')"]`);
+          const originalText = btn.innerHTML; // Store original HTML to restore icons
+          btn.innerHTML = "✅ Copied!";
+          setTimeout(() => (btn.innerHTML = originalText), 1200);
+        });
+      }      
+      window.__trg_DEBUG = true;
+      function fireCustom() {
+        document
+          .getElementById("customTarget")
+          .dispatchEvent(new Event("customTriggleEvent"));
+      }
+
+      document.getElementById("toggleTheme").addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+
+        const isDarkMode = document.documentElement.classList.contains("dark");
+        const body = document.body;
+
+        if (isDarkMode) {
+          // Switch to dark mode classes
+          body.classList.remove("bg-light-background", "text-light-text");
+          body.classList.add("bg-dark-background", "text-dark-text");
+          // Update all elements with specific colors
+          document.querySelectorAll('.bg-dark-card').forEach(el => {
+            el.classList.remove('bg-light-card');
+          });
+          document.querySelectorAll('.border-dark-border').forEach(el => {
+            el.classList.remove('border-light-border');
+          });
+          document.querySelectorAll('.text-dark-highlight').forEach(el => {
+            el.classList.remove('text-light-highlight');
+          });
+          document.querySelectorAll('.placeholder-dark-text\\/70').forEach(el => {
+            el.classList.remove('placeholder-light-text/70');
+          });
+        } else {
+          // Switch to light mode classes
+          body.classList.remove("bg-dark-background", "text-dark-text");
+          body.classList.add("bg-light-background", "text-light-text");
+          // Update all elements with specific colors
+          document.querySelectorAll('.bg-dark-card').forEach(el => {
+            el.classList.add('bg-light-card');
+          });
+          document.querySelectorAll('.border-dark-border').forEach(el => {
+            el.classList.add('border-light-border');
+          });
+          document.querySelectorAll('.text-dark-highlight').forEach(el => {
+            el.classList.add('text-light-highlight');
+          });
+          document.querySelectorAll('.placeholder-dark-text\\/70').forEach(el => {
+            el.classList.add('placeholder-light-text/70');
+          });
+        }
+      });
+    </script>
+    </body>
+</html>

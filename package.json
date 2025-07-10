@@ -43,7 +43,7 @@
   "license": "Parity-7.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yesiamrocks/triggle.git"
+    "url": "git+https://github.com/yesiamrocks/triggle.git"
   },
   "bugs": {
     "url": "https://github.com/yesiamrocks/triggle/issues"
