@@ -1,12 +1,18 @@
 {
   "name": "triggle",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A lightweight CSS animation trigger library that animates elements on click, hover, enter and more.",
   "main": "dist/triggle.js",
   "module": "dist/triggle.js",
   "exports": {
     ".": {
-      "import": "./dist/triggle.js"
+      "import": "./dist/triggle.js",
+      "require": "./dist/triggle.js",
+      "default": "./dist/triggle.js"
+    },
+    "./triggle.min.js": {
+      "import": "./dist/triggle.min.js",
+      "default": "./dist/triggle.min.js"
     }
   },
   "type": "module",

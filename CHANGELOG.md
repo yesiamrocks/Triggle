@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.4.1 - 2025-07-09
+
+### Updated
+
+- **README.md** now includes clear usage examples for both builds:
+  - `triggle.js` (unminified, default for bundlers)
+  - `triggle.min.js` (manually importable for production)
+- Documented how to import Triggle via:
+  - `import 'triggle'`
+  - `import 'triggle/triggle.min.js'`
+  - `<script src="...">` using CDN like jsDelivr
+
+### Internal
+
+- Updated `package.json` `"exports"` field:
+  - `.` maps to `dist/triggle.js`
+  - `./triggle.min.js` added as an optional import target
+- Ensures consumers can choose between unminified and minified builds
+- Improved clarity and modular import support for bundlers
+
 ## v1.4.0 - 2025-07-09
 
 ### Added

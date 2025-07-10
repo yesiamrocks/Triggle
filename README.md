@@ -47,14 +47,24 @@ npm install triggle
 Then import it in your JavaScript:
 
 ```js
+// Default (unminified)
 import "triggle";
+
+// Optional: Use minified build explicitly
+import "triggle/triggle.min.js";
 ```
 
 ### Using CDN
 
-```js
-<script src="https://cdn.jsdelivr.net/npm/triggle@latest/dist/triggle.min.js"></script>
+```html
+<!-- Default build -->
+<script src="https://cdn.jsdelivr.net/npm/triggle/dist/triggle.js"></script>
+
+<!-- Minified build -->
+<script src="https://cdn.jsdelivr.net/npm/triggle/dist/triggle.min.js"></script>
 ```
+
+Both builds include all functionality. The minified version is optimized for production, while the unminified version is easier to debug.
 
 ## Animation Classes Powered by {css}animation
 
