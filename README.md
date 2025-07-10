@@ -5,11 +5,13 @@
 ![Optimized for Mobile](https://img.shields.io/badge/Mobile-Optimized-blue?style=for-the-badge)
 [![NPM](https://img.shields.io/npm/v/triggle?style=for-the-badge&label=triggle)](https://www.npmjs.com/package/triggle)
 [![Downloads](https://img.shields.io/npm/dt/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/triggle?style=for-the-badge)](https://bundlephobia.com/package/triggle)
-![License](https://img.shields.io/npm/l/triggle?style=for-the-badge)
+![npm package size](https://img.shields.io/badge/npm%20size-15.6%20kB-blue?style=for-the-badge)
+![minified size](https://img.shields.io/badge/minified--js-3.6%20kB-blue?style=for-the-badge)
+[![License: Parity + Commercial](https://img.shields.io/badge/license-Parity--7.0.0%20%2F%20Commercial-blue?style=for-the-badge)](https://github.com/yesiamrocks/triggle/blob/main/COMMERCIAL-LICENSE.md)
 [![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://www.jsdelivr.com/package/npm/triggle)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
+[![Made for {css}animation](https://img.shields.io/badge/Made%20for-{css}animation-7e2ea0?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/yesiamrocks/cssanimation)
 
 `triggle.js` is a lightweight JavaScript library that makes it easy to control CSS animations using simple HTML attributes, no dependencies required.
 

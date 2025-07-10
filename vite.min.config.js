@@ -1,18 +1,21 @@
-// vite.config.js
+// vite.min.config.js
 import { defineConfig } from "vite";
 import path from "path";
+import terser from "@rollup/plugin-terser";
 
 export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/triggle.js"),
       name: "Triggle",
-      fileName: () => "triggle.js",
+      fileName: () => "triggle.min.js",
       formats: ["umd"],
     },
     outDir: "dist",
-    minify: false,
     sourcemap: true,
-    emptyOutDir: false, // don't delete previous output (for second build)
+    emptyOutDir: false,
+    rollupOptions: {
+      plugins: [terser()],
+    },
   },
 });

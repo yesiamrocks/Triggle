@@ -1,14 +1,24 @@
 {
   "name": "triggle",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A lightweight CSS animation trigger library that animates elements on click, hover, enter and more.",
   "main": "dist/triggle.js",
-  "style": "dist/triggle.css",
+  "module": "dist/triggle.js",
+  "exports": {
+    ".": {
+      "import": "./dist/triggle.js"
+    }
+  },
+  "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "npm run build:unminified && npm run build:minified",
+    "build:unminified": "vite build --config vite.config.js",
+    "build:minified": "vite build --config vite.min.config.js",
     "dev": "vite",
+    "preview": "vite preview",
     "lint": "eslint .",
+    "update:badge": "node tools/update-badge.js",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
@@ -24,16 +34,7 @@
     "intersection-observer"
   ],
   "author": "Shafayetul Islam Pavel",
-  "licenses": [
-    {
-      "type": "Parity-7.0.0",
-      "url": "https://paritylicense.com/"
-    },
-    {
-      "type": "Commercial",
-      "url": "./COMMERCIAL-LICENSE.md"
-    }
-  ],
+  "license": "Parity-7.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/yesiamrocks/triggle.git"
@@ -44,11 +45,17 @@
   "homepage": "https://github.com/yesiamrocks/triggle#readme",
   "files": [
     "dist/",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "COMMERCIAL-LICENSE.md"
   ],
+  "peerDependencies": {
+    "@hellouxpavel/cssanimation": "^6.8.0"
+  },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "eslint": "^8.0.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "strip-ansi": "^7.1.0",
     "vite": "^5.4.19"
   }
 }

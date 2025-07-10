@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.4.0 - 2025-07-09
+
+### Added
+
+- **Dual output build system**: Generates both `triggle.js` (unminified) and `triggle.min.js` (minified) using Vite.
+- **Sourcemaps** for both builds for easier debugging.
+- Custom `vite.config.js` for the unminified output.
+- New `vite.min.config.js` using `@rollup/plugin-terser` for production minification.
+- File-safe `dist/` build process using `emptyOutDir: false`.
+
+### Changed
+
+- Replaced deprecated `rollup-plugin-terser` with `@rollup/plugin-terser` for modern ES module compatibility.
+- Updated `package.json` scripts:
+  - `npm run build` now runs both builds
+  - `build:minified` and `build:unminified` available separately
+
 ## v1.3.0 – 2025-07-09
 
 ### Changed

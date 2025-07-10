@@ -37,8 +37,9 @@ One-time payment. No subscriptions.
 
 ## Purchase
 
-Email: **hellouxpavel@gmail.com**
+Email: **[hellouxpavel@gmail.com](mailto:hellouxpavel@gmail.com)**  
+Subject: _Triggle Commercial License_
 
 ## Thank You
 
-Your support helps keep triggle.js actively maintained and evolving for developers like you.
+Your support helps keep **Triggle.js** actively maintained, improved, and freely available to the open-source community.
