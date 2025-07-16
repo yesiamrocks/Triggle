@@ -1,11 +1,27 @@
-(function(factory) {
+(function (factory) {
   typeof define === "function" && define.amd ? define(factory) : factory();
-})(function() {
+})(function () {
   "use strict";
-  (function() {
+  (function () {
     const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
-    const targetCache = /* @__PURE__ */ new WeakMap();
-    function applyAnimation(el, animationClass, reset = false, delay, duration, toggle = false, onComplete) {
+    const targetCache = new WeakMap();
+
+    const animationPresets = {
+      fadeInUp: "animate__animated animate__fadeInUp",
+      bounce: "animate__animated animate__bounce",
+      zoomIn: "animate__animated animate__zoomIn",
+      // Add more as needed
+    };
+
+    function applyAnimation(
+      el,
+      animationClass,
+      reset = false,
+      delay,
+      duration,
+      toggle = false,
+      onComplete
+    ) {
       if (window.__trg_TRIGGER_DISABLED) return;
       if (delay) el.style.animationDelay = delay;
       if (duration) el.style.animationDuration = duration;
@@ -26,7 +42,7 @@
           el.removeEventListener("animationend", onAnimationEnd);
           el.dispatchEvent(
             new CustomEvent("triggle:animationEnd", {
-              detail: { class: animationClass }
+              detail: { class: animationClass },
             })
           );
           if (typeof onComplete === "function") onComplete();
@@ -37,6 +53,7 @@
         if (typeof onComplete === "function") onComplete();
       }
     }
+
     function matchesKeyFilter(keyFilter, event) {
       const rules = keyFilter.split(",").map((k) => k.trim().toLowerCase());
       return rules.some((rule) => {
@@ -45,41 +62,82 @@
         const requiredMods = parts;
         const matchesKey = requiredKey === event.key.toLowerCase();
         const matchesMods = requiredMods.every((mod) => {
-          return mod === "ctrl" && event.ctrlKey || mod === "shift" && event.shiftKey || mod === "alt" && event.altKey;
+          return (
+            (mod === "ctrl" && event.ctrlKey) ||
+            (mod === "shift" && event.shiftKey) ||
+            (mod === "alt" && event.altKey)
+          );
         });
         return matchesKey && (requiredMods.length === 0 || matchesMods);
       });
     }
-    function getTargetElement(triggerEl, selector) {
-      if (!selector) return triggerEl;
+
+    function getTargetElements(triggerEl, selector) {
+      if (!selector) return [triggerEl];
       if (targetCache.has(triggerEl)) return targetCache.get(triggerEl);
-      const target = selector.startsWith(".") || selector.startsWith("#") ? document.querySelector(selector) : triggerEl.closest(selector);
-      if (target) targetCache.set(triggerEl, target);
-      return target;
+
+      const targets = selector
+        .split(",")
+        .map((s) => s.trim())
+        .map((s) =>
+          s.startsWith(".") || s.startsWith("#")
+            ? document.querySelector(s)
+            : triggerEl.closest(s)
+        )
+        .filter(Boolean);
+
+      if (targets.length > 0) targetCache.set(triggerEl, targets);
+      return targets;
     }
+
+    function triggerGroup(groupName, staggerValue = 0) {
+      const groupEls = document.querySelectorAll(
+        `[data-triggle-group="${groupName}"]`
+      );
+      groupEls.forEach((groupEl, i) => {
+        const gClass = groupEl.getAttribute("data-triggle-class");
+        const gReset = groupEl.getAttribute("data-triggle-reset") === "true";
+        const gDelay = groupEl.getAttribute("data-triggle-delay");
+        const gDuration = groupEl.getAttribute("data-triggle-duration");
+        const gToggle = groupEl.getAttribute("data-triggle-toggle") === "true";
+        const totalDelay = staggerValue > 0 ? `${i * staggerValue}ms` : gDelay;
+        applyAnimation(groupEl, gClass, gReset, totalDelay, gDuration, gToggle);
+      });
+    }
+
     function triggerAnimation(el, originEl = null) {
-      const animationClass = el.getAttribute("data-triggle-class");
+      const preset = el.getAttribute("data-triggle-preset");
+      let animationClass = el.getAttribute("data-triggle-class");
+      if (!animationClass && preset && animationPresets[preset]) {
+        animationClass = animationPresets[preset];
+      }
       const reset = el.getAttribute("data-triggle-reset") === "true";
       const delay = el.getAttribute("data-triggle-delay");
       const duration = el.getAttribute("data-triggle-duration");
       const toggle = el.getAttribute("data-triggle-toggle") === "true";
       const targetSelector = el.getAttribute("data-triggle-target");
       const nextSelector = el.getAttribute("data-triggle-next");
-      const chainDelay = parseInt(el.getAttribute("data-triggle-chain-delay"), 10) || 0;
+      const chainDelay =
+        parseInt(el.getAttribute("data-triggle-chain-delay"), 10) || 0;
       const chainLoop = el.getAttribute("data-triggle-chain-loop") === "true";
       const groupName = el.getAttribute("data-triggle-group");
-      const staggerValue = parseInt(el.getAttribute("data-triggle-stagger"), 10) || 0;
-      const targetElement = getTargetElement(el, targetSelector);
-      if (!targetElement) return;
+      const staggerValue =
+        parseInt(el.getAttribute("data-triggle-stagger"), 10) || 0;
+
+      const targetElements = getTargetElements(el, targetSelector);
+      if (targetElements.length === 0) return;
+
       const animateNext = () => {
         if (nextSelector) {
           const nextEl = document.querySelector(nextSelector);
           if (nextEl) {
             const nextClass = nextEl.getAttribute("data-triggle-class");
-            const nextReset = nextEl.getAttribute("data-triggle-reset") === "true";
+            const nextReset =
+              nextEl.getAttribute("data-triggle-reset") === "true";
             const nextDelay = nextEl.getAttribute("data-triggle-delay");
             const nextDuration = nextEl.getAttribute("data-triggle-duration");
-            const nextToggle = nextEl.getAttribute("data-triggle-toggle") === "true";
+            const nextToggle =
+              nextEl.getAttribute("data-triggle-toggle") === "true";
             setTimeout(() => {
               applyAnimation(
                 nextEl,
@@ -101,54 +159,56 @@
             }, chainDelay);
           }
         }
+
         if (groupName) {
-          const groupEls = document.querySelectorAll(
-            `[data-triggle-group="${groupName}"]`
-          );
-          groupEls.forEach((groupEl, i) => {
-            const gClass = groupEl.getAttribute("data-triggle-class");
-            const gReset = groupEl.getAttribute("data-triggle-reset") === "true";
-            const gDelay = groupEl.getAttribute("data-triggle-delay");
-            const gDuration = groupEl.getAttribute("data-triggle-duration");
-            const gToggle = groupEl.getAttribute("data-triggle-toggle") === "true";
-            const totalDelay = staggerValue > 0 ? `${i * staggerValue}ms` : gDelay;
-            applyAnimation(
-              groupEl,
-              gClass,
-              gReset,
-              totalDelay,
-              gDuration,
-              gToggle
-            );
-          });
+          triggerGroup(groupName, staggerValue);
         }
       };
-      applyAnimation(
-        targetElement,
-        animationClass,
-        reset,
-        delay,
-        duration,
-        toggle,
-        animateNext
-      );
+
+      let remaining = targetElements.length;
+      targetElements.forEach((targetEl) => {
+        applyAnimation(
+          targetEl,
+          animationClass,
+          reset,
+          delay,
+          duration,
+          toggle,
+          () => {
+            remaining--;
+            if (remaining === 0) animateNext();
+          }
+        );
+      });
     }
+
     function initTriggerAnimations() {
       const elements = document.querySelectorAll("[data-triggle]");
       elements.forEach((el) => {
-        const triggers = el.getAttribute("data-triggle").split(",").map((t) => t.trim());
+        const triggers = el
+          .getAttribute("data-triggle")
+          .split(",")
+          .map((t) => t.trim());
         const keyFilter = el.getAttribute("data-triggle-key");
         const once = el.getAttribute("data-triggle-once") === "true";
         const scrollTrigger = el.getAttribute("data-triggle-scroll") === "true";
+        const scrollThreshold =
+          parseFloat(el.getAttribute("data-triggle-threshold")) || 0.5;
         const groupName = el.getAttribute("data-triggle-group");
-        const staggerValue = parseInt(el.getAttribute("data-triggle-stagger"), 10) || 0;
+        const staggerValue =
+          parseInt(el.getAttribute("data-triggle-stagger"), 10) || 0;
+
         const handler = (event) => {
-          if ((event.type === "keydown" || event.type === "keyup") && keyFilter) {
+          if (
+            (event.type === "keydown" || event.type === "keyup") &&
+            keyFilter
+          ) {
             if (!matchesKeyFilter(keyFilter, event)) return;
           }
           triggerAnimation(el);
           if (once) el.removeEventListener(event.type, handler);
         };
+
         triggers.forEach((trigger) => {
           if (scrollTrigger && trigger === "scroll") {
             const observer = new IntersectionObserver(
@@ -156,27 +216,7 @@
                 entries.forEach((entry) => {
                   if (entry.isIntersecting) {
                     if (groupName) {
-                      const groupEls = document.querySelectorAll(
-                        `[data-triggle-group="${groupName}"]`
-                      );
-                      groupEls.forEach((groupEl, i) => {
-                        const gClass = groupEl.getAttribute("data-triggle-class");
-                        const gReset = groupEl.getAttribute("data-triggle-reset") === "true";
-                        const gDelay = groupEl.getAttribute("data-triggle-delay");
-                        const gDuration = groupEl.getAttribute(
-                          "data-triggle-duration"
-                        );
-                        const gToggle = groupEl.getAttribute("data-triggle-toggle") === "true";
-                        const totalDelay = staggerValue > 0 ? `${i * staggerValue}ms` : gDelay;
-                        applyAnimation(
-                          groupEl,
-                          gClass,
-                          gReset,
-                          totalDelay,
-                          gDuration,
-                          gToggle
-                        );
-                      });
+                      triggerGroup(groupName, staggerValue);
                     } else {
                       triggerAnimation(el);
                     }
@@ -184,7 +224,7 @@
                   }
                 });
               },
-              { threshold: 0.5 }
+              { threshold: scrollThreshold }
             );
             observer.observe(el);
           } else {
@@ -197,21 +237,44 @@
         });
       });
     }
+
     function destroyTriggerAnimations() {
       document.querySelectorAll("[data-triggle]").forEach((el) => {
         el.replaceWith(el.cloneNode(true));
       });
     }
+
+    function observeMutations() {
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType !== 1) return;
+            if (
+              node.matches?.("[data-triggle]") ||
+              node.querySelector?.("[data-triggle]")
+            ) {
+              triggle.init();
+            }
+          });
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initTriggerAnimations);
+      document.addEventListener("DOMContentLoaded", () => {
+        initTriggerAnimations();
+        observeMutations();
+      });
     } else {
       initTriggerAnimations();
+      observeMutations();
     }
+
     window.triggle = {
       init: initTriggerAnimations,
       destroy: destroyTriggerAnimations,
-      apply: applyAnimation
+      apply: applyAnimation,
     };
   })();
 });
-//# sourceMappingURL=triggle.js.map

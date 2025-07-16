@@ -142,18 +142,6 @@
       0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
       100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
     }
-    
-
-    .ca__fx-fadeIn {
-      animation-name: fadeIn;
-      animation-duration: 1s;
-      animation-fill-mode: forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
   </head>
   <body
@@ -173,85 +161,96 @@
           <div class="p-6">
             <h2 class="text-3xl font-bold text-white">Triggle.js</h2>
             <nav class="mt-8 space-y-2 sidebar-nav">
-              <a href="#animation-on-click"
-                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Animate on Click Demo">Animate on Click
-                <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
-              </a>
-              <a href="#hover-delay-duration"
-                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="over with Delay and Duration Demo">Hover
-                Trigger<span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
-              </a>
-              <a href="#animates-once"
-                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Animates Once Demo">Animates Once
-                <span
-                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
-              </a>
               <a href="#multiple-triggers"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
                 aria-label="Multiple Triggers Demo">Multiple Triggers
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#targeting-element"
+              <a href="#animation-class"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Targeting Another
-              Element Demo">Targeting Element
+                aria-label="Animation Class Demo">Animation Class
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#targeting-multiple"
+              <a href="#reset"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Targeting Multiple Demo">Targeting Multiple
+                aria-label="Reset Animation Demo">Reset Animation
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#group-triggering"
+              <a href="#delay"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Group
-              Triggering Animation Demo">Group
-                Triggering
+                aria-label="Delay Demo">Delay
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#duration"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Duration Demo">Duration
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#toggle"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Toggle Animation Demo">Triggle Toggle
-                Animation
+                aria-label="Toggle Animation Demo">Toggle Animation
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#scroll-trigger"
+              <a href="#once"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Scroll Demo">Triggle Scroll
+                aria-label="One-Time Animation Demo">One-Time Animation
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <a href="#scroll-stagger"
+              <a href="#target"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Scroll-Based Animation Demo">Triggle
-                Scroll-Based
+                aria-label="Target Another Element Demo">Target Another Element
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#keyboard"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Keyboard Trigger Demo">Keyboard Trigger
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#chain"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Chained Demo">Triggle Chained
+                aria-label="Chained Animation Demo">Chained Animation
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#chain-delay"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Chained Animation Delay Demo">Chained Animation
-                Delay
+                aria-label="Chain Delay Demo">Chain Delay
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
-
+              <a href="#group"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Group Triggering Demo">Group Triggering
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#stagger"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Staggered Group Demo">Staggered Group
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#scroll"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Scroll Animation Demo">Scroll Animation
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#chain-loop"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Chain Loop Demo">Chain Loop
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
               <a href="#custom"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
                 aria-label="Custom Event Demo">Custom Event
@@ -304,7 +303,7 @@
         <main class="max-w-7xl mx-auto p-6">
 
           <!-- Animate on Click -->
-          <section id="animation-on-click"
+          <section id="animation-class"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Animate on Click</h2>
             <p class="text-gray-400 mb-10">Trigger an animation on click. </p>
@@ -332,8 +331,8 @@
             </div>
           </section>
 
-          <!-- Hover with Delay and Duration -->
-          <section id="hover-delay-duration"
+          <!-- Hover with Delay and Reset -->
+          <section id="multiple-triggers"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Hover with Delay and
               Duration</h2>
@@ -366,7 +365,7 @@
           </section>
 
           <!-- Animates Once -->
-          <section id="animates-once"
+          <section id="reset"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Animates Once</h2>
             <p class="text-gray-400 mb-10">This example shows how to trigger an
@@ -428,7 +427,7 @@
           </section>
 
           <!-- Targeting Another Element -->
-          <section id="targeting-element"
+          <section id="target"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Targeting Another
               Element</h2>
@@ -436,28 +435,6 @@
               different element using the <code>data-triggle-target</code>
               attribute:</p>
             <div class="flex justify-center space-x-4 mb-10">
-              <button data-triggle="click"
-                data-triggle-target=".box, #banner, #triggleTarget">
-                Animate All
-              </button>
-
-              <div class="cssanimation box" data-triggle-class="ca__fx-fadeIn"
-                data-triggle-reset="true" style="margin-top: 20px;">
-                🎯 Target 1 (class .box)
-              </div>
-
-              <div id="banner" class="cssanimation"
-                data-triggle-class="ca__fx-fadeIn" data-triggle-reset="true"
-                style="margin-top: 20px;">
-                🎯 Target 2 (#banner)
-              </div>
-
-              <div id="triggleTarget" class="cssanimation"
-                data-triggle-class="ca__fx-fadeIn" data-triggle-reset="true"
-                style="margin-top: 20px;">
-                🎯 Target 3 (#triggleTarget)
-              </div>
-
               <button
                 class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 hover:shadow-lg transition-all duration-200"
                 data-triggle="click"
@@ -487,7 +464,7 @@
           </section>
 
           <!-- Targeting Multiple Element -->
-          <section id="targeting-multiple"
+          <section id="target"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Targeting Multiple
               Element</h2>
@@ -536,7 +513,7 @@
           </section>
 
           <!-- Triggle Group Triggering -->
-          <section id="group-triggering"
+          <section id="group"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-2">Triggle Group
               Triggering</h2>
@@ -607,8 +584,7 @@
                 class="cssanimation w-80 h-24 bg-indigo-500 hover:bg-indigo-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle="click"
                 data-triggle-class="ca__fx-spiralTwistOut"
-                data-triggle-toggle="true"
-                data-triggle-reset="true">
+                data-triggle-toggle="true">
                 Toggle Me
               </div>
             </div>
@@ -624,32 +600,28 @@
             </div>
           </section>
 
-          <!-- Triggle Scroll Animation -->
-          <section id="scroll-trigger"
+          <!-- Keyboard Trigger -->
+          <section id="keyboard"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Triggle Scroll
-              Animation</h2>
-            <p class="text-gray-400 mb-10">Animate elements as they scroll into
-              view using <code>data-triggle-scroll="true"</code>:</p>
-            <div class="flex justify-center mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Keyboard Trigger
+              (data-triggle-key)</h2>
+            <p class="text-gray-400 mb-4">Press <kbd
+                class="bg-slate-700 px-2 py-1 rounded">Ctrl+K</kbd> or <kbd
+                class="bg-slate-700 px-2 py-1 rounded">A</kbd> to trigger the
+              animation.</p>
+            <div class="flex justify-center mb-6">
               <div
-                class="cssanimation w-80 h-24 bg-rose-500 hover:bg-rose-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle="scroll"
-                data-triggle-scroll="true"
-                data-triggle-class="ca__fx-flipTwistPop"
-                data-triggle-reset="true">
-                Scroll to Reveal
+                class="cssanimation w-32 h-32 bg-yellow-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="keydown" data-triggle-class="ca__fx-fadeIn"
+                data-triggle-key="ctrl+k,a*" data-triggle-reset="true">
+                Press Keys
               </div>
             </div>
             <div class="relative">
               <pre
                 class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for scroll animation"><code>&lt;div class=&quot;cssanimation&quot; 
-  data-triggle=&quot;scroll&quot; 
-  data-triggle-scroll=&quot;true&quot; 
-  data-triggle-class=&quot;ca__fx-moonFadeUp&quot; 
-  data-triggle-reset=&quot;true&quot;&gt;
-  Scroll to Reveal
+                aria-label="Code example for keyboard trigger"><code>&lt;div class=&quot;cssanimation&quot; data-triggle=&quot;keydown&quot; data-triggle-class=&quot;ca__fx-fadeIn&quot; data-triggle-key=&quot;ctrl+k,a*&quot; data-triggle-reset=&quot;true&quot;&gt;
+  Press Keys
 &lt;/div&gt;</code></pre>
               <button
                 class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
@@ -657,91 +629,22 @@
             </div>
           </section>
 
-          <!-- Triggle Scroll-Based Staggered Animation -->
-          <section id="scroll-stagger"
-            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Triggle Scroll-Based
-              Staggered Animation</h2>
-            <p class="text-gray-400 mb-10">Scroll to trigger staggered
-              animations
-              with 300ms delay between group elements.</p>
-            <div class="flex justify-center space-x-4 mb-10">
-              <div
-                class="cssanimation w-24 h-24 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle="scroll"
-                data-triggle-scroll="true"
-                data-triggle-group="staggerGroup"
-                data-triggle-class="ca__fx-moonFadeScaleUp"
-                data-triggle-reset="true"
-                data-triggle-stagger="500">
-                Trigger
-              </div>
-              <div
-                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-moonFadeLeft"
-                data-triggle-reset="true"
-                data-triggle-group="staggerGroup">
-                Card A
-              </div>
-              <div
-                class="cssanimation w-24 h-24 bg-green-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-moonFadeRight"
-                data-triggle-reset="true"
-                data-triggle-group="staggerGroup">
-                Card B
-              </div>
-            </div>
-            <div class="relative">
-              <pre
-                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for staggered group"><code>&lt;div class=&quot;cssanimation&quot; 
-  data-triggle=&quot;scroll&quot; 
-  data-triggle-scroll=&quot;true&quot; 
-  data-triggle-group=&quot;staggerGroup&quot; 
-  data-triggle-class=&quot;ca__fx-moonFadeScaleUp&quot; 
-  data-triggle-stagger=&quot;300&quot;&gt;
-  Trigger
-&lt;/div&gt;
-
-&lt;div class=&quot;cssanimation&quot; 
-  data-triggle-class=&quot;ca__fx-moonFadeLeft&quot; 
-  data-triggle-reset=&quot;true&quot;
-  data-triggle-group=&quot;staggerGroup&quot;&gt;
-  Card A
-&lt;/div&gt;
-
-&lt;div class=&quot;cssanimation&quot; 
-  data-triggle-class=&quot;ca__fx-moonFadeRight&quot; 
-  data-triggle-reset=&quot;true&quot; 
-  data-triggle-group=&quot;staggerGroup&quot;&gt;
-  Card B
-&lt;/div&gt;</code></pre>
-              <button
-                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
-                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
-            </div>
-          </section>
-
-          <!-- Triggle Chained Animation -->
+          <!-- Chained Animation -->
           <section id="chain"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Triggle Chained
-              Animation</h2>
-            <p class="text-gray-400 mb-10">Chain multiple animations by using
-              <code
-                class="text white bg-gray-700 rounded-md px-2 py-1">data-triggle-next</code>
-            </p>
-            <div class="flex justify-center space-x-4 mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Chained Animation
+              (data-triggle-next)</h2>
+            <p class="text-gray-400 mb-4">Click the button to start a chained
+              animation sequence.</p>
+            <div class="flex justify-center space-x-4 mb-6">
               <button
-                class="cssanimation bg-amber-500 text-white w-24 h-24 rounded-lg hover:bg-amber-700 hover:shadow-lg transition-all duration-200"
-                data-triggle="click"
-                data-triggle-class="ca__fx-swingIn"
-                data-triggle-reset="true"
-                data-triggle-next="#chainStep2">
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 hover:shadow-lg transition-all duration-200"
+                data-triggle="click" data-triggle-class="ca__fx-swingIn"
+                data-triggle-reset="true" data-triggle-next="#chainStep2">
                 Start Chain
               </button>
               <div id="chainStep2"
-                class="cssanimation w-24 h-24 bg-lime-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow duration-200"
+                class="cssanimation w-32 h-32 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle-class="ca__fx-systemBootIn"
                 data-triggle-reset="true">
                 Step 2
@@ -750,18 +653,10 @@
             <div class="relative">
               <pre
                 class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for chained animation"><code>&lt;button 
-  data-triggle=&quot;click&quot; 
-  data-triggle-class=&quot;ca__fx-swingIn&quot; 
-  data-triggle-reset=&quot;true&quot; 
-  data-triggle-next=&quot;#chainStep2&quot;&gt;
+                aria-label="Code example for chained animation"><code>&lt;button data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-swingIn&quot; data-triggle-reset=&quot;true&quot; data-triggle-next=&quot;#chainStep2&quot;&gt;
   Start Chain
 &lt;/button&gt;
-
-&lt;div id=&quot;chainStep2&quot; 
-  class=&quot;cssanimation&quot; 
-  data-triggle-class=&quot;ca__fx-systemBootIn&quot; 
-  data-triggle-reset=&quot;true&quot;&gt;
+&lt;div id=&quot;chainStep2&quot; class=&quot;cssanimation&quot; data-triggle-class=&quot;ca__fx-systemBootIn&quot; data-triggle-reset=&quot;true&quot;&gt;
   Step 2
 &lt;/div&gt;</code></pre>
               <button
@@ -770,25 +665,24 @@
             </div>
           </section>
 
-          <!-- Chained Animation Delay -->
+          <!-- Chain Delay -->
           <section id="chain-delay"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Chained Animation Delay</h2>
-            <p class="text-gray-400 mb-10">Click the button to start a chained
+            <h2 class="text-2xl font-semibold mb-4">Chain Delay
+              (data-triggle-chain-delay)</h2>
+            <p class="text-gray-400 mb-4">Click the button to start a chained
               animation with a 500ms delay.</p>
-            <div class="flex justify-center space-x-4 mb-10">
+            <div class="flex justify-center space-x-4 mb-6">
               <button
-                class="cssanimation w-24 h-24 bg-cyan-400 text-white px-6 py-2 rounded-lg hover:bg-cyan-500 hover:shadow-lg transition-all duration-200"
-                data-triggle="click"
-                data-triggle-class="ca__fx-bobble"
-                data-triggle-reset="true"
-                data-triggle-next="#chainDelayStep2"
+                class="bg-cyan-600 text-white px-6 py-2 rounded-lg hover:bg-cyan-700 hover:shadow-lg transition-all duration-200"
+                data-triggle="click" data-triggle-class="ca__fx-swingIn"
+                data-triggle-reset="true" data-triggle-next="#chainDelayStep2"
                 data-triggle-chain-delay="500">
                 Start Chain
               </button>
               <div id="chainDelayStep2"
-                class="cssanimation w-24 h-24 bg-sky-400 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-orbitRevealTop"
+                class="cssanimation w-32 h-32 bg-cyan-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-systemBootIn"
                 data-triggle-reset="true">
                 Step 2
               </div>
@@ -796,20 +690,123 @@
             <div class="relative">
               <pre
                 class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for chain delay"><code>&lt;button 
-  data-triggle=&quot;click&quot; 
-  data-triggle-class=&quot;ca__fx-swingIn&quot; 
-  data-triggle-reset=&quot;true&quot; 
-  data-triggle-next=&quot;#chainDelayStep2&quot; 
-  data-triggle-chain-delay=&quot;500&quot;&gt;
+                aria-label="Code example for chain delay"><code>&lt;button data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-swingIn&quot; data-triggle-reset=&quot;true&quot; data-triggle-next=&quot;#chainDelayStep2&quot; data-triggle-chain-delay=&quot;500&quot;&gt;
   Start Chain
 &lt;/button&gt;
-
-&lt;div id=&quot;chainDelayStep2&quot; 
-  class=&quot;cssanimation&quot; 
-  data-triggle-class=&quot;ca__fx-systemBootIn&quot; 
-  data-triggle-reset=&quot;true&quot;&gt;
+&lt;div id=&quot;chainDelayStep2&quot; class=&quot;cssanimation&quot; data-triggle-class=&quot;ca__fx-systemBootIn&quot; data-triggle-reset=&quot;true&quot;&gt;
   Step 2
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
+
+          <!-- Staggered Group -->
+          <section id="stagger"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-4">Staggered Group
+              (data-triggle-stagger)</h2>
+            <p class="text-gray-400 mb-4">Scroll to trigger staggered animations
+              with 300ms delay between group elements.</p>
+            <div class="flex justify-center space-x-4 mb-6">
+              <div
+                class="cssanimation w-24 h-24 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="scroll" data-triggle-scroll="true"
+                data-triggle-group="staggerGroup"
+                data-triggle-class="ca__fx-moonFadeScaleUp"
+                data-triggle-stagger="300" data-triggle-once="true">
+                Trigger
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-moonFadeLeft"
+                data-triggle-reset="true" data-triggle-group="staggerGroup">
+                Card A
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-green-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-moonFadeRight"
+                data-triggle-reset="true" data-triggle-group="staggerGroup">
+                Card B
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for staggered group"><code>&lt;div class=&quot;cssanimation&quot; data-triggle=&quot;scroll&quot; data-triggle-scroll=&quot;true&quot; data-triggle-group=&quot;staggerGroup&quot; data-triggle-class=&quot;ca__fx-moonFadeScaleUp&quot; data-triggle-stagger=&quot;300&quot; data-triggle-once=&quot;true&quot;&gt;
+  Trigger
+&lt;/div&gt;
+&lt;div class=&quot;cssanimation&quot; data-triggle-class=&quot;ca__fx-moonFadeLeft&quot; data-triggle-reset=&quot;true&quot; data-triggle-group=&quot;staggerGroup&quot;&gt;
+  Card A
+&lt;/div&gt;
+&lt;div class=&quot;cssanimation&quot; data-triggle-class=&quot;ca__fx-moonFadeRight&quot; data-triggle-reset=&quot;true&quot; data-triggle-group=&quot;staggerGroup&quot;&gt;
+  Card B
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
+
+          <!-- Scroll Animation -->
+          <section id="scroll"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-4">Scroll Animation
+              (data-triggle-scroll)</h2>
+            <p class="text-gray-400 mb-4">Scroll down to trigger animation when
+              the element enters the viewport.</p>
+            <div class="flex justify-center mb-6">
+              <div
+                class="cssanimation w-32 h-32 bg-teal-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="scroll" data-triggle-scroll="true"
+                data-triggle-class="ca__fx-moonFadeUp" data-triggle-reset="true"
+                data-triggle-once="true">
+                Scroll to Reveal
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for scroll animation"><code>&lt;div class=&quot;cssanimation&quot; data-triggle=&quot;scroll&quot; data-triggle-scroll=&quot;true&quot; data-triggle-class=&quot;ca__fx-moonFadeUp&quot; data-triggle-reset=&quot;true&quot; data-triggle-once=&quot;true&quot;&gt;
+  Scroll to Reveal
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
+
+          <!-- Chain Loop -->
+          <section id="chain-loop"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-4">Chain Loop
+              (data-triggle-chain-loop)</h2>
+            <p class="text-gray-400 mb-4">Click to start an infinite animation
+              loop between two elements.</p>
+            <div class="flex justify-center space-x-4 mb-6">
+              <div id="loopBox1"
+                class="cssanimation w-32 h-32 bg-purple-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click" data-triggle-class="ca__fx-squishPop"
+                data-triggle-next="#loopBox2" data-triggle-chain-delay="500"
+                data-triggle-chain-loop="true">
+                Start Loop
+              </div>
+              <div id="loopBox2"
+                class="cssanimation w-32 h-32 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-layerPeelOut"
+                data-triggle-next="#loopBox1" data-triggle-chain-delay="500">
+                Loop Back
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for chain loop"><code>&lt;div id=&quot;loopBox1&quot; class=&quot;cssanimation&quot; data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-squishPop&quot; data-triggle-next=&quot;#loopBox2&quot; data-triggle-chain-delay=&quot;500&quot; data-triggle-chain-loop=&quot;true&quot;&gt;
+  Start Loop
+&lt;/div&gt;
+&lt;div id=&quot;loopBox2&quot; class=&quot;cssanimation&quot; data-triggle-class=&quot;ca__fx-layerPeelOut&quot; data-triggle-next=&quot;#loopBox1&quot; data-triggle-chain-delay=&quot;500&quot;&gt;
+  Loop Back
 &lt;/div&gt;</code></pre>
               <button
                 class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
@@ -820,12 +817,10 @@
           <!-- Custom Event -->
           <section id="custom"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Custom Event Trigger</h2>
-            <p class="text-gray-400 mb-10">You can use any event name for
-              <code>data-triggle</code>. This allows you to create custom event
-              triggers
-              using JavaScript's <code>dispatchEvent()</code> method.</p>
-            <div class="flex justify-center space-x-4 mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Custom Event Trigger</h2>
+            <p class="text-gray-400 mb-4">Click the button to dispatch a custom
+              event to trigger the animation.</p>
+            <div class="flex justify-center space-x-4 mb-6">
               <button id="customTrigger"
                 class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200">
                 Trigger Custom Event
@@ -833,8 +828,7 @@
               <div id="customBox"
                 class="cssanimation w-32 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle="customTriggleEvent"
-                data-triggle-class="ca__fx-flipX"
-                data-triggle-reset="true">
+                data-triggle-class="ca__fx-flipX" data-triggle-reset="true">
                 Custom
               </div>
             </div>
@@ -844,15 +838,9 @@
                 aria-label="Code example for custom event trigger"><code>&lt;button id=&quot;customTrigger&quot;&gt;
   Trigger Custom Event
 &lt;/button&gt;
-
-&lt;div id=&quot;customBox&quot; 
-  class=&quot;cssanimation&quot; 
-  data-triggle=&quot;customTriggleEvent&quot; 
-  data-triggle-class=&quot;ca__fx-flipX&quot; 
-  data-triggle-reset=&quot;true&quot;&gt;
+&lt;div id=&quot;customBox&quot; class=&quot;cssanimation&quot; data-triggle=&quot;customTriggleEvent&quot; data-triggle-class=&quot;ca__fx-flipX&quot; data-triggle-reset=&quot;true&quot;&gt;
   Custom
 &lt;/div&gt;
-
 &lt;script&gt;
   document.getElementById(&quot;customTrigger&quot;).addEventListener(&quot;click&quot;, () =&gt; {
     document.getElementById(&quot;customBox&quot;).dispatchEvent(new Event(&quot;customTriggleEvent&quot;));
@@ -867,15 +855,14 @@
           <!-- Manual Trigger -->
           <section id="manual"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
-            <h2 class="text-2xl font-semibold mb-2">Manual Trigger</h2>
-            <p class="text-gray-400 mb-10">Click the button to manually trigger
+            <h2 class="text-2xl font-semibold mb-4">Manual Trigger</h2>
+            <p class="text-gray-400 mb-4">Click the button to manually trigger
               an animation using JavaScript.</p>
-            <div class="flex justify-center space-x-4 mb-10">
+            <div class="flex justify-center space-x-4 mb-6">
               <button id="manualTrigger"
                 class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 hover:shadow-lg transition-all duration-200">
                 Trigger Manually
               </button>
-
               <div id="manualBox"
                 class="cssanimation w-32 h-32 bg-indigo-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow">
                 Manual
@@ -887,20 +874,18 @@
                 aria-label="Code example for manual trigger"><code>&lt;button id=&quot;manualTrigger&quot;&gt;
   Trigger Manually
 &lt;/button&gt;
-
 &lt;div id=&quot;manualBox&quot; class=&quot;cssanimation&quot;&gt;
   Manual
 &lt;/div&gt;
-
 &lt;script&gt;
   document.getElementById(&quot;manualTrigger&quot;).addEventListener(&quot;click&quot;, () =&gt; {
     window.triggle.apply(
       document.querySelector(&quot;#manualBox&quot;),
-      &quot;ca__fx-bounceIn&quot;, // Animation class to apply
-      true, // Reset after animation ends
-      &quot;0.3s&quot;, // Delay before animation starts
-      &quot;1s&quot;, // Duration of the animation
-      false // Toggle mode (true = toggle, false = one-time)
+      &quot;ca__fx-bounceIn&quot;,
+      true,
+      &quot;0.3s&quot;,
+      &quot;1s&quot;,
+      false
     );
   });
 &lt;/script&gt;</code></pre>

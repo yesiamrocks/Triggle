@@ -94,13 +94,14 @@ Without the cssanimation classes, **Triggle** can still detect triggers, but no 
 
 ## Getting Started
 
+Trigger an animation on click.
 To use **Triggle**, simply add `data-triggle-*` attributes to any HTML element you want to animate:
 
 ```html
 <div
   class="cssanimation"
   data-triggle="click"
-  data-triggle-class="ca__fx-fadeInTop"
+  data-triggle-class="ca__fx-elasticStretch"
   data-triggle-reset="true">
   Click to Animate
 </div>
@@ -112,15 +113,11 @@ What each part does:
 - `data-triggle` – Specifies the event(s) that trigger the animation (e.g., `click`, `mouseenter`, `keydown`).
 - `data-triggle-class` – The animation class (or classes) to apply when triggered.
 - `data-triggle-reset="true"` – Optional. If set to `"true"`, the animation class is removed after it finishes, allowing it to trigger again.
-- `data-triggle-once="true"` – Use `data-triggle-once="true"` to ensure an animation only runs a **single time**, even if the triggering event happens again.
-
-You can combine multiple triggers using a comma: `data-triggle="mouseenter,click,keydown"`
-
-> Make sure the **[{css}animation](https://github.com/yesiamrocks/cssanimation)** styles are included in your project for the animation to work properly.
 
 ## Integration Tips
 
 - Core class `.cssanimation` is required (from [{css}animation](https://github.com/yesiamrocks/cssanimation)).
+- Make sure the **[{css}animation](https://github.com/yesiamrocks/cssanimation)** styles are included in your project for the animation to work properly.
 - Use `data-triggle-*` attributes only on the intended element — avoid duplication on deeply nested structures to prevent conflicts.
 
 ## Supported Triggers
@@ -166,7 +163,7 @@ You can animate elements using the following trigger types via `data-triggle`:
 | `data-triggle-scroll`      | `true/false` | Use IntersectionObserver to animate when element scrolls into view |
 | `data-triggle-chain-loop`  | `true`       | Enables infinite looping between chained elements                  |
 
-## Hover with Delay and Reset
+## Hover with Delay and Duration
 
 This example shows how to trigger an animation on hover with custom timing and automatic reset:
 
@@ -188,20 +185,55 @@ Use these attributes to control animation timing:
 - `data-triggle-delay="0.2s"` – Adds a delay before the animation starts.
 - `data-triggle-duration="1.5s"` – Sets how long the animation should run.
 
+## Animates Once
+
+This example shows how to trigger an animation only for a **single time**:
+
+```html
+<div
+  class="cssanimation"
+  data-triggle="click"
+  data-triggle-class="ca__fx-bounceIn"
+  data-triggle-once="true"
+  data-triggle-reset="true">
+  Click Me (Animates Once)
+</div>
+```
+
+- Use `data-triggle-once="true"` to ensure an animation only runs a **single time**, even if the triggering event happens again.
+
+## Multiple Triggers
+
+Trigger animations using more than one event by separating them with commas in the `data-triggle` attribute
+
+```html
+<div
+  class="cssanimation"
+  data-triggle="click, mouseenter"
+  data-triggle-class="ca__fx-rubber"
+  data-triggle-reset="true">
+  Click and Hover me for rubber animation
+</div>
+```
+
+In the example above, the animation will trigger on both `click` and `mouseenter`.
+
+- `data-triggle="click, mouseenter""` – List multiple event types separated by commas to trigger the animation from any of them.
+
 ## Targeting Another Element
 
 You can trigger animations on a different element using the `data-triggle-target` attribute:
 
 ```html
-<button
-  data-triggle="click"
-  data-triggle-class="ca__fx-fadeIn"
-  data-triggle-target="#box"
-  data-triggle-reset="true">
+<button data-triggle="click" data-triggle-target="#targetBox">
   Animate Box
 </button>
 
-<div id="box" class="box"></div>
+<div
+  id="targetBox"
+  class="cssanimation"
+  data-triggle-class="ca__fx-fadeIn"
+  data-triggle-reset="true"></div>
 ```
 
 How it works
@@ -210,6 +242,46 @@ How it works
 - `data-triggle-class="ca__fx-fadeIn"` – The class that will be applied to the target when the trigger fires.
 
 > This is useful for triggering animations from buttons, controls, or any external source.
+
+## Targeting Multiple Element
+
+If you want to target multiple elements, separate them with commas in the `data-triggle-target=".box, #banner"` attribute:
+
+```html
+<button
+  data-triggle="click"
+  data-triggle-target=".box, #banner, #triggleTarget">
+  Animate All
+</button>
+
+<div
+  class="cssanimation box"
+  data-triggle-class="ca__fx-fadeIn"
+  data-triggle-reset="true">
+  Target 1 by class
+</div>
+
+<div
+  id="banner"
+  class="cssanimation"
+  data-triggle-class="ca__fx-fadeIn"
+  data-triggle-reset="true">
+  Target 2 by ID
+</div>
+
+<div
+  id="triggleTarget"
+  class="cssanimation"
+  data-triggle-class="ca__fx-fadeIn"
+  data-triggle-reset="true">
+  Target 3 by ID
+</div>
+```
+
+How it works
+
+- `data-triggle-target=".box, #banner"` – Selects multiple elements to animate.
+- `data-triggle-class="ca__fx-fadeIn"` – The class that will be applied to the target when the trigger fires.
 
 ## Triggle Group Triggering
 
@@ -447,7 +519,7 @@ If you prefer programmatic control, you can manually trigger animations using `w
 ```js
 window.triggle.apply(
   document.querySelector("#element"),
-  "fadeIn", // Animation class to apply
+  "ca__fx-jelly", // Animation class to apply
   true, // Reset after animation ends
   "0.3s", // Delay before animation starts
   "1s", // Duration of the animation
