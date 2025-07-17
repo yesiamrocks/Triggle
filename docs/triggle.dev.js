@@ -5,6 +5,22 @@
   (function () {
     const PASSIVE_EVENTS = ["touchstart", "touchend", "scroll"];
     const targetCache = new WeakMap();
+    const observerMap = new WeakMap();
+    const eventListenerMap = new WeakMap();
+
+    const animationPresets = {
+      fadeIn: "ca__fx-fadeIn",
+      fadeInUp: "ca__fx-fadeInUp",
+      fadeInDown: "ca__fx-fadeInDown",
+      zoomIn: "ca__fx-zoomIn",
+      zoomOut: "ca__fx-zoomOut",
+      bounceIn: "ca__fx-bounceIn",
+      bounceOut: "ca__fx-bounceOut",
+      slideInLeft: "ca__fx-slideInLeft",
+      slideInRight: "ca__fx-slideInRight",
+      flipInX: "ca__fx-flipInX",
+      flipInY: "ca__fx-flipInY",
+    };
 
     function applyAnimation(
       el,
@@ -15,20 +31,23 @@
       toggle = false,
       onComplete
     ) {
-      if (!animationClass || typeof animationClass !== "string") return;
       if (window.__trg_TRIGGER_DISABLED) return;
+      if (!animationClass) return;
       if (delay) el.style.animationDelay = delay;
       if (duration) el.style.animationDuration = duration;
+
       const classList = animationClass.split(" ").filter(Boolean);
       if (toggle) {
         classList.forEach((cls) => el.classList.toggle(cls));
       } else {
         classList.forEach((cls) => el.classList.add(cls));
       }
+
       const clearStyles = () => {
         el.style.animationDelay = "";
         el.style.animationDuration = "";
       };
+
       if (reset && !toggle) {
         const onAnimationEnd = () => {
           classList.forEach((cls) => el.classList.remove(cls));
@@ -73,8 +92,17 @@
       const targets = selector
         .split(",")
         .map((s) => s.trim())
-        .flatMap((s) => Array.from(document.querySelectorAll(s)))
-        .filter(Boolean);
+        .flatMap((sel) => {
+          try {
+            return [
+              ...triggerEl.querySelectorAll(sel),
+              triggerEl.closest(sel),
+              ...document.querySelectorAll(sel),
+            ].filter(Boolean);
+          } catch {
+            return [];
+          }
+        });
 
       if (targets.length > 0) targetCache.set(triggerEl, targets);
       return targets;
@@ -96,13 +124,8 @@
     }
 
     function triggerAnimation(el, originEl = null) {
-      const animationClass = el.getAttribute("data-triggle-class");
-      if (!animationClass) return;
-      const reset = el.getAttribute("data-triggle-reset") === "true";
-      const delay = el.getAttribute("data-triggle-delay");
-      const duration = el.getAttribute("data-triggle-duration");
-      const toggle = el.getAttribute("data-triggle-toggle") === "true";
       const targetSelector = el.getAttribute("data-triggle-target");
+      const targetElements = getTargetElements(el, targetSelector);
       const nextSelector = el.getAttribute("data-triggle-next");
       const chainDelay =
         parseInt(el.getAttribute("data-triggle-chain-delay"), 10) || 0;
@@ -111,15 +134,11 @@
       const staggerValue =
         parseInt(el.getAttribute("data-triggle-stagger"), 10) || 0;
 
-      const targetElements = getTargetElements(el, targetSelector);
-      if (targetElements.length === 0) return;
-
       const animateNext = () => {
         if (nextSelector) {
           const nextEl = document.querySelector(nextSelector);
           if (nextEl) {
             const nextClass = nextEl.getAttribute("data-triggle-class");
-            if (!nextClass) return;
             const nextReset =
               nextEl.getAttribute("data-triggle-reset") === "true";
             const nextDelay = nextEl.getAttribute("data-triggle-delay");
@@ -153,8 +172,29 @@
         }
       };
 
-      let remaining = targetElements.length;
-      targetElements.forEach((targetEl) => {
+      const targets =
+        targetElements && targetElements.length > 0 ? targetElements : [el];
+
+      let remaining = targets.length;
+
+      targets.forEach((targetEl) => {
+        const preset = targetEl.getAttribute("data-triggle-preset");
+        let animationClass = targetEl.getAttribute("data-triggle-class");
+        if (!animationClass && preset && animationPresets[preset]) {
+          animationClass = animationPresets[preset];
+        }
+
+        if (!animationClass) {
+          remaining--;
+          if (remaining === 0) animateNext();
+          return;
+        }
+
+        const reset = targetEl.getAttribute("data-triggle-reset") === "true";
+        const delay = targetEl.getAttribute("data-triggle-delay");
+        const duration = targetEl.getAttribute("data-triggle-duration");
+        const toggle = targetEl.getAttribute("data-triggle-toggle") === "true";
+
         applyAnimation(
           targetEl,
           animationClass,
@@ -197,6 +237,7 @@
           if (once) el.removeEventListener(event.type, handler);
         };
 
+        const registeredEvents = [];
         triggers.forEach((trigger) => {
           if (scrollTrigger && trigger === "scroll") {
             const observer = new IntersectionObserver(
@@ -215,20 +256,37 @@
               { threshold: scrollThreshold }
             );
             observer.observe(el);
+            observerMap.set(el, observer);
           } else {
-            el.addEventListener(
-              trigger,
-              handler,
-              PASSIVE_EVENTS.includes(trigger) ? { passive: true } : false
-            );
+            const options = PASSIVE_EVENTS.includes(trigger)
+              ? { passive: true }
+              : false;
+            el.addEventListener(trigger, handler, options);
+            registeredEvents.push({ type: trigger, handler, options });
           }
         });
+
+        if (registeredEvents.length > 0) {
+          eventListenerMap.set(el, registeredEvents);
+        }
       });
     }
 
     function destroyTriggerAnimations() {
       document.querySelectorAll("[data-triggle]").forEach((el) => {
-        el.replaceWith(el.cloneNode(true));
+        const observer = observerMap.get(el);
+        if (observer) {
+          observer.disconnect();
+          observerMap.delete(el);
+        }
+
+        const listeners = eventListenerMap.get(el);
+        if (listeners) {
+          listeners.forEach(({ type, handler, options }) => {
+            el.removeEventListener(type, handler, options);
+          });
+          eventListenerMap.delete(el);
+        }
       });
     }
 

@@ -154,6 +154,15 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    .ca__fx-moonFade {
+      animation: moonFade 1s ease-in-out;
+    }
+    @keyframes moonFade {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
   </style>
   </head>
   <body
@@ -436,27 +445,6 @@
               different element using the <code>data-triggle-target</code>
               attribute:</p>
             <div class="flex justify-center space-x-4 mb-10">
-              <button data-triggle="click"
-                data-triggle-target=".box, #banner, #triggleTarget">
-                Animate All
-              </button>
-
-              <div class="cssanimation box" data-triggle-class="ca__fx-fadeIn"
-                data-triggle-reset="true" style="margin-top: 20px;">
-                🎯 Target 1 (class .box)
-              </div>
-
-              <div id="banner" class="cssanimation"
-                data-triggle-class="ca__fx-fadeIn" data-triggle-reset="true"
-                style="margin-top: 20px;">
-                🎯 Target 2 (#banner)
-              </div>
-
-              <div id="triggleTarget" class="cssanimation"
-                data-triggle-class="ca__fx-fadeIn" data-triggle-reset="true"
-                style="margin-top: 20px;">
-                🎯 Target 3 (#triggleTarget)
-              </div>
 
               <button
                 class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 hover:shadow-lg transition-all duration-200"
@@ -498,26 +486,26 @@
               <button
                 class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 hover:shadow-lg transition-all duration-200"
                 data-triggle="click"
-                data-triggle-target=".box, #banner #triggleTarget">
+                data-triggle-target="#triggleTarget1, #triggleTarget2, #triggleTarget3">
                 Click to Animate Target Multiple
               </button>
-              <div
+              <div id="triggleTarget1"
                 class="cssanimation box w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle-class="ca__fx-fadeIn"
                 data-triggle-reset="true">
-                Target
+                Target 1
               </div>
-              <div id="targetBox"
+              <div id="triggleTarget2"
                 class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle-class="ca__fx-fadeIn"
                 data-triggle-reset="true">
-                Target
+                Target 2
               </div>
-              <div id="triggleTarget"
+              <div id="triggleTarget3"
                 class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle-class="ca__fx-fadeIn"
                 data-triggle-reset="true">
-                Target
+                Target 3
               </div>
             </div>
             <div class="relative">
@@ -595,6 +583,7 @@
           </section>
 
           <!-- Triggle Toggle Animation -->
+
           <section id="toggle"
             class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
             <h2 class="text-2xl font-semibold mb-4">Triggle Toggle
@@ -606,9 +595,8 @@
               <div
                 class="cssanimation w-80 h-24 bg-indigo-500 hover:bg-indigo-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
                 data-triggle="click"
-                data-triggle-class="ca__fx-spiralTwistOut"
-                data-triggle-toggle="true"
-                data-triggle-reset="true">
+                data-triggle-class="ca__fx-moonFade"
+                data-triggle-toggle="true">
                 Toggle Me
               </div>
             </div>
@@ -1207,13 +1195,16 @@
     });
 
     // Manual Trigger
-    document.getElementById('manualTrigger').addEventListener('click', () => {
+     document.getElementById("manualTrigger").addEventListener("click", () => {
+      const box = document.querySelector("#manualBox");
+      box.classList.remove("ca__fx-moonFade");
+      void box.offsetWidth; // trigger reflow
       window.triggle.apply(
-        document.querySelector('#manualBox'),
-        'ca__fx-bounceIn',
+        box,
+        "ca__fx-moonFade",
         true,
-        '0.3s',
-        '1s',
+        "0.3s",
+        "1s",
         false
       );
     });

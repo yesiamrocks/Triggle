@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.5.0 - 2025-07-17
+
+### Added
+
+- `data-triggle-target`: New attribute to animate elements other than the trigger itself
+- Preset support via `data-triggle-preset` using `{css}animation` classes like `ca__fx-bounceIn`
+- Manual control via `window.triggle.apply(...)` now works as expected
+
+### Improved
+
+- More robust `getTargetElements()` logic — supports document-wide target lookups
+- Modular architecture ready for scale (MutationObserver, cache, scroll observers, etc.)
+
+### Fixed
+
+- Animation would not trigger when `data-triggle-target` referenced an external element
+- Cleaned up event + observer memory handling for safer `.destroy()` calls
+
 ## v1.4.1 - 2025-07-09
 
 ### Updated
