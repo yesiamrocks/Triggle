@@ -229,27 +229,25 @@
               </a>
               <a href="#toggle"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Toggle Animation Demo">Triggle Toggle
+                aria-label="Triggle Toggle Animation Demo">Toggle
                 Animation
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#scroll-trigger"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Scroll Demo">Triggle Scroll
+                aria-label="Triggle Scroll Demo">Animate on Scroll
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#scroll-stagger"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Scroll-Based Animation Demo">Triggle
-                Scroll-Based
-                <span
+                aria-label="Triggle Scroll-Based Animation Demo">Scroll-Based Staggered<span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a href="#chain"
                 class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
-                aria-label="Triggle Chained Demo">Triggle Chained
+                aria-label="Triggle Chained Demo">Chained
                 <span
                   class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
               </a>
@@ -462,9 +460,13 @@
             <div class="relative">
               <pre
                 class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for targeting another element"><code>&lt;button data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-bounceIn&quot; data-triggle-target=&quot;#targetBox&quot; data-triggle-reset=&quot;true&quot;&gt;
-  Animate Box
+                aria-label="Code example for targeting another element"><code>&lt;button data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-fadeIn&quot; 
+  data-triggle-target=&quot;#targetBox&quot;
+  data-triggle-reset=&quot;true&quot;&gt;
+   Click to Animate Target
 &lt;/button&gt;
+
 &lt;div id=&quot;targetBox&quot; class=&quot;cssanimation&quot;&gt;
   Target
 &lt;/div&gt;</code></pre>
@@ -486,24 +488,24 @@
               <button
                 class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 hover:shadow-lg transition-all duration-200"
                 data-triggle="click"
-                data-triggle-target="#triggleTarget1, #triggleTarget2, #triggleTarget3">
+                data-triggle-target=".box1, #triggleTarget2, #triggleTarget3">
                 Click to Animate Target Multiple
               </button>
-              <div id="triggleTarget1"
-                class="cssanimation box w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-fadeIn"
+              <div
+                class="cssanimation box1 w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromLeft"
                 data-triggle-reset="true">
                 Target 1
               </div>
               <div id="triggleTarget2"
                 class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-fadeIn"
+                data-triggle-class="ca__fx-rollFromTop"
                 data-triggle-reset="true">
                 Target 2
               </div>
               <div id="triggleTarget3"
                 class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
-                data-triggle-class="ca__fx-fadeIn"
+                data-triggle-class="ca__fx-rollFromRight"
                 data-triggle-reset="true">
                 Target 3
               </div>
@@ -511,12 +513,33 @@
             <div class="relative">
               <pre
                 class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
-                aria-label="Code example for targeting another element"><code>&lt;button data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-bounceIn&quot; data-triggle-target=&quot;#targetBox&quot; data-triggle-reset=&quot;true&quot;&gt;
-  Animate Box
+                aria-label="Code example for targeting another element"><code><pre><code>&lt;button
+  data-triggle="click"
+  data-triggle-target=".box1, #triggleTarget2, #triggleTarget3"&gt;
+  Click to Animate Target Multiple
 &lt;/button&gt;
-&lt;div id=&quot;targetBox&quot; class=&quot;cssanimation&quot;&gt;
-  Target
+
+&lt;div
+  class="cssanimation box1"
+  data-triggle-class="ca__fx-rollFromLeft"
+  data-triggle-reset="true"&gt;
+  Target 1
+&lt;/div&gt;
+
+&lt;div id="triggleTarget2"
+  class="cssanimation"
+  data-triggle-class="ca__fx-rollFromTop"
+  data-triggle-reset="true"&gt;
+  Target 2
+&lt;/div&gt;
+
+&lt;div id="triggleTarget3"
+  class="cssanimation"
+  data-triggle-class="ca__fx-rollFromRight"
+  data-triggle-reset="true"&gt;
+  Target 3
 &lt;/div&gt;</code></pre>
+</code></pre>
               <button
                 class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
                 onclick="copyCode(this)" aria-label="Copy code">Copy</button>
@@ -910,8 +933,8 @@
                   JavaScript library for triggering CSS animations with simple
                   data attributes. Build dynamic, interactive web experiences
                   with ease.</p>
-                <p class="text-gray-400">Version: 1.0.0 | Last Updated: July 12,
-                  2025</p>
+                <p class="text-gray-400"><a href="https://github.com/yesiamrocks/triggle/releases" target="_blank"> 1.5.0 | Last Updated: July 17,
+                  2025</a></p>
               </div>
               <!-- Links -->
               <div>
@@ -922,11 +945,11 @@
                       class="text-blue-400 hover:text-blue-300 transition"
                       aria-label="Triggle.js GitHub Repository">GitHub
                       Repository</a></li>
-                  <li><a href="https://github.com/yesiamrocks/triggle/wiki"
+                  <li><a href="https://github.com/yesiamrocks/triggle?tab=readme-ov-file"
                       target="_blank"
                       class="text-blue-400 hover:text-blue-300 transition"
                       aria-label="Triggle.js Documentation">Documentation</a></li>
-                  <li><a href="https://github.com/yesiamrocks/cssanimation"
+                  <li><a href="https://yesiamrocks.github.io/cssanimation/"
                       target="_blank"
                       class="text-blue-400 hover:text-blue-300 transition"
                       aria-label="cssanimation Library">cssanimation</a></li>
@@ -943,26 +966,7 @@
                 <h3 class="text-xl font-semibold mb-4">Connect</h3>
                 <p class="text-gray-300 mb-4">Stay updated with the latest
                   triggle.js news and community discussions.</p>
-                <div class="flex space-x-4 mb-4">
-                  <a href="https://github.com/yesiamrocks" target="_blank"
-                    class="social-icon text-gray-300 hover:text-blue-300 hover:scale-125 transition-all duration-200"
-                    aria-label="GitHub Profile">📔</a>
-                  <a href="https://x.com/trigglejs" target="_blank"
-                    class="social-icon text-gray-300 hover:text-blue-300 hover:scale-125 transition-all duration-200"
-                    aria-label="X Profile">𝕏</a>
-                  <a href="https://discord.com/invite/trigglejs" target="_blank"
-                    class="social-icon text-gray-300 hover:text-blue-300 hover:scale-125 transition-all duration-200"
-                    aria-label="Discord Community">💬</a>
-                </div>
-                <p class="text-gray-400">Join our newsletter for updates:</p>
-                <div class="mt-2 flex">
-                  <input type="email" placeholder="Enter your email"
-                    class="px-4 py-2 rounded-l-lg bg-slate-800 text-white border-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    aria-label="Newsletter Email Input">
-                  <button
-                    class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition"
-                    aria-label="Subscribe to Newsletter">Subscribe</button>
-                </div>
+               
               </div>
             </div>
             <div class="mt-8 text-center text-gray-400">

@@ -245,7 +245,7 @@ How it works
 
 ## Targeting Multiple Element
 
-If you want to target multiple elements, separate them with commas in the `data-triggle-target=".box, #banner"` attribute:
+If you want to target multiple elements, separate them with commas in the `data-triggle-target=".box, #banner, #triggleTarget"` attribute:
 
 ```html
 <button
@@ -280,7 +280,7 @@ If you want to target multiple elements, separate them with commas in the `data-
 
 How it works
 
-- `data-triggle-target=".box, #banner"` – Selects multiple elements to animate.
+- `data-triggle-target=".box, #banner, #triggleTarget"` – Selects multiple elements to animate.
 - `data-triggle-class="ca__fx-fadeIn"` – The class that will be applied to the target when the trigger fires.
 
 ## Triggle Group Triggering

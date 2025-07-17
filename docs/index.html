@@ -1,953 +1,1273 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>Triggle – Sharper Light UI Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triggle.js Cinematic Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet">
+    <!-- Tailwind CSS CDN with Custom Config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Configure Tailwind for a sharper, modern light mode
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              // Sharper Light Mode Palette
-              'bg-main': '#D7D7D7',         /* Main page background: pure white */
-              'text-dark': '#212121',       /* Primary text color: very deep charcoal */
-              'text-medium': '#4A5568',     /* Secondary text color: softer dark gray */
-              'card-bg': '#FFE3BB',         /* Background for cards/elements: pure white */
-              'border-light': '#E2E8F0',    /* Subtle border color: light gray */
-              'accent-primary': '#007BFF',  /* Main accent blue: bold and clear */
-              'accent-secondary': '#E6F2FF',/* Lighter accent for hovers: very light blue */
-              'code-bg': '#F7FAFC',         /* Background for code blocks: very light crisp gray */
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'], // Example: You might link Inter font
-            },
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon-blue': '#3b82f6',
+            'neon-pink': '#ec4899',
+            'bg-dark': '#0f172a',
+            'bg-light': '#f8fafc'
           },
-        },
-      };
-    </script>
+          backgroundImage: {
+            'primary-gradient': 'linear-gradient(45deg, #3b82f6, #ec4899, #10b981)'
+          }
+        }
+      }
+    }
+  </script>
+    <!-- Prism.js for Syntax Highlighting -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet">
-
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet" />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@hellouxpavel/cssanimation@latest/dist/cssanimation.min.css" />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet" />
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script>
-      hljs.highlightAll();
-    </script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <!-- cssanimation CDN -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@hellouxpavel/cssanimation@latest/dist/cssanimation.min.css">
+    <!-- triggle.js CDN -->
+    <style>
+    body {
+       font-family: "Ubuntu", sans-serif;
+    }
+    /* Scrollbar Styles */
+    .sidebar {
+      scrollbar-width: auto;
+      scrollbar-color: transparent transparent;
+    }
+    .sidebar.scrollbar-visible {
+      scrollbar-width: thin;
+      scrollbar-color: #3b82f6 rgba(30, 41, 59, 0.8);
+    }
+    .sidebar::-webkit-scrollbar {
+      width: 0;
+    }
+    .sidebar.scrollbar-visible::-webkit-scrollbar {
+      width: 8px;
+    }
+    .sidebar::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.8);
+    }
+    .sidebar.scrollbar-visible::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 4px;
+    }
+    .sidebar.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+      background: #ec4899;
+    }
+    /* Gradient Animation */
+    .header-gradient, .footer-gradient {
+      animation: gradientFlow 6s ease infinite;
+      background-size: 300% 300%;
+    }
+    .footer-gradient {
+      animation-duration: 10s;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* 3D Card Effects */
+    .section-card {
+      transform: perspective(1000px) translateZ(0);
+    }
+    .section-card:hover {
+      transform: perspective(1000px) translateZ(10px);
+    }
+    /* Custom Cursor */
+    body:not(.touch-device) {
+      cursor: none;
+    }
+    .custom-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.7) 30%, rgba(236, 72, 153, 0.3) 70%);
+      pointer-events: none;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .custom-cursor.hover {
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.7) 30%, rgba(59, 130, 246, 0.3) 70%);
+    }
+    .custom-cursor.click {
+      width: 32px;
+      height: 32px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.8) 30%, transparent 70%);
+      animation: burst 0.3s ease;
+    }
+    .cursor-trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.3);
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .cursor-trail.active {
+      opacity: 0.5;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+    @keyframes burst {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+    
+
+    .ca__fx-fadeIn {
+      animation-name: fadeIn;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .ca__fx-moonFade {
+      animation: moonFade 1s ease-in-out;
+    }
+    @keyframes moonFade {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
   </head>
-
   <body
-    class="bg-bg-main text-text-dark min-h-screen px-4 py-16 font-sans">
-    <div class="max-w-5xl mx-auto space-y-16">
-      <header class="text-center mb-12">
-        <h1 class="text-6xl font-bold text-accent-primary leading-tight mb-4">
-          Triggle Playground
-        </h1>
-        <p class="text-text-medium text-xl mx-auto max-w-2xl">
-          The <code
-            class="font-mono bg-card-bg px-2 py-1 rounded border border-border-light">triggle.js</code>
-          library lets you easily add interactive animations to your HTML
-          elements using <code
-            class="font-mono bg-card-bg px-2 py-1 rounded border border-border-light">data-</code>
-          attributes. Here's a rundown of each trigger type.
-        </p>
-      </header>
+    class="min-h-screen bg-bg-dark text-white dark:bg-bg-dark dark:text-white">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden sm:block"></div>
+    <div class="cursor-trail hidden sm:block"></div>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          Click
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-wiggle"
-          data-triggle-reset="true">
-          Click Me
+    <div class="wrapper md:ml-64 transition-all duration-300" id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar"
+        class="fixed top-0 left-0 w-7xl h-screen bg-slate-900/90 backdrop-blur-xl border-r border-white/10 overflow-y-auto transition-all duration-300 z-20">
+        <div class="relative h-full">
+          <div
+            class="progress-bar absolute top-0 left-0 w-1 bg-neon-pink transition-all duration-300"
+            id="scroll-progress"></div>
+          <div class="p-6">
+            <h2 class="text-3xl font-bold text-white">Triggle.js</h2>
+            <nav class="mt-8 space-y-2 sidebar-nav">
+              <a href="#animation-on-click"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Animate on Click Demo">Animate on Click
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#hover-delay-duration"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="over with Delay and Duration Demo">Hover
+                Trigger<span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#animates-once"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Animates Once Demo">Animates Once
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#multiple-triggers"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Multiple Triggers Demo">Multiple Triggers
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#targeting-element"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Targeting Another
+              Element Demo">Targeting Element
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#targeting-multiple"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Targeting Multiple Demo">Targeting Multiple
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#group-triggering"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Group
+              Triggering Animation Demo">Group
+                Triggering
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#toggle"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Triggle Toggle Animation Demo">Toggle
+                Animation
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#scroll-trigger"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Triggle Scroll Demo">Animate on Scroll
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#scroll-stagger"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Triggle Scroll-Based Animation Demo">Scroll-Based Staggered<span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#chain"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Triggle Chained Demo">Chained
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#chain-delay"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Chained Animation Delay Demo">Chained Animation
+                Delay
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+
+              <a href="#custom"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Custom Event Demo">Custom Event
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#manual"
+                class="block py-2 px-4 text-gray-300 rounded hover:text-neon-blue hover:translate-x-2 hover:bg-neon-blue/20 transition-all duration-200 relative group"
+                aria-label="Manual Trigger Demo">Manual Trigger
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-neon-blue transition-all duration-300 group-hover:w-full"></span>
+              </a>
+            </nav>
+          </div>
         </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-click">&lt;div
-  class="cssanimation"
-  data-triggle="click"
-  data-triggle-class="ca__fx-wiggle"
-  data-triggle-reset="true"&gt;
+      </div>
+
+      <!-- Main Content Area -->
+      <div id="main-content" class="flex-1">
+        <!-- Hamburger Menu for Mobile -->
+        <button id="hamburger"
+          class="fixed top-4 left-4 z-30 sm:hidden p-2 bg-slate-800 rounded-full shadow-md text-white"
+          aria-label="Toggle Menu">
+          ☰
+        </button>
+
+        <!-- Header -->
+        <header class="p-6 bg-primary-gradient text-white header-gradient">
+          <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div>
+              <h1 class="text-4xl font-bold">Triggle Cinematic Explorer</h1>
+              <p class="mt-2 text-lg opacity-80">The <code>triggle.js</code>
+                library lets you
+                easily add interactive animations to your HTML elements using
+                <code>data-</code> attributes. Here's a rundown of each trigger
+                type.</p>
+            </div>
+            <div class="flex space-x-4">
+              <button id="toggle-sidebar"
+                class="hidden sm:block p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition"
+                aria-label="Toggle Sidebar">←</button>
+              <button id="toggle-theme"
+                class="p-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition"
+                aria-label="Toggle Theme">🌙</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Sections -->
+        <main class="max-w-7xl mx-auto p-6">
+
+          <!-- Animate on Click -->
+          <section id="animation-on-click"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Animate on Click</h2>
+            <p class="text-gray-400 mb-10">Trigger an animation on click. </p>
+            <div class="flex justify-center mb-10">
+              <div
+                class="cssanimation w-80 h-24 bg-green-500 hover:bg-green-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click"
+                data-triggle-class="ca__fx-elasticStretch"
+                data-triggle-reset="true">
+                Click Me
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for animation class"><code>&lt;div class=&quot;cssanimation&quot;
+  data-triggle=&quot;click&quot;
+  data-triggle-class=&quot;ca__fx-elasticStretch&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
   Click Me
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-click')">
-            📋 Copy
-          </button>
-        </div>
-        <p class="mt-6 text-center text-text-medium"><code
-            class="font-mono bg-card-bg px-2 py-1 rounded border border-border-light">data-triggle="click":</code>
-          This is one of the most common event types. The
-          animation defined by data-triggle-class will fire when you click on
-          the element.</p>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">☝️</span> Animates Once
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-bounceInTop"
-          data-triggle-once="true"
-          data-triggle-reset="true">
-          Click Me (Animates Once)
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-triggle-once">&lt;div
-  class="cssanimation"
-  data-triggle="click"
-  data-triggle-class="ca__fx-bounceIn"
-  data-triggle-once="true"
-  data-triggle-reset="true"&gt;
+          <!-- Hover with Delay and Duration -->
+          <section id="hover-delay-duration"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Hover with Delay and
+              Duration</h2>
+            <p class="text-gray-400 mb-10">This example shows how to trigger an
+              animation on hover with custom timing and automatic reset</p>
+            <div class="flex justify-center mb-10">
+              <div
+                class="cssanimation w-80 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="mouseenter"
+                data-triggle-class="ca__fx-fadeIn"
+                data-triggle-delay="0.5s"
+                data-triggle-duration="5s"
+                data-triggle-reset="true">
+                Hover me to fade in
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for multiple triggers"><code>&lt;div class=&quot;cssanimation&quot;
+  data-triggle=&quot;mouseenter&quot;
+  data-triggle-class=&quot;ca__fx-fadeIn&quot;
+  data-triggle-reset=&quot;true&quot;&gt;
+  Click or Hover
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
+
+          <!-- Animates Once -->
+          <section id="animates-once"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Animates Once</h2>
+            <p class="text-gray-400 mb-10">This example shows how to trigger an
+              animation only for a single time:</p>
+            <div class="flex justify-center mb-10">
+              <div
+                class="cssanimation w-80 h-24 bg-fuchsia-500 hover:bg-fuchsia-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click"
+                data-triggle-class="ca__fx-swingIn"
+                data-triggle-reset="true"
+                data-triggle-once="true">
+                Click Me (Animates Once)
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for reset animation"><code>&lt;div class=&quot;cssanimation&quot; 
+  data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-swingIn&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
   Click Me (Animates Once)
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-triggle-once')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🔄</span> Toggle Animation
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-danceBottom"
-          data-triggle-toggle="true">
-          Click Me (Toggle Animation)
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-triggle-toggle">&lt;div
-  class="cssanimation"
-  data-triggle="click"
-  data-triggle-class="ca__fx-flash"
-  data-triggle-toggle="true"&gt;
-  Click Me (Toggle Animation)
+          <!-- Multiple Triggers -->
+          <section id="multiple-triggers"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Multiple Triggers</h2>
+            <p class="text-gray-400 mb-10">Trigger animation with multiple
+              events
+              (mouseenter and mouseleave).</p>
+            <div class="flex justify-center mb-10">
+              <div
+                class="cssanimation w-80 h-24 bg-pink-500 hover:bg-pink-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click, mouseenter, mouseleave"
+                data-triggle-class="ca__fx-rubber"
+                data-triggle-reset="true">
+                Click or Hover
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for multiple triggers"><code>&lt;div class=&quot;cssanimation&quot;
+  data-triggle=&quot;click,mouseenter&quot; 
+  data-triggle-class=&quot;ca__fx-spiralTwistIn&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
+  Click or Hover
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-triggle-toggle')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🖱️</span> mouseenter / mouseleave
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="mouseenter,mouseleave"
-          data-triggle-class="ca__fx-elasticStretch"
-          data-triggle-reset="true">
-          Hover In / Out
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-hover">&lt;div
-  class="cssanimation"
-  data-triggle="mouseenter,mouseleave"
-  data-triggle-class="ca__fx-elasticStretch"
-  data-triggle-reset="true"&gt;
-  Hover In / Out
-&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-hover')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+          <!-- Targeting Another Element -->
+          <section id="targeting-element"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Targeting Another
+              Element</h2>
+            <p class="text-gray-400 mb-10">You can trigger animations on a
+              different element using the <code>data-triggle-target</code>
+              attribute:</p>
+            <div class="flex justify-center space-x-4 mb-10">
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🖱️</span> mousedown
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="mousedown"
-          data-triggle-class="ca__fx-squishLift"
-          data-triggle-reset="true">
-          Hold Mouse Down
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-down">&lt;div
-  class="cssanimation"
-  data-triggle="mousedown"
-  data-triggle-class="ca__fx-squishLift"
-  data-triggle-reset="true"&gt;
-  Hold Mouse Down
-&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-down')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🖱️</span> mouseup
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="mouseup"
-          data-triggle-class="ca__fx-flubberBounce"
-          data-triggle-reset="true">
-          Release Mouse
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-up">&lt;div
-  class="cssanimation"
-  data-triggle="mouseup"
-  data-triggle-class="ca__fx-flubberBounce"
-  data-triggle-reset="true"&gt;
-  Release Mouse
-&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-up')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🖱️</span> dblclick
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="dblclick"
-          data-triggle-class="ca__fx-jiggleTransform"
-          data-triggle-reset="true">
-          Double Click Me
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-dblclick">&lt;div
-  class="cssanimation"
-  data-triggle="dblclick"
-  data-triggle-class="ca__fx-jiggleTransform"
-  data-triggle-reset="true"&gt;
-  Double Click Me
-&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-dblclick')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🔗</span> Chained Animation
-        </h2>
-        <button
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-4 w-full text-xl font-medium hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-blurInfromLeft"
-          data-triggle-reset="true"
-          data-triggle-next="#step2"
-          data-triggle-chain-delay="200">
-          Start Chained Animation
-        </button>
-        <div
-          class="mt-6 bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-4 w-full text-xl font-medium cssanimation"
-          id="step2"
-          data-triggle-class="ca__fx-blurOutToRight"
-          data-triggle-reset="true">
-          Target of Chain
-        </div>
-
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-chained">&lt;button
-  data-triggle="click"
-  data-triggle-class="ca__fx-blurInfromLeft"
-  data-triggle-reset="true"
-  data-triggle-next="#step2"
-  data-triggle-chain-delay="200"&gt;
-  Start
+              <button
+                class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 hover:shadow-lg transition-all duration-200"
+                data-triggle="click"
+                data-triggle-target="#targetBox">
+                Click to Animate Target
+              </button>
+              <div id="targetBox"
+                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-fadeIn"
+                data-triggle-reset="true">
+                Target
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for targeting another element"><code>&lt;button data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-fadeIn&quot; 
+  data-triggle-target=&quot;#targetBox&quot;
+  data-triggle-reset=&quot;true&quot;&gt;
+   Click to Animate Target
 &lt;/button&gt;
-&lt;div id="step2"
-  data-triggle-class="ca__fx-blurOutToRight"
-  data-triggle-reset="true"&gt;
+
+&lt;div id=&quot;targetBox&quot; class=&quot;cssanimation&quot;&gt;
   Target
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-chained')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">👥</span> Group Triggering
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-elasticArise"
-          data-triggle-group="group-triggle">
-          Click to Animate Group
-        </div>
-        <div
-          class="mt-6 bg-card-bg border border-border-light px-8 py-5 rounded-lg text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle-class="ca__fx-elasticStretch"
-          data-triggle-reset="true"
-          data-triggle-group="group-triggle">
-          Card 1
-        </div>
-        <div
-          class="mt-6 bg-card-bg border border-border-light px-8 py-5 rounded-lg text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle-class="ca__fx-jiggleTransform"
-          data-triggle-reset="true"
-          data-triggle-group="group-triggle">
-          Card 2
-        </div>
-
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-group-triggering">&lt;div
+          <!-- Targeting Multiple Element -->
+          <section id="targeting-multiple"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Targeting Multiple
+              Element</h2>
+            <p class="text-gray-400 mb-10">If you want to target multiple
+              elements, separate them with commas in the
+              <code>data-triggle-target=".box, #banner"</code> attribute:</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <button
+                class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 hover:shadow-lg transition-all duration-200"
+                data-triggle="click"
+                data-triggle-target=".box1, #triggleTarget2, #triggleTarget3">
+                Click to Animate Target Multiple
+              </button>
+              <div
+                class="cssanimation box1 w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromLeft"
+                data-triggle-reset="true">
+                Target 1
+              </div>
+              <div id="triggleTarget2"
+                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromTop"
+                data-triggle-reset="true">
+                Target 2
+              </div>
+              <div id="triggleTarget3"
+                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromRight"
+                data-triggle-reset="true">
+                Target 3
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for targeting another element"><code><pre><code>&lt;button
   data-triggle="click"
-  data-triggle-class="ca__fx-elasticArise"
-  data-triggle-group="group-triggle"&gt;
-  Click to Animate Group
-&lt;/div&gt;
-&lt;div
-  data-triggle-class="ca__fx-elasticStretch"
-  data-triggle-group="group-triggle"&gt; Card 1 &lt;/div&gt;
-&lt;div
-  data-triggle-class="ca__fx-jiggleTransform"
-  data-triggle-group="group-triggle"&gt; Card 2 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-group-triggering')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">✨</span> Group Trigger + Stagger
-        </h2>
-        <button
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="click"
-          data-triggle-class="ca__fx-bounceInLeft"
-          data-triggle-group="staggerExp"
-          data-triggle-stagger="150">
-          Animate All Cards
-        </button>
-
-        <div
-          class="mt-6 bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle-class="ca__fx-flipY"
-          data-triggle-reset="true"
-          data-triggle-group="staggerExp">
-          Card 1
-        </div>
-
-        <div
-          class="mt-6 bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle-class="ca__fx-flipY"
-          data-triggle-reset="true"
-          data-triggle-group="staggerExp">
-          Card 2
-        </div>
-
-        <div
-          class="mt-6 bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle-class="ca__fx-flipY"
-          data-triggle-reset="true"
-          data-triggle-group="staggerExp">
-          Card 3
-        </div>
-
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-group-stagger-exp">&lt;button
-  data-triggle="click"
-  data-triggle-class="ca__fx-bounceInLeft"
-  data-triggle-group="staggerExp"
-  data-triggle-stagger="150"&gt;
-  Animate All Cards
+  data-triggle-target=".box1, #triggleTarget2, #triggleTarget3"&gt;
+  Click to Animate Target Multiple
 &lt;/button&gt;
-&lt;div data-triggle-class="ca__fx-flipY"
-  data-triggle-group="staggerExp"&gt;Card 1&lt;/div&gt;
-&lt;div data-triggle-class="ca__fx-flipY"
-  data-triggle-group="staggerExp"&gt;Card 2&lt;/div&gt;
-&lt;div data-triggle-class="ca__fx-flipY"
-  data-triggle-group="staggerExp"&gt;Card 3&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-group-stagger-exp')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          Scroll Animation
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="scroll"
-          data-triggle-scroll="true"
-          data-triggle-class="ca__fx-flipY"
-          data-triggle-reset="true">
-          I animate when visible
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-scroll">&lt;div
-  class="cssanimation"
-  data-triggle="scroll"
-  data-triggle-scroll="true"
-  data-triggle-class="ca__fx-flipY"
+&lt;div
+  class="cssanimation box1"
+  data-triggle-class="ca__fx-rollFromLeft"
   data-triggle-reset="true"&gt;
-  I animate when visible
-&lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-scroll')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          Scroll Stagger
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="scroll"
-          data-triggle-scroll="true"
-          data-triggle-group="feature"
-          data-triggle-class="ca__fx-fadeIn"
-          data-triggle-stagger="500"
-          data-triggle-reset="true">
-          Animate these cards below when visible
-        </div>
-
-        <div
-          class="mt-6 group-item cssanimation p-4 bg-card-bg rounded shadow text-center w-full border border-border-light"
-          data-triggle-class="ca__fx-fadeInLeft"
-          data-triggle-reset="true"
-          data-triggle-group="feature">
-          Scroll Stagger Card 1
-        </div>
-
-        <div
-          class="mt-6 group-item cssanimation p-4 bg-card-bg rounded shadow text-center w-full border border-border-light"
-          data-triggle-class="ca__fx-fadeInLeft"
-          data-triggle-reset="true"
-          data-triggle-group="feature">
-          Scroll Stagger Card 2
-        </div>
-
-        <div
-          class="mt-6 group-item cssanimation p-4 bg-card-bg rounded shadow text-center w-full border border-border-light"
-          data-triggle-class="ca__fx-fadeInLeft"
-          data-triggle-reset="true"
-          data-triggle-group="feature">
-          Scroll Stagger Card 3
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-scroll-stagger">&lt;div
-  data-triggle="scroll"
-  data-triggle-scroll="true"
-  data-triggle-group="feature"
-  data-triggle-class="ca__fx-fadeIn"
-  data-triggle-stagger="500"&gt;
-  I animate when visible
+  Target 1
 &lt;/div&gt;
-&lt;div
-  data-triggle-class="ca__fx-fadeInLeft"
-  data-triggle-group="feature"&gt; Card 1 &lt;/div&gt;
-&lt;div
-  data-triggle-class="ca__fx-fadeInLeft"
-  data-triggle-group="feature"&gt; Card 2 &lt;/div&gt;
-&lt;div
-  data-triggle-class="ca__fx-fadeInLeft"
-  data-triggle-group="feature"&gt; Card 3 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-scroll-stagger')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🖱️</span> contextmenu (right-click)
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="contextmenu"
-          data-triggle-class="ca__fx-jiggleTransform"
-          data-triggle-reset="true">
-          Right-click Me
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-contextmenu">&lt;div
+&lt;div id="triggleTarget2"
   class="cssanimation"
-  data-triggle="contextmenu"
-  data-triggle-class="ca__fx-jiggleTransform"
+  data-triggle-class="ca__fx-rollFromTop"
   data-triggle-reset="true"&gt;
-  Right-click Me
+  Target 2
+&lt;/div&gt;
+
+&lt;div id="triggleTarget3"
+  class="cssanimation"
+  data-triggle-class="ca__fx-rollFromRight"
+  data-triggle-reset="true"&gt;
+  Target 3
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-contextmenu')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🧠</span> focus
-        </h2>
-        <input
-          type="text"
-          placeholder="Focus Me"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="focus"
-          data-triggle-class="ca__fx-lightning"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-focus">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Focus Me"
-  data-triggle="focus"
-  data-triggle-class="ca__fx-lightning"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-focus')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+          <!-- Triggle Group Triggering -->
+          <section id="group-triggering"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Triggle Group
+              Triggering</h2>
+            <p class="text-gray-400 mb-10">Trigger animations on multiple
+              elements at once using <code>data-triggle-group</code>.</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <div
+                class="cssanimation w-24 h-24 bg-red-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click"
+                data-triggle-class="ca__fx-layerPeelIn"
+                data-triggle-group="cards">
+                Trigger
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-orange-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromLeft"
+                data-triggle-reset="true"
+                data-triggle-group="cards">
+                Card 1
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-yellow-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-rollFromRight"
+                data-triggle-reset="true"
+                data-triggle-group="cards">
+                Card 2
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for group triggering"><code>&lt;div class=&quot;cssanimation&quot; 
+  data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-layerPeelIn&quot; 
+  data-triggle-group=&quot;cards&quot;&gt;
+  Trigger
+&lt;/div&gt;
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">👋</span> blur
-        </h2>
-        <input
-          type="text"
-          placeholder="Then Blur Me"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="blur"
-          data-triggle-class="ca__fx-flyInBottom"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-blur">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Then Blur Me"
-  data-triggle="blur"
-  data-triggle-class="ca__fx-flyInBottom"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-blur')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+&lt;div class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-rollFromLeft&quot; 
+  data-triggle-reset=&quot;true&quot; 
+  data-triggle-group=&quot;cards&quot;&gt;
+  Card 1
+&lt;/div&gt;
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">⌨️</span> keydown (Enter)
-        </h2>
-        <input
-          type="text"
-          placeholder="Press Enter"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="keydown"
-          data-triggle-key="Enter"
-          data-triggle-class="ca__fx-bounceX"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-keydown">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Press Enter"
-  data-triggle="keydown"
-  data-triggle-key="Enter"
-  data-triggle-class="ca__fx-bounceX"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-keydown')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🔤</span> keyup (Enter)
-        </h2>
-        <input
-          type="text"
-          placeholder="Key up Enter"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="keyup"
-          data-triggle-key="Enter"
-          data-triggle-class="ca__fx-bounceX"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-keyup">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Key up Enter"
-  data-triggle="keyup"
-  data-triggle-key="Enter"
-  data-triggle-class="ca__fx-bounceX"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-keyup')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
-
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🤚</span> touchstart
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="touchstart"
-          data-triggle-class="ca__fx-jumpSpin"
-          data-triggle-reset="true">
-          Touch Me (start)
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-touchstart">&lt;div
-  class="cssanimation"
-  data-triggle="touchstart"
-  data-triggle-class="ca__fx-jumpSpin"
-  data-triggle-reset="true"&gt;
-  Touch Me (start)
+&lt;div class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-rollFromRight&quot; 
+  data-triggle-reset=&quot;true&quot; 
+  data-triggle-group=&quot;cards&quot;&gt;
+  Card 2
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-touchstart')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">👆</span> touchend
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation"
-          data-triggle="touchend"
-          data-triggle-class="ca__fx-popRotate"
-          data-triggle-reset="true">
-          Touch Me (end)
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-touchend">&lt;div
-  class="cssanimation"
-  data-triggle="touchend"
-  data-triggle-class="ca__fx-popRotate"
-  data-triggle-reset="true"&gt;
-  Touch Me (end)
+          <!-- Triggle Toggle Animation -->
+
+          <section id="toggle"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-4">Triggle Toggle
+              Animation</h2>
+            <p class="text-gray-400 mb-4">Use
+              <code>data-triggle-toggle="true"</code> to turn the animation
+              class on and off with each trigger:</p>
+            <div class="flex justify-center mb-6">
+              <div
+                class="cssanimation w-80 h-24 bg-indigo-500 hover:bg-indigo-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="click"
+                data-triggle-class="ca__fx-moonFade"
+                data-triggle-toggle="true">
+                Toggle Me
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for toggle animation"><code>&lt;div class=&quot;cssanimation&quot; data-triggle=&quot;click&quot; data-triggle-class=&quot;ca__fx-moonFade&quot; data-triggle-toggle=&quot;true&quot;&gt;
+  Toggle Me
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-touchend')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🎞️</span> animationend
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:bg-accent-secondary transition-colors duration-200 cssanimation ca__fx-flipY"
-          data-triggle="animationend"
-          data-triggle-class="ca__fx-spiralTwistIn"
-          data-triggle-reset="true">
-          Fires After FlipY Animation
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-animationend">&lt;div
-  class="cssanimation ca__fx-flipY"
-  data-triggle="animationend"
-  data-triggle-class="ca__fx-bounceX"
-  data-triggle-reset="true"&gt;
-  Fires After FlipY
+          <!-- Triggle Scroll Animation -->
+          <section id="scroll-trigger"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Triggle Scroll
+              Animation</h2>
+            <p class="text-gray-400 mb-10">Animate elements as they scroll into
+              view using <code>data-triggle-scroll="true"</code>:</p>
+            <div class="flex justify-center mb-10">
+              <div
+                class="cssanimation w-80 h-24 bg-rose-500 hover:bg-rose-600 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="scroll"
+                data-triggle-scroll="true"
+                data-triggle-class="ca__fx-flipTwistPop"
+                data-triggle-reset="true">
+                Scroll to Reveal
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for scroll animation"><code>&lt;div class=&quot;cssanimation&quot; 
+  data-triggle=&quot;scroll&quot; 
+  data-triggle-scroll=&quot;true&quot; 
+  data-triggle-class=&quot;ca__fx-moonFadeUp&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
+  Scroll to Reveal
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-animationend')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🎬</span> transitionend
-        </h2>
-        <div
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark hover:translate-x-4 transition-all duration-300 cssanimation"
-          data-triggle="transitionend"
-          data-triggle-class="ca__fx-lightning"
-          data-triggle-reset="true">
-          Move Me (Hover)
-        </div>
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-transitionend">&lt;div
-  class="cssanimation transition-all duration-300 hover:translate-x-4"
-  data-triggle="transitionend"
-  data-triggle-class="ca__fx-lightning"
-  data-triggle-reset="true"&gt;
-  Move Me
+          <!-- Triggle Scroll-Based Staggered Animation -->
+          <section id="scroll-stagger"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Triggle Scroll-Based
+              Staggered Animation</h2>
+            <p class="text-gray-400 mb-10">Scroll to trigger staggered
+              animations
+              with 300ms delay between group elements.</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <div
+                class="cssanimation w-24 h-24 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="scroll"
+                data-triggle-scroll="true"
+                data-triggle-group="staggerGroup"
+                data-triggle-class="ca__fx-moonFadeScaleUp"
+                data-triggle-reset="true"
+                data-triggle-stagger="500">
+                Trigger
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-moonFadeLeft"
+                data-triggle-reset="true"
+                data-triggle-group="staggerGroup">
+                Card A
+              </div>
+              <div
+                class="cssanimation w-24 h-24 bg-green-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-moonFadeRight"
+                data-triggle-reset="true"
+                data-triggle-group="staggerGroup">
+                Card B
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for staggered group"><code>&lt;div class=&quot;cssanimation&quot; 
+  data-triggle=&quot;scroll&quot; 
+  data-triggle-scroll=&quot;true&quot; 
+  data-triggle-group=&quot;staggerGroup&quot; 
+  data-triggle-class=&quot;ca__fx-moonFadeScaleUp&quot; 
+  data-triggle-stagger=&quot;300&quot;&gt;
+  Trigger
+&lt;/div&gt;
+
+&lt;div class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-moonFadeLeft&quot; 
+  data-triggle-reset=&quot;true&quot;
+  data-triggle-group=&quot;staggerGroup&quot;&gt;
+  Card A
+&lt;/div&gt;
+
+&lt;div class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-moonFadeRight&quot; 
+  data-triggle-reset=&quot;true&quot; 
+  data-triggle-group=&quot;staggerGroup&quot;&gt;
+  Card B
 &lt;/div&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-transitionend')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">⌨️</span> input
-        </h2>
-        <input
-          type="text"
-          placeholder="Type here"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="input"
-          data-triggle-class="ca__fx-lightning"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-input">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Type here"
-  data-triggle="input"
-  data-triggle-class="ca__fx-flyInBottom"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-input')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+          <!-- Triggle Chained Animation -->
+          <section id="chain"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Triggle Chained
+              Animation</h2>
+            <p class="text-gray-400 mb-10">Chain multiple animations by using
+              <code
+                class="text white bg-gray-700 rounded-md px-2 py-1">data-triggle-next</code>
+            </p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <button
+                class="cssanimation bg-amber-500 text-white w-24 h-24 rounded-lg hover:bg-amber-700 hover:shadow-lg transition-all duration-200"
+                data-triggle="click"
+                data-triggle-class="ca__fx-swingIn"
+                data-triggle-reset="true"
+                data-triggle-next="#chainStep2">
+                Start Chain
+              </button>
+              <div id="chainStep2"
+                class="cssanimation w-24 h-24 bg-lime-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow duration-200"
+                data-triggle-class="ca__fx-systemBootIn"
+                data-triggle-reset="true">
+                Step 2
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for chained animation"><code>&lt;button 
+  data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-swingIn&quot; 
+  data-triggle-reset=&quot;true&quot; 
+  data-triggle-next=&quot;#chainStep2&quot;&gt;
+  Start Chain
+&lt;/button&gt;
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🛠️</span> Custom Event Trigger
-        </h2>
+&lt;div id=&quot;chainStep2&quot; 
+  class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-systemBootIn&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
+  Step 2
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-        <button
-          onclick="fireCustom()"
-          class="mb-6 px-7 py-3 text-lg bg-accent-primary text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 shadow-md">
-          Fire Custom Event
-        </button>
+          <!-- Chained Animation Delay -->
+          <section id="chain-delay"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Chained Animation Delay</h2>
+            <p class="text-gray-400 mb-10">Click the button to start a chained
+              animation with a 500ms delay.</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <button
+                class="cssanimation w-24 h-24 bg-cyan-400 text-white px-6 py-2 rounded-lg hover:bg-cyan-500 hover:shadow-lg transition-all duration-200"
+                data-triggle="click"
+                data-triggle-class="ca__fx-bobble"
+                data-triggle-reset="true"
+                data-triggle-next="#chainDelayStep2"
+                data-triggle-chain-delay="500">
+                Start Chain
+              </button>
+              <div id="chainDelayStep2"
+                class="cssanimation w-24 h-24 bg-sky-400 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle-class="ca__fx-orbitRevealTop"
+                data-triggle-reset="true">
+                Step 2
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for chain delay"><code>&lt;button 
+  data-triggle=&quot;click&quot; 
+  data-triggle-class=&quot;ca__fx-swingIn&quot; 
+  data-triggle-reset=&quot;true&quot; 
+  data-triggle-next=&quot;#chainDelayStep2&quot; 
+  data-triggle-chain-delay=&quot;500&quot;&gt;
+  Start Chain
+&lt;/button&gt;
 
-        <div
-          id="customTarget"
-          class="bg-card-bg border border-border-light px-8 py-5 rounded-lg cursor-pointer text-center text-xl font-medium text-text-dark cssanimation"
-          data-triggle="customTriggleEvent"
-          data-triggle-class="ca__fx-elasticArise"
-          data-triggle-reset="true">
-          Will animate on customEvent
-        </div>
+&lt;div id=&quot;chainDelayStep2&quot; 
+  class=&quot;cssanimation&quot; 
+  data-triggle-class=&quot;ca__fx-systemBootIn&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
+  Step 2
+&lt;/div&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-custom-event">&lt;div
-  class="cssanimation"
-  data-triggle="customEvent"
-  data-triggle-class="ca__fx-flip"
-  data-triggle-reset="true"&gt;
-  Will animate on customEvent
+          <!-- Custom Event -->
+          <section id="custom"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Custom Event Trigger</h2>
+            <p class="text-gray-400 mb-10">You can use any event name for
+              <code>data-triggle</code>. This allows you to create custom event
+              triggers
+              using JavaScript's <code>dispatchEvent()</code> method.</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <button id="customTrigger"
+                class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200">
+                Trigger Custom Event
+              </button>
+              <div id="customBox"
+                class="cssanimation w-32 h-32 bg-green-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow"
+                data-triggle="customTriggleEvent"
+                data-triggle-class="ca__fx-flipX"
+                data-triggle-reset="true">
+                Custom
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for custom event trigger"><code>&lt;button id=&quot;customTrigger&quot;&gt;
+  Trigger Custom Event
+&lt;/button&gt;
+
+&lt;div id=&quot;customBox&quot; 
+  class=&quot;cssanimation&quot; 
+  data-triggle=&quot;customTriggleEvent&quot; 
+  data-triggle-class=&quot;ca__fx-flipX&quot; 
+  data-triggle-reset=&quot;true&quot;&gt;
+  Custom
 &lt;/div&gt;
 
 &lt;script&gt;
-  document.getElementById('customEventBox')
-    .dispatchEvent(new Event('customEvent'));
+  document.getElementById(&quot;customTrigger&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+    document.getElementById(&quot;customBox&quot;).dispatchEvent(new Event(&quot;customTriggleEvent&quot;));
+  });
 &lt;/script&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-custom-event')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
 
-      <section
-        class="pb-12 border-b border-border-light last:border-b-0">
-        <h2
-          class="text-4xl font-semibold text-accent-primary mb-6 flex items-center">
-          <span class="mr-4 text-5xl">🎹</span> keydown (multiple keys)
-        </h2>
-        <input
-          type="text"
-          placeholder="Press Enter, Escape, Ctrl+Z, Shift+A, or start with 'en'"
-          class="bg-card-bg text-text-dark border border-border-light rounded-lg px-8 py-5 w-full cssanimation placeholder-text-medium focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all duration-200"
-          data-triggle="keydown"
-          data-triggle-key="Enter,Escape,ctrl+z,shift+a,en*"
-          data-triggle-class="ca__fx-bounceY"
-          data-triggle-reset="true" />
-        <div class="relative mt-6">
-          <pre
-            class="rounded-lg overflow-auto border border-border-light bg-code-bg"><code class="language-html p-5" id="code-keydown-multi">&lt;input
-  type="text"
-  class="cssanimation"
-  placeholder="Press Enter or Escape"
-  data-triggle="keydown"
-  data-triggle-key="Enter,Escape,ctrl+z,shift+a,en*"
-  data-triggle-class="ca__fx-bounceY"
-  data-triggle-reset="true" /&gt;</code></pre>
-          <button
-            class="absolute top-4 right-4 px-4 py-2 text-sm bg-border-light text-text-dark rounded-md hover:bg-gray-200 transition-colors duration-200"
-            onclick="copyCode('code-keydown-multi')">
-            📋 Copy
-          </button>
-        </div>
-      </section>
+          <!-- Manual Trigger -->
+          <section id="manual"
+            class="section-card rounded-xl p-8 mb-12 bg-slate-800/80 backdrop-blur-lg border border-white/10">
+            <h2 class="text-2xl font-semibold mb-2">Manual Trigger</h2>
+            <p class="text-gray-400 mb-10">Click the button to manually trigger
+              an animation using JavaScript.</p>
+            <div class="flex justify-center space-x-4 mb-10">
+              <button id="manualTrigger"
+                class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 hover:shadow-lg transition-all duration-200">
+                Trigger Manually
+              </button>
 
-      <footer
-        class="text-center text-text-medium mt-20 pt-10 border-t border-border-light">
-        Built with 💙 by
-        <a
-          href="https://github.com/yesiamrocks"
-          class="underline hover:text-accent-primary transition-colors duration-200">Pavel</a>
-        &middot; <code class="font-mono">Triggle</code>
-      </footer>
+              <div id="manualBox"
+                class="cssanimation w-32 h-32 bg-indigo-500 rounded-lg flex items-center justify-center text-white text-lg hover:shadow-lg transition-shadow">
+                Manual
+              </div>
+            </div>
+            <div class="relative">
+              <pre
+                class="code-block line-numbers language-html bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto !block !visible"
+                aria-label="Code example for manual trigger"><code>&lt;button id=&quot;manualTrigger&quot;&gt;
+  Trigger Manually
+&lt;/button&gt;
+
+&lt;div id=&quot;manualBox&quot; class=&quot;cssanimation&quot;&gt;
+  Manual
+&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById(&quot;manualTrigger&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+    window.triggle.apply(
+      document.querySelector(&quot;#manualBox&quot;),
+      &quot;ca__fx-bounceIn&quot;, // Animation class to apply
+      true, // Reset after animation ends
+      &quot;0.3s&quot;, // Delay before animation starts
+      &quot;1s&quot;, // Duration of the animation
+      false // Toggle mode (true = toggle, false = one-time)
+    );
+  });
+&lt;/script&gt;</code></pre>
+              <button
+                class="copy-button absolute top-3 right-3 bg-stone-600 text-white px-4 py-2 rounded hover:bg-stone-500 hover:scale-110 transition-all duration-200"
+                onclick="copyCode(this)" aria-label="Copy code">Copy</button>
+            </div>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer-gradient text-white py-12">
+          <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- About -->
+              <div>
+                <h3 class="text-xl font-semibold mb-4">About Triggle.js</h3>
+                <p class="text-gray-300 mb-4">Triggle.js is a lightweight
+                  JavaScript library for triggering CSS animations with simple
+                  data attributes. Build dynamic, interactive web experiences
+                  with ease.</p>
+                <p class="text-gray-400"><a href="https://github.com/yesiamrocks/triggle/releases" target="_blank"> 1.5.0 | Last Updated: July 17,
+                  2025</a></p>
+              </div>
+              <!-- Links -->
+              <div>
+                <h3 class="text-xl font-semibold mb-4">Resources</h3>
+                <ul class="space-y-2">
+                  <li><a href="https://github.com/yesiamrocks/triggle"
+                      target="_blank"
+                      class="text-blue-400 hover:text-blue-300 transition"
+                      aria-label="Triggle.js GitHub Repository">GitHub
+                      Repository</a></li>
+                  <li><a href="https://github.com/yesiamrocks/triggle?tab=readme-ov-file"
+                      target="_blank"
+                      class="text-blue-400 hover:text-blue-300 transition"
+                      aria-label="Triggle.js Documentation">Documentation</a></li>
+                  <li><a href="https://yesiamrocks.github.io/cssanimation/"
+                      target="_blank"
+                      class="text-blue-400 hover:text-blue-300 transition"
+                      aria-label="cssanimation Library">cssanimation</a></li>
+                  <li><a
+                      href="https://github.com/yesiamrocks/triggle/blob/main/COMMERCIAL-LICENSE.md"
+                      target="_blank"
+                      class="text-blue-400 hover:text-blue-300 transition"
+                      aria-label="License Information">License (Parity +
+                      Commercial)</a></li>
+                </ul>
+              </div>
+              <!-- Connect -->
+              <div>
+                <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                <p class="text-gray-300 mb-4">Stay updated with the latest
+                  triggle.js news and community discussions.</p>
+               
+              </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400">
+              <p>© 2025 Triggle.js. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
+
+    <script>
+    // Initialize triggle.js
+    document.addEventListener('DOMContentLoaded', () => {
+      window.triggle.init();
+      Prism.highlightAll();
+    });
+
+    // Detect Touch Device
+    const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice()) {
+      document.body.classList.add('touch-device');
+    }
+
+    // Custom Cursor Logic
+    const cursor = document.querySelector('.custom-cursor');
+    const trail = document.querySelector('.cursor-trail');
+    let isHovering = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    // Move Cursor
+    document.addEventListener('mousemove', (e) => {
+      if (!isTouchDevice()) {
+        const x = e.clientX;
+        const y = e.clientY;
+        cursor.style.left = `${x}px`;
+        cursor.style.top = `${y}px`;
+        trail.style.left = `${lastX}px`;
+        trail.style.top = `${lastY}px`;
+        trail.classList.add('active');
+        setTimeout(() => trail.classList.remove('active'), 100);
+        lastX = x;
+        lastY = y;
+      }
+    });
+
+    // Hover Effects
+    const interactiveElements = document.querySelectorAll('a, button, .cssanimation, .copy-button');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (!isTouchDevice()) {
+          cursor.classList.add('hover');
+          isHovering = true;
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        if (!isTouchDevice()) {
+          cursor.classList.remove('hover');
+          isHovering = false;
+        }
+      });
+    });
+
+    // Click Effect
+    document.addEventListener('click', (e) => {
+      if (!isTouchDevice()) {
+        const clickCursor = document.createElement('div');
+        clickCursor.className = 'custom-cursor click hidden sm:block';
+        clickCursor.style.left = `${e.clientX}px`;
+        clickCursor.style.top = `${e.clientY}px`;
+        document.body.appendChild(clickCursor);
+        setTimeout(() => clickCursor.remove(), 300);
+      }
+    });
+
+    // Copy Code Function
+    function copyCode(button) {
+      try {
+        const codeElement = button.parentNode.querySelector('.code-block code');
+        if (!codeElement) {
+          console.error('Code element not found for copy button:', button);
+          return;
+        }
+        const code = codeElement.textContent;
+        navigator.clipboard.writeText(code).then(() => {
+          button.textContent = 'Copied!';
+          button.classList.add('copied', 'bg-green-500');
+          setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied', 'bg-green-500');
+          }, 2000);
+        }).catch(err => {
+          console.error('Clipboard copy failed:', err);
+          const textarea = document.createElement('textarea');
+          textarea.value = code;
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+            document.execCommand('copy');
+            button.textContent = 'Copied!';
+            button.classList.add('copied', 'bg-green-500');
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied', 'bg-green-500');
+            }, 2000);
+          } catch (fallbackErr) {
+            console.error('Fallback copy failed:', fallbackErr);
+          }
+          document.body.removeChild(textarea);
+        });
+      } catch (err) {
+        console.error('Error in copyCode:', err);
+      }
+    }
+
+    // Sidebar Toggle and Scrollbar Auto-Hide
+    const wrapper = document.getElementById('wrapper');
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggle-sidebar');
+    const hamburger = document.getElementById('hamburger');
+    let isSidebarVisible = window.innerWidth > 640;
+    let scrollbarTimeout;
+
+    function updateSidebar() {
+      if (window.innerWidth <= 640) {
+        sidebar.classList.toggle('visible', isSidebarVisible);
+        sidebar.classList.toggle('hidden', !isSidebarVisible);
+        sidebar.classList.toggle('-left-full', !isSidebarVisible);
+        sidebar.classList.toggle('left-0', isSidebarVisible);
+        hamburger.textContent = isSidebarVisible ? '✕' : '☰';
+        hamburger.setAttribute('aria-label', isSidebarVisible ? 'Close Menu' : 'Open Menu');
+      } else {
+        sidebar.classList.toggle('hidden', !isSidebarVisible);
+        wrapper.classList.toggle('md:ml-0', !isSidebarVisible);
+        toggleSidebar.textContent = isSidebarVisible ? '←' : '→';
+        toggleSidebar.setAttribute('aria-label', isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar');
+      }
+    }
+
+    function showScrollbar() {
+      sidebar.classList.add('scrollbar-visible');
+      clearTimeout(scrollbarTimeout);
+      scrollbarTimeout = setTimeout(() => {
+        sidebar.classList.remove('scrollbar-visible');
+      }, 2000);
+    }
+
+    toggleSidebar.addEventListener('click', () => {
+      isSidebarVisible = !isSidebarVisible;
+      updateSidebar();
+    });
+
+    hamburger.addEventListener('click', () => {
+      isSidebarVisible = !isSidebarVisible;
+      updateSidebar();
+    });
+
+    sidebar.addEventListener('scroll', () => {
+      showScrollbar();
+    });
+
+    sidebar.addEventListener('mouseenter', () => {
+      showScrollbar();
+    });
+
+    sidebar.addEventListener('mousemove', () => {
+      showScrollbar();
+    });
+
+    sidebar.addEventListener('mouseleave', () => {
+      scrollbarTimeout = setTimeout(() => {
+        sidebar.classList.remove('scrollbar-visible');
+      }, 2000);
+    });
+
+    window.addEventListener('resize', () => {
+      isSidebarVisible = window.innerWidth > 640;
+      updateSidebar();
+      if (window.innerWidth <= 640) {
+        sidebar.classList.remove('scrollbar-visible');
+      }
+    });
+
+    // Theme Toggle with localStorage
+    const toggleTheme = document.getElementById('toggle-theme');
+    const footer = document.querySelector('footer');
+    let isDark = localStorage.getItem('theme') !== 'light';
+
+    function updateTheme() {
+      document.body.classList.toggle('light', !isDark);
+      document.body.classList.toggle('bg-gray-50', !isDark);
+      document.body.classList.toggle('text-gray-900', !isDark);
+      document.body.classList.toggle('bg-bg-dark', isDark);
+      document.body.classList.toggle('text-white', isDark);
+      sidebar.classList.toggle('bg-white/90', !isDark);
+      sidebar.classList.toggle('bg-slate-900/90', isDark);
+      sidebar.classList.toggle('border-black/10', !isDark);
+      document.querySelectorAll('.section-card').forEach(card => {
+        card.classList.toggle('bg-white/90', !isDark);
+        card.classList.toggle('bg-slate-800/80', isDark);
+        card.classList.toggle('border-black/10', !isDark);
+        card.querySelector('h2').classList.toggle('text-gray-900', !isDark);
+        card.querySelector('h2').classList.toggle('text-white', isDark);
+        card.querySelector('p').classList.toggle('text-gray-600', !isDark);
+        card.querySelector('p').classList.toggle('text-gray-400', isDark);
+      });
+      document.querySelectorAll('.sidebar-nav a').forEach(link => {
+        link.classList.toggle('text-gray-600', !isDark);
+        link.classList.toggle('text-gray-300', isDark);
+      });
+      document.querySelector('.p-6 h2').classList.toggle('text-gray-900', !isDark);
+      document.querySelector('.p-6 h2').classList.toggle('text-white', isDark);
+      footer.classList.toggle('text-gray-600', !isDark);
+      footer.classList.toggle('text-gray-400', isDark);
+      toggleTheme.textContent = isDark ? '☀️' : '🌙';
+      toggleTheme.setAttribute('aria-label', isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    toggleTheme.addEventListener('click', () => {
+      isDark = !isDark;
+      updateTheme();
+    });
+
+    updateTheme();
+
+    // Custom Event Trigger
+    document.getElementById('customTrigger').addEventListener('click', () => {
+      document.getElementById('customBox').dispatchEvent(new Event('customTriggleEvent'));
+    });
+
+    // Manual Trigger
+     document.getElementById("manualTrigger").addEventListener("click", () => {
+      const box = document.querySelector("#manualBox");
+      box.classList.remove("ca__fx-moonFade");
+      void box.offsetWidth; // trigger reflow
+      window.triggle.apply(
+        box,
+        "ca__fx-moonFade",
+        true,
+        "0.3s",
+        "1s",
+        false
+      );
+    });
+
+    // Accessibility: Keyboard navigation
+    document.querySelectorAll('.sidebar-nav a, footer a').forEach(link => {
+      link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.location.href = link.getAttribute('href');
+        }
+      });
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scroll-progress').style.height = `${scrolled}%`;
+    });
+
+    // Active Nav Link Highlighting
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active', 'text-neon-pink', 'font-bold', 'bg-neon-pink/20');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active', 'text-neon-pink', 'font-bold', 'bg-neon-pink/20');
+        }
+      });
+    });
+
+    // Card and Code Block Scroll Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'perspective(1000px) translateZ(0)';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.section-card, .code-block').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'perspective(1000px) translateZ(-20px)';
+      observer.observe(el);
+    });
+  </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/triggle@latest/dist/triggle.js"></script>
-
-    <script>
-      function copyCode(id) {
-        const code = document.getElementById(id).textContent.trim();
-        navigator.clipboard.writeText(code).then(() => {
-          const btn = document.querySelector(`button[onclick="copyCode('${id}')"]`);
-          const originalText = btn.innerHTML;
-          btn.innerHTML = "✅ Copied!";
-          setTimeout(() => (btn.innerHTML = originalText), 1200);
-        });
-      }
-
-      window.__trg_DEBUG = true;
-      function fireCustom() {
-        document
-          .getElementById("customTarget")
-          .dispatchEvent(new Event("customTriggleEvent"));
-      }
-    </script>
   </body>
 </html>
