@@ -145,23 +145,23 @@ You can animate elements using the following trigger types via `data-triggle`:
 
 ## Attributes Reference
 
-| Attribute                  | Type         | Description                                                        |
-| -------------------------- | ------------ | ------------------------------------------------------------------ |
-| `data-triggle`             | `string`     | Comma-separated events (e.g. `click,mouseenter`)                   |
-| `data-triggle-class`       | `string`     | Space-separated CSS classes to animate                             |
-| `data-triggle-reset`       | `true/false` | Removes animation class after it finishes                          |
-| `data-triggle-delay`       | `string`     | CSS `animation-delay` (e.g., `0.5s`)                               |
-| `data-triggle-duration`    | `string`     | CSS `animation-duration` (e.g., `1s`)                              |
-| `data-triggle-toggle`      | `true/false` | Toggles class on and off (instead of just adding)                  |
-| `data-triggle-once`        | `true/false` | Triggers animation only once                                       |
-| `data-triggle-target`      | `string`     | CSS selector for the element to animate (defaults to self)         |
-| `data-triggle-key`         | `string`     | Keyboard filter (e.g. `enter`, `ctrl+s`, `a*`)                     |
-| `data-triggle-next`        | `string`     | CSS selector of element to animate **after this one finishes**     |
-| `data-triggle-chain-delay` | `number`     | Delay (in ms) before triggering `data-triggle-next`                |
-| `data-triggle-group`       | `string`     | Group name to animate multiple elements together                   |
-| `data-triggle-stagger`     | `number`     | Delay (in ms) between each group's element animation               |
-| `data-triggle-scroll`      | `true/false` | Use IntersectionObserver to animate when element scrolls into view |
-| `data-triggle-chain-loop`  | `true`       | Enables infinite looping between chained elements                  |
+| Attribute                  | Type         | Description                                                                                          |
+| -------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `data-triggle`             | `string`     | Comma-separated events (e.g. `click,mouseenter`)                                                     |
+| `data-triggle-class`       | `string`     | Space-separated CSS classes to animate                                                               |
+| `data-triggle-reset`       | `true/false` | Removes animation class after it finishes                                                            |
+| `data-triggle-delay`       | `string`     | CSS `animation-delay` (e.g., `0.5s`)                                                                 |
+| `data-triggle-duration`    | `string`     | CSS `animation-duration` (e.g., `1s`)                                                                |
+| `data-triggle-toggle`      | `true/false` | Toggles class on and off (instead of just adding)                                                    |
+| `data-triggle-once`        | `true/false` | Triggers animation only once                                                                         |
+| `data-triggle-target`      | `string`     | CSS selector(s) for external element(s) to animate instead of the trigger itself (e.g. `.box1, #id`) |
+| `data-triggle-key`         | `string`     | Keyboard filter (e.g. `enter`, `ctrl+s`, `a*`)                                                       |
+| `data-triggle-next`        | `string`     | CSS selector of element to animate **after this one finishes**                                       |
+| `data-triggle-chain-delay` | `number`     | Delay (in ms) before triggering `data-triggle-next`                                                  |
+| `data-triggle-group`       | `string`     | Group name to animate multiple elements together                                                     |
+| `data-triggle-stagger`     | `number`     | Delay (in ms) between each group's element animation                                                 |
+| `data-triggle-scroll`      | `true/false` | Use IntersectionObserver to animate when element scrolls into view                                   |
+| `data-triggle-chain-loop`  | `true`       | Enables infinite looping between chained elements                                                    |
 
 ## Hover with Delay and Duration
 
