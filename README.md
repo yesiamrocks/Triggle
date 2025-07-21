@@ -1,4 +1,4 @@
-# Trigger-Based Animation Control Made Simple — **Triggle**
+# Animate with Triggle — Simple Trigger-Based CSS Animation Control
 
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
