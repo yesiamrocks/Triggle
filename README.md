@@ -1,4 +1,4 @@
-# Trigger-Based Animation Control Made Simple — **`triggle.js`**
+# Trigger-Based Animation Control Made Simple — **Triggle**
 
 ![Vanilla JS](https://img.shields.io/badge/JS-Vanilla%20JS-brightgreen?style=for-the-badge)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-lightgrey?style=for-the-badge)
@@ -13,11 +13,11 @@
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
 [![Made for {css}animation](https://img.shields.io/badge/Made%20for-{css}animation-7e2ea0?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/yesiamrocks/cssanimation)
 
-`triggle.js` is a lightweight JavaScript library that makes it easy to control CSS animations using simple HTML attributes, no dependencies required.
+**Triggle** is a lightweight JavaScript library that makes it easy to control CSS animations using simple HTML attributes, no dependencies required.
 
-Designed for performance and mobile-friendly by default, `triggle.js` lets you add animations that respond to user actions like mouse clicks, hovers, key presses, scroll events, and more. Just use intuitive `data-triggle` attributes to trigger animations exactly when and how you want them.
+Designed for performance and mobile-friendly by default, **Triggle** lets you add animations that respond to user actions like mouse clicks, hovers, key presses, scroll events, and more. Just use intuitive `data-triggle` attributes to trigger animations exactly when and how you want them.
 
-Whether you're building interactive buttons, scroll effects, or playful UI animations, triggle.js works beautifully with [`cssanimation.css`](https://github.com/yesiamrocks/cssanimation) and supports options like delays, durations, and auto-reset, giving you full control with minimal code.
+Whether you're building interactive buttons, scroll effects, or playful UI animations, **Triggle** works beautifully with [`cssanimation.css`](https://github.com/yesiamrocks/cssanimation) and supports options like delays, durations, and auto-reset, giving you full control with minimal code.
 
 ## Features
 
@@ -540,7 +540,7 @@ Parameters
 
 ## Cleanup
 
-If you're using triggle.js in a single-page app (SPA) or need to reinitialize after DOM changes:
+If you're using **Triggle** in a single-page app (SPA) or need to reinitialize after DOM changes:
 
 ```js
 window.triggle.destroy(); // Removes all event listeners
@@ -549,7 +549,7 @@ window.triggle.init(); // Re-initializes all triggers
 
 ## Global Disable (Optional)
 
-You can globally disable all triggle animations, useful for accessibility, performance testing, or reduced motion preferences:
+You can globally disable all **Triggle** animations, useful for accessibility, performance testing, or reduced motion preferences:
 
 ```js
 window.__trg_TRIGGER_DISABLED = true;
@@ -572,7 +572,7 @@ window.__trg_DEBUG = true;
 
 ## Supported Passive Events
 
-To improve performance, triggle.js uses passive event listeners for the following triggers:
+To improve performance, **Triggle** uses passive event listeners for the following triggers:
 
 - `touchstart`
 - `touchend`
@@ -598,7 +598,7 @@ If you find triggle.js helpful, consider starring the [GitHub repo](https://gith
 Licensed under the [Parity License](https://paritylicense.com/) for open-source use.  
 [Commercial license required](./COMMERCIAL-LICENSE.md) for closed-source or client projects.
 
-Note: Version 1.2.0 and earlier are MIT-licensed. Starting from 1.3.0, triggle.js follows a dual-license model (Parity + Commercial).
+Note: Version 1.2.0 and earlier are MIT-licensed. Starting from 1.3.0,**Triggle** follows a dual-license model (Parity + Commercial).
 
 ## Contribute
 

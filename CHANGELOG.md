@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.1 - 2025-07-21
+
+### Changed
+
+- Updated all instances of `triggle.js` to **Triggle** in README for consistent branding and cleaner presentation.
+
 ## v1.5.0 - 2025-07-17
 
 ### Added
