@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.5.2 - 2025-07-23
+
+### Changed
+
+- Updated project license to **Apache License, Version 2.0**
+
+### Added
+
+- Introduced a `NOTICE` file with attribution details for legal clarity
+  - Author: Shafayetul Islam Pavel
+  - Project: Triggle
+  - Attribution is now required when using, modifying, or redistributing the software
+
 ## v1.5.1 - 2025-07-21
 
 ### Changed

@@ -1,23 +1,29 @@
-This software is licensed under the Parity License 7.0.0.
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-You may use, modify, and share this software freely, as long as any project that uses it is also open source under a license that shares source code under similar terms.
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-To use this software in a closed-source or commercial product, you must purchase a separate commercial license.
+Copyright 2025 Shafayetul Islam Pavel
 
-Full license text: https://paritylicense.com/
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-© 2025 Shafayetul Islam Pavel. All rights reserved.
+       http://www.apache.org/licenses/LICENSE-2.0
 
-## Commercial Use
-
-Commercial use — including use in client projects, SaaS platforms, paid apps, or any revenue-generating product — requires a **paid license**.
-
-See `COMMERCIAL-LICENSE.md` to obtain a license.
-
-## Disclaimer
-
-This software is provided "as is" without warranty of any kind. The author is not liable for any damages or losses arising from the use of this software.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ---
 
-For questions or licensing inquiries, contact: **hellouxpavel@gmail.com**
+Attribution Requirement:
+When using, modifying, or distributing this software (in source or binary form),
+you must provide clear credit to the original author:
+
+     Created by Shafayetul Islam Pavel — https://www.linkedin.com/in/shafayetul/
+
+If you modify the source, please include a note describing what was changed.
