@@ -7,7 +7,7 @@
 [![Downloads](https://img.shields.io/npm/dt/triggle?style=for-the-badge)](https://www.npmjs.com/package/triggle)
 ![npm package size](https://img.shields.io/badge/npm%20size-15.6%20kB-blue?style=for-the-badge)
 ![minified size](https://img.shields.io/badge/minified--js-3.6%20kB-blue?style=for-the-badge)
-[![License: Parity + Commercial](https://img.shields.io/badge/license-Parity--7.0.0%20%2F%20Commercial-blue?style=for-the-badge)](https://github.com/yesiamrocks/triggle/blob/main/COMMERCIAL-LICENSE.md)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=for-the-badge)
 [![jsDelivr](https://img.shields.io/jsdelivr/npm/hm/triggle?style=for-the-badge)](https://www.jsdelivr.com/package/npm/triggle)
 [![unpkg](https://img.shields.io/badge/CDN-unpkg-blue?style=for-the-badge)](https://unpkg.com/browse/triggle/)
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
