@@ -1,17 +1,24 @@
 # Changelog
 
-## v1.5.3 - 2025-08-06
+## v1.5.4 - 2025-08-06
 
 ### Changed
 
 - Removed the standalone `COMMERCIAL_LICENSE.md` file from the repository
-  - License details for Triggle.js will now be maintained within the main project documentation (`README.md` and `/docs`) to reduce redundancy and streamline license management
+  - License details for Triggle will now be maintained within the main project documentation (`README.md` and `/docs`) to reduce redundancy and streamline license management
   - Commercial usage terms remain the same, but will be easier to find and updated alongside core documentation
 
 ### Notes
 
 - This change does **not** affect the licensing terms or dual-licensing structure (Parity for open-source, commercial for proprietary use)
 - If you're using Triggle in a commercial or client project, please refer to the updated documentation for licensing and purchasing instructions
+
+## v1.5.3 - 2025-08-06
+
+**Changed**
+
+- Removed the standalone `COMMERCIAL_LICENSE.md` file for Triggle.  
+  Licensing details will be consolidated into the main documentation to reduce clutter and improve clarity.
 
 ## v1.5.2 - 2025-07-23
 
