@@ -13,11 +13,11 @@
 [![View Demo](https://img.shields.io/badge/🎬%20Live-Demo-green?style=for-the-badge)](https://yesiamrocks.github.io/Triggle/)
 [![Made for {css}animation](https://img.shields.io/badge/Made%20for-{css}animation-7e2ea0?style=for-the-badge&logo=css3&logoColor=white)](https://github.com/yesiamrocks/cssanimation)
 
-**Triggle** is a lightweight JavaScript library that makes it easy to control CSS animations using simple HTML attributes, no dependencies required.
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20My%20Work-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks) [![Join Membership](https://img.shields.io/badge/Become%20a%20Member-Monthly%20Support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks/membership)
 
-Designed for performance and mobile-friendly by default, **Triggle** lets you add animations that respond to user actions like mouse clicks, hovers, key presses, scroll events, and more. Just use intuitive `data-triggle` attributes to trigger animations exactly when and how you want them.
+**Triggle** is a JavaScript library that makes it easy to control CSS animations using simple HTML attributes, no dependencies required. **Triggle** lets you add animations that respond to user actions like mouse clicks, hovers, key presses, scroll events, and more. Just use intuitive `data-triggle` attributes to trigger animations exactly when and how you want them.
 
-Whether you're building interactive buttons, scroll effects, or playful UI animations, **Triggle** works beautifully with [`cssanimation.css`](https://github.com/yesiamrocks/cssanimation) and supports options like delays, durations, and auto-reset, giving you full control with minimal code.
+Whether you're building interactive buttons, scroll effects, or playful UI animations, **Triggle** works beautifully and supports options like delays, durations, and auto-reset, giving you full control with minimal code.
 
 ## Features
 
@@ -587,19 +587,50 @@ To improve performance, **Triggle** uses passive event listeners for the followi
 - Automatically cleans up using the `animationend` event
 - Built with extensibility in mind — easy to add new trigger types or behaviors
 
-## About Triggle
-
-**Triggle** is built for developers who want simple, flexible control over CSS animations using clean HTML attributes and zero dependencies. It pairs perfectly with [`@hellouxpavel/cssanimation`](https://www.npmjs.com/package/@hellouxpavel/cssanimation) to deliver smooth, event-driven UI interactions across devices.
-
-If you find triggle.js helpful, consider starring the [GitHub repo](https://github.com/yesiamrocks/triggle), sharing it with others, or contributing improvements!
-
 ## License
 
-Licensed under the [Parity License](https://paritylicense.com/) for open-source use.  
-[Commercial license required](./COMMERCIAL-LICENSE.md) for closed-source or client projects.
+**Triggle** is proudly open-sourced under the [Apache License 2.0](./LICENSE). You can freely use it in personal, commercial, and creative projects.
 
-Note: Version 1.2.0 and earlier are MIT-licensed. Starting from 1.3.0,**Triggle** follows a dual-license model (Parity + Commercial).
+Want a quick explanation? See the [License Summary →](./ABOUT-LICENSE.md)
 
 ## Contribute
 
-Have ideas, questions, or bug reports? [Open an issue](https://github.com/yesiamrocks/triggle/issues) or start a [discussion](https://github.com/yesiamrocks/triggle/discussions)!
+We welcome all contributions — whether it’s fixing bugs, adding feature, improving docs, or sharing ideas!
+
+- Found an issue? [Open a GitHub Issue](https://github.com/yesiamrocks/triggle/issues)
+- Want to improve the library? [Submit a Pull Request](https://github.com/yesiamrocks/triggle/pulls)
+- Have questions or feature ideas? [Start a Discussion](https://github.com/yesiamrocks/triggle/discussions)
+
+Help us make **Triggle** even more magical for everyone.
+
+## Need Help?
+
+**Using `Triggle` in your project?**  
+Whether it’s a website, landing page, tool, visual editor, or framework - we’d love to see it! Got feedback or ideas? Open a [GitHub Issue](https://github.com/yesiamrocks/triggle/issues) or join the [Discussions](https://github.com/yesiamrocks/triggle/discussions) to share.
+
+## Support This Project
+
+If you enjoy using **Triggle** helpful, consider supporting my work.
+
+please consider supporting its development. Your contribution helps maintain the library, expand features, and publish design/dev tips through [Pixels & Projects with Pavel](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/).
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20My%20Work-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks)
+
+## Become a Community Sponsor
+
+If you enjoy **Triggle**, help support its development by becoming a monthly sponsor.
+
+**As a Community Sponsor**, you’ll get:
+
+- A shoutout in my newsletter [Pixels & Projects with Pavel](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/)
+- Your name or project listed in the documentation and on the site.
+
+Help keep this open-source project alive and growing
+
+[![Join Membership](https://img.shields.io/badge/Become%20a%20Member-Monthly%20Support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks/membership)
+
+<br>
+
+---
+
+![Built with ❤️ by Pavel](https://img.shields.io/badge/Built%20with-%E2%9D%A4%EF%B8%8F%20by%20Pavel-orange?style=for-the-badge) [![LinkedIn](https://img.shields.io/badge/LinkedIn-@shafayetul-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shafayetul/) [![Twitter](https://img.shields.io/badge/Twitter-@yesiamrocks-1DA1F2?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/yesiamrocks) [![Email](https://img.shields.io/badge/Email-yesiamrocks@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yesiamrocks@gmail.com) [![Newsletter](https://img.shields.io/badge/Pixels_&_Projects_with_Pavel-Subscribe-a6ca4b?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/)
