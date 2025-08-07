@@ -605,27 +605,48 @@ Help us make **Triggle** even more magical for everyone.
 
 ## Need Help?
 
-**Using `Triggle` in your project?**  
-Whether it’s a website, landing page, tool, visual editor, or framework - we’d love to see it! Got feedback or ideas? Open a [GitHub Issue](https://github.com/yesiamrocks/triggle/issues) or join the [Discussions](https://github.com/yesiamrocks/triggle/discussions) to share.
+Running into issues while using **Triggle** in your project?  
+Whether it's a website, landing page, tool, or framework integration, we're here to help!
+
+- Report bugs or problems via [GitHub Issues](https://github.com/yesiamrocks/cssanimation/issues)
+- Ask questions or get guidance in [GitHub Discussions](https://github.com/yesiamrocks/cssanimation/discussions)
+
+We’re happy to assist and make sure everything works smoothly in your setup.
 
 ## Support This Project
 
-If you enjoy using **Triggle** helpful, consider supporting my work.
+If **Triggle** has saved you time, added a little magic to your UI, or helped bring your creative vision to life — please consider supporting its development.
 
-please consider supporting its development. Your contribution helps maintain the library, expand features, and publish design/dev tips through [Pixels & Projects with Pavel](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/).
+This project is built with care, during late nights and weekends, with a passion for open-source and motion design. Your support helps me:
+
+- Keep the library up to date and bug-free
+- Add new features and animation triggers
+
+Every coffee counts — thank you for helping me keep creating. 🙏
 
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20My%20Work-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks)
 
 ## Become a Community Sponsor
 
-If you enjoy **Triggle**, help support its development by becoming a monthly sponsor.
+If **Triggle** helped you ship faster, spark delight in your UI, or just made your day as a developer easier — I’d be honored to have your support.
 
-**As a Community Sponsor**, you’ll get:
+This isn’t a big team or a funded project. It’s just me — **Pavel** — building tools I wish existed.  
+From late nights to early mornings, I pour love into every animation, every feature, every detail — to make the creative process more fun, expressive, and empowering for makers like you.
 
-- A shoutout in my newsletter [Pixels & Projects with Pavel](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/)
-- Your name or project listed in the documentation and on the site.
+Your sponsorship helps me:
 
-Help keep this open-source project alive and growing
+- Keep the library free and open for everyone
+- Push out new triggers, animation packs, and ideas faster
+- Write thoughtful dev/design content via my newsletter  
+  👉 [Pixels & Projects with Pavel](https://www.linkedin.com/newsletters/pixels-projects-with-pavel-7093275757006782464/)
+
+### As a Community Sponsor, you'll receive:
+
+- A shoutout in the newsletter
+- Your name or project proudly featured in the documentation and site
+- My sincere gratitude for backing indie creativity on the web
+
+Let’s build a more playful, animated web — together.
 
 [![Join Membership](https://img.shields.io/badge/Become%20a%20Member-Monthly%20Support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/yesiamrocks/membership)
 

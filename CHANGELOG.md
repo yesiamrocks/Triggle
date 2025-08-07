@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.4 - 2025-08-07
+
+### Documentation Updates
+
+- Rewrote **Support This Project** section.
+- Enhanced **Become a Community Sponsor** section to reflect the heart behind **Triggle** and why sponsorship truly matters
+- Clarified how sponsorship directly supports ongoing open-source development and community education
+
+These updates aim to connect more deeply with users, attract meaningful support, and build a shared sense of purpose around motion and creativity.
+
+Thanks for believing in open-source and supporting tools made with love
+
 ## v1.5.4 - 2025-08-06
 
 ### Changed
