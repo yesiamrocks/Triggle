@@ -608,8 +608,8 @@ Help us make **Triggle** even more magical for everyone.
 Running into issues while using **Triggle** in your project?  
 Whether it's a website, landing page, tool, or framework integration, we're here to help!
 
-- Report bugs or problems via [GitHub Issues](https://github.com/yesiamrocks/cssanimation/issues)
-- Ask questions or get guidance in [GitHub Discussions](https://github.com/yesiamrocks/cssanimation/discussions)
+- Report bugs or problems via [GitHub Issues](https://github.com/yesiamrocks/triggle/issues)
+- Ask questions or get guidance in [GitHub Discussions](https://github.com/yesiamrocks/triggle/discussions)
 
 We’re happy to assist and make sure everything works smoothly in your setup.
 
